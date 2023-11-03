@@ -16,6 +16,8 @@ tar -xzf
 ```
 - You will see Hello World! on your terminal. 
 
+### Project Board 
+[https://github.com/orgs/cis3296f23/projects/117](Here)
 # How to contribute
 Follow this project board to know the latest status of the project: [http://...]([http://...])  
 
