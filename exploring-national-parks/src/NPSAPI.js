@@ -23,6 +23,8 @@ function Activities() {
             </div>
          );
       })}
+            <button>Return To Home</button>
+            <button>Plan A Trip</button>
         </div>
     );
 }
