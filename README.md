@@ -1,30 +1,24 @@
-# Project Name
-Put here a short paragraph describing your project. 
-Adding an screenshot or a mockup of your application in action would be nice.  
+# Exploring National Parks
+This is a web application intended to revolutionize how users interact with information from the National Parks Service, with a combined goal of increasing awareness of activities offered in the parks and helping individuals plan park visits. Users can use the application to learn more about national parks, or help inform their upcoming trips by using filters to find parks that contain activities within their interests.
 
-![This is a screenshot.](images.png)
+![This is a initial screenshot.](initialMockup.png)
 # How to run
-Provide here instructions on how to use your application.   
-- Download the latest binary from the Release section on the right on GitHub.  
-- On the command line uncompress using
-```
-tar -xzf  
-```
-- On the command line run with
-```
-./hello
-```
-- You will see Hello World! on your terminal. 
+To see the current deployment, click [Here]().
+To run on your local machine, go to the [How to Build](#how-to-build): 
+
+
 
 ### Project Board 
-[https://github.com/orgs/cis3296f23/projects/117](Here)
+[https://github.com/orgs/cis3296f23/projects/117](https://github.com/orgs/cis3296f23/projects/117)
 # How to contribute
-Follow this project board to know the latest status of the project: [http://...]([http://...])  
+Follow this project board to know the latest status of the project:[https://github.com/orgs/cis3296f23/projects/117](here)
 
 ### How to build
-- Use this github repository: ... 
-- Specify what branch to use for a more stable release or for cutting edge development.  
-- Use InteliJ 11
-- Specify additional library to download if needed 
-- What file and target to compile and run. 
-- What is expected to happen when the app start. 
+1. Clone this repository to your local machine
+2. Download Node.js for your respective system, [Here](https://nodejs.org/en/download/current) 
+3. Make sure npm and node are now on your local machine
+    1. `npm -v`
+    2. `node -v`
+4. `cd exploring-national-parks `(the lowercase one)
+5. `npm install` will install the necessary packages 
+6. `npm start` will open the app in a new tab with a localhost server
