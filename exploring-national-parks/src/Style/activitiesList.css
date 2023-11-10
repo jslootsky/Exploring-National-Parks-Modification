@@ -21,7 +21,7 @@ a:hover{
 .activitiesList{
     padding: 10px 10px 10px 10px;
     /*max-inline-size: 100px;*/
-    border-style: dotted;
+   
     display: block;
     position:relative;
     margin-left: auto;
@@ -39,11 +39,11 @@ a:hover{
 
 
 
-.activitiesList #activities{
+.activitiesList .activities{
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
-    
+    /* width: 30%; */
+    border-style: dotted;
     /*min-width: 500px;*/
 }
 

@@ -21,19 +21,23 @@ function ActivitiesList() {
     }, []);
 
     return (
-        <div className="activitiesList">
+        <div className='activitiesList'>
+
             <center>
                 <h1>Exploring National Parks</h1>
                 <input type="text" placeholder="Search for activities..." id="activityInput"></input>
             </center>
             <br></br>
-            {posts?.map((post) => (
-                <div key={post.id} className="post-card">
-                    <a href="#placeholder">{post.name}</a>
-                </div>
-            ))}
-            <button>Return To Home</button>
-            <button>Plan A Trip</button>
+            <div className="activities">
+
+                {posts?.map((post) => (
+                    <div key={post.id} className="post-card">
+                        <a href="#placeholder">{post.name}</a>
+                    </div>
+                ))}
+                <button>Return To Home</button>
+                <button>Plan A Trip</button>
+            </div>
         </div>
     );
 }
