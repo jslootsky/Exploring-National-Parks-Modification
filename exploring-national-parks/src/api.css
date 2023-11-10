@@ -1,0 +1,26 @@
+
+button{
+    width: 50%;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.data-container{
+    padding: 10px 10px 10px 10px;
+    /*max-inline-size: 100px;*/
+    border-style: dotted;
+}
+
+.post-card{
+    height: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
