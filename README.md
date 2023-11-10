@@ -3,7 +3,8 @@ This is a web application intended to revolutionize how users interact with info
 
 ![This is a initial screenshot.](initialMockup.png)
 # How to run
-To see the current deployment, click [Here]().
+To see the current deployment, click [Here](https://cis3296f23.github.io/Exploring-National-Parks/).
+
 To run on your local machine, go to the [How to Build](#how-to-build): 
 
 
