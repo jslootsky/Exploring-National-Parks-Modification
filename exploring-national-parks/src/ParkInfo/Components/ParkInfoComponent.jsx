@@ -71,6 +71,7 @@ function ParkInfoComponent() {
                                 <h4>saturday: {park.operatingHours[0].standardHours.saturday}</h4>
                                 <h4>sunday: {park.operatingHours[0].standardHours.sunday}</h4>
                             </div>
+                            <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
                         </div>
                     ))}
                     <a href='./'><button>Return To Home</button></a>
