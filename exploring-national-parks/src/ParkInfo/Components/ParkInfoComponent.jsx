@@ -34,7 +34,7 @@ function ParkInfoComponent() {
                     {parkJSON?.map((park) => (
                         
                         <div key={park.id} className="post-card">
-                            <a href={'/#'+park.parkCode}>{park.fullName}</a>
+                            <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
                         </div>
                     ))}
                     <button>Return To Home</button>
@@ -74,7 +74,7 @@ function ParkInfoComponent() {
                             <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
                         </div>
                     ))}
-                    <a href='./'><button>Return To Home</button></a>
+                    <a href='./'><button>Return To Parks</button></a>
                     <button>Plan A Trip</button>
 
             </div>

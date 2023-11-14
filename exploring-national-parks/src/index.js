@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import ParkSearch from './ParkSearch.js';
+import ParkInfo from './ParkInfo.js';
 import HomePage from './HomePage.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
@@ -12,6 +13,7 @@ root.render(
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/ParkSearch" element={<ParkSearch />} />
+            <Route path="/ParkInfo" element={<ParkInfo />} />
         </Routes>
         
     </Router>
