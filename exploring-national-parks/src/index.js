@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import Activities from './NPSAPI.js';
-import ParkSearch from './ParkSearch/Components/ActivitiesList.jsx';
+import ParkSearch from './ParkSearch.js';
+import HomePage from './HomePage.js';
+import Navbar from './GlobalComponents/Navbar.jsx';
+import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ParkSearch />
+    <Router>
+        <Navbar />
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/ParkSearch" element={<ParkSearch />} />
+        </Routes>
+        
+    </Router>
+   
 );
 
 // const activities = ReactDOM.createRoot(document.getElementById('activitiesDropdown'));
