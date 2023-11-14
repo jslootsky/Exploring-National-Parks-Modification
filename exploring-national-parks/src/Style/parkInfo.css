@@ -29,12 +29,26 @@ a:hover{
     width: 30%;
 }
 
+.parkDetail{
+    padding: 10px 10px 10px 10px;
+    /*max-inline-size: 100px;*/
+   
+    display: block;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 .parkInfo .post-card{
-    height: 30px;
+    
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     width: 30%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-style: solid;
 }
 
 
