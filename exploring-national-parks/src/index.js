@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import Activities from './NPSAPI.js';
-import ParkSearchPage from './ParkSearch/Components/ActivitiesList.jsx';
+import ParkSearch from './ParkSearch/Components/ActivitiesList.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ParkSearchPage />
+    <ParkSearch />
 );
 
 // const activities = ReactDOM.createRoot(document.getElementById('activitiesDropdown'));
