@@ -1,0 +1,53 @@
+/* Responds to the ActivitiesList.jsx component */
+body{
+    background-color: rgb(155, 184, 160);
+    color: rgb(19, 35, 19);
+    /*width: 100%; height: 100%; min-height:100vh;
+    display: flex; flex-direction: column;*/
+}
+
+button{
+    width: 50%;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.activitiesList{
+    padding: 10px 10px 10px 10px;
+    /*max-inline-size: 100px;*/
+   
+    display: block;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.activitiesList .post-card{
+    height: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+
+
+.activitiesList .activities{
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 30%; */
+    border-style: dotted;
+    /*min-width: 500px;*/
+}
+
+.activitiesList #activitiesDropdown{
+    color: black;
+}
+
