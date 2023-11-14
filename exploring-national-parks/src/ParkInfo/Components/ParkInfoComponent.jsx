@@ -51,14 +51,17 @@ function ParkInfoComponent() {
                     <h1>Park Information</h1>
                 </center>
                 <br></br>
-                <div className="parkDetail">
 
                     {parkJSON?.map((park) => (
-                        <h1 key={park.id}>{park.fullName}</h1>
+                        <div className="parkDetail">
+                            <h1 key={park.id}>{park.fullName}</h1>
+                            <img src={park.images[0].url} alt=''/>
+                            <p>{park.description}</p>
+                        </div>
                     ))}
                     <a href='./'><button>Return To Home</button></a>
                     <button>Plan A Trip</button>
-                </div>
+
             </div>
         );
     }
