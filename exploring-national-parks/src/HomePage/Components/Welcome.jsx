@@ -1,10 +1,10 @@
 import React from 'react'
 
 import yosemite from '../Assets/yosemite.jpg';
-
+import "../../Style/welcome.css";
 const Welcome = () => {
     return (
-        <div style={{backgroundImage: `url(${yosemite})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', fontSize:'10rem'}}>Welcome</div>
+        <div className='welcome'>Welcome</div>
     )
 }
 
