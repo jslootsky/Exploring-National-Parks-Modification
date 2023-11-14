@@ -37,7 +37,7 @@ function ParkInfoComponent() {
                             <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
                         </div>
                     ))}
-                    <button>Return To Home</button>
+                    <a href="./"><button>Return To Home</button></a>
                     <button>Plan A Trip</button>
                 </div>
             </div>
