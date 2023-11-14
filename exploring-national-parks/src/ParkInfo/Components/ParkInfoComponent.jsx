@@ -53,10 +53,24 @@ function ParkInfoComponent() {
                 <br></br>
 
                     {parkJSON?.map((park) => (
-                        <div className="parkDetail">
-                            <h1 key={park.id}>{park.fullName}</h1>
+                        <div key={park.id} className="parkDetail">
+                            <h1>{park.fullName}</h1>
                             <img src={park.images[0].url} alt=''/>
                             <p>{park.description}</p>
+                            <address>{park.addresses[0].line1}<br></br>
+                                {park.addresses[0].city}, 
+                                {park.addresses[0].stateCode}<br></br>
+                            </address>
+                            <h3>Hours:</h3>
+                            <div>
+                                <h4>monday: {park.operatingHours[0].standardHours.monday}</h4>
+                                <h4>tuesday: {park.operatingHours[0].standardHours.tuesday}</h4>
+                                <h4>wednesday: {park.operatingHours[0].standardHours.wednesday}</h4>
+                                <h4>thursday: {park.operatingHours[0].standardHours.thursday}</h4>
+                                <h4>friday: {park.operatingHours[0].standardHours.friday}</h4>
+                                <h4>saturday: {park.operatingHours[0].standardHours.saturday}</h4>
+                                <h4>sunday: {park.operatingHours[0].standardHours.sunday}</h4>
+                            </div>
                         </div>
                     ))}
                     <a href='./'><button>Return To Home</button></a>
