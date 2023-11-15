@@ -1,0 +1,9 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.main-component{
+    /* makes sure elements are not hidden under the navbar */
+    margin-top: 3rem;
+}

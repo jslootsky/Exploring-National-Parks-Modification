@@ -5,6 +5,7 @@ import ParkInfo from './ParkInfo.js';
 import HomePage from './HomePage.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
+import './Style/main.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

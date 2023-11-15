@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow: hidden;
     background-color: #3a4937;
     top: 0;
     width: 100%;
     position:fixed;
+    z-index: 1;
 }
 
 .nav-bar ul li{
