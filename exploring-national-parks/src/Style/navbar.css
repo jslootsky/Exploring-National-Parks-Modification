@@ -12,6 +12,7 @@
 
 .nav-bar ul li{
     float:left;
+    font-size: 1.5rem;
     &:hover{
         background-color:#6a7a90
     }
