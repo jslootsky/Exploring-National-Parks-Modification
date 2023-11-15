@@ -1,3 +1,16 @@
 .home-page .welcome-title{
     margin: 0;
 }
+
+.home-page .homepage-button-wrapper{
+    display:flex;
+    justify-content: space-between;
+}
+.home-page .homepage-button{
+    font-size: 1.5rem;
+    height: 45px;
+    width: 40%;
+    margin: auto;
+    border-radius: 15px;
+
+}
