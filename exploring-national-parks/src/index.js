@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import Activities from './NPSAPI.js';
 import ParkSearch from './ParkSearch.js';
+import ParkInfo from './ParkInfo.js';
 import HomePage from './HomePage.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
+
 import Footer from './GlobalComponents/Footer.jsx';
+
+import './Style/main.css';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router basename="/Exploring-National-Parks">
@@ -13,10 +18,10 @@ root.render(
         <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/ParkSearch" element={<ParkSearch />} />
+            <Route path="/ParkInfo" element={<ParkInfo />} />
         </Routes>
         <Footer/>
     </Router>
-   
 );
 
 // const activities = ReactDOM.createRoot(document.getElementById('activitiesDropdown'));
