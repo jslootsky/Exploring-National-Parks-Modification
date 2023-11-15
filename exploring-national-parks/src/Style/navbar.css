@@ -1,0 +1,26 @@
+
+.nav-bar ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: #9bb8a0;
+    top: 0;
+    width: 100%;
+    position:fixed;
+}
+
+.nav-bar ul li{
+    float:left;
+    &:hover{
+        background-color:#6a7a90
+    }
+}
+
+.nav-bar ul li a{
+    display:block;
+    color:white;
+    text-align: center;
+    padding: 15px 20px;
+    text-decoration: none;
+}
