@@ -4,10 +4,16 @@ body{
 
 }
 .home-page{
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 .home-page .welcome-title{
     margin: 0;
+    font-size: 10rem;
+}
+.home-page .welcome-text{
+    font-size: 1.5rem;
+    color:white;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .home-page .homepage-button-wrapper{
