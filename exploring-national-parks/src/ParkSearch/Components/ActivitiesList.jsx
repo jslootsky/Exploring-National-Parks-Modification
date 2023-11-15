@@ -1,6 +1,7 @@
 // ActivitiesComponent.jsx
 import React, { useState, useEffect } from 'react';
 import { Activities } from '../Functionality/Activities'; // Importing the functionality
+import Select from 'react-select';
 import '../../Style/activitiesList.css';
 
 function ActivitiesList() {
@@ -20,21 +21,23 @@ function ActivitiesList() {
         fetchData();
     }, []);
 
+    const activities = posts?.map((post) => { return {value: post.name, label: post.name} });
+
     return (
         <div className='activitiesList'>
 
             <center>
                 <h1>Exploring National Parks</h1>
-                <input type="text" placeholder="Search for activities..." id="activityInput"></input>
+                <div className="ActivityDropdown">
+                <Select
+                    closeMenuOnSelect={false}
+                    isMulti
+                    options={activities}
+                />
+                </div>
             </center>
             <br></br>
             <div className="activities">
-
-                {posts?.map((post) => (
-                    <div key={post.id} className="post-card">
-                        <a href="#placeholder">{post.name}</a>
-                    </div>
-                ))}
                 <button>Return To Home</button>
                 <button>Plan A Trip</button>
             </div>
