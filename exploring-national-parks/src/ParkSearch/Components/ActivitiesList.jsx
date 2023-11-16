@@ -32,15 +32,16 @@ function ActivitiesList() {
             <center>
             <h1>Exploring National Parks</h1>
             </center>
-            <div className="ActivityDropdown">
-            <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                isMulti
-                className="basic-multi-select"
-                classNamePrefix="select"
-                options={activities}
-            />
+            <div className="dropdownSearchWrapper">
+                    <Select
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        isMulti
+                        className="basic-multi-select activityDropdown"
+                        classNamePrefix="select"
+                        options={activities}
+                    />
+                <button className="searchButton">Search</button>
             </div>
             <br></br>
             <div className="activities">
