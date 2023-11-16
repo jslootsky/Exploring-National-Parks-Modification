@@ -14,7 +14,7 @@ import 'rc-footer/assets/index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <div>
-        <Router>
+        <Router basename='Exploring-National-Parks'>
             <Navbar />
             <Routes>
                 <Route path="/" element={<HomePage />} />
