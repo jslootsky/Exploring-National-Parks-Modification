@@ -1,6 +1,8 @@
 // ActivitiesComponent.jsx
 import React, { useState, useEffect } from 'react';
 import { Activities } from '../Functionality/Activities'; // Importing the functionality
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated'
 import '../../Style/activitiesList.css';
 
 function ActivitiesList() {
@@ -20,21 +22,28 @@ function ActivitiesList() {
         fetchData();
     }, []);
 
+    //Get list of activities in correct form for dropdown
+    const activities = posts?.map((post) => { return {value: post.name, label: post.name} });
+    const animatedComponents = makeAnimated()
+
     return (
         <div className='activitiesList'>
 
             <center>
-                <h1>Exploring National Parks</h1>
-                <input type="text" placeholder="Search for activities..." id="activityInput"></input>
+            <h1>Exploring National Parks</h1>
             </center>
+            <div className="ActivityDropdown">
+            <Select
+                closeMenuOnSelect={false}
+                components={animatedComponents}
+                isMulti
+                className="basic-multi-select"
+                classNamePrefix="select"
+                options={activities}
+            />
+            </div>
             <br></br>
             <div className="activities">
-
-                {posts?.map((post) => (
-                    <div key={post.id} className="post-card">
-                        <a href="#placeholder">{post.name}</a>
-                    </div>
-                ))}
                 <button>Return To Home</button>
                 <button>Plan A Trip</button>
             </div>
