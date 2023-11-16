@@ -49,5 +49,22 @@
     margin-bottom: 1rem;
 }
 
+.park-search .activities-list .search-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.park-search .activities-list .search-button-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.park-search .activities-list .search-button {
+    width: 10rem;
+    height: 4rem;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+}
 
 

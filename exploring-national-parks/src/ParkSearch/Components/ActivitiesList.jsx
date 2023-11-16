@@ -39,11 +39,12 @@ function ActivitiesList() {
                 />
             </div>
             <br></br>
-            <div className="search-button-wrapper">
-                <Link className="search-button" to="/"><button className="search-button">Return To Home</button></Link>
-                <Link className="search-button" to="/"><button className="search-button">Plan A Trip</button></Link>
+            <div className="search-button-wrapper" >
+                <div className="search-button-grid" >
+                    <Link className="search-button" to="/"><button className="search-button">Return To Home</button></Link>
+                    <Link className="search-button" to="/"><button className="search-button" >Plan A Trip</button></Link>
+                </div>
             </div>
-
         </div>
     );
 }
