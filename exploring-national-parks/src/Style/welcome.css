@@ -1,0 +1,13 @@
+.welcome{
+    background-image: url(../HomePage/Assets/yosemite.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    margin:0;
+    opacity:80%;
+    /* background-color: rgb(155, 184, 160); */
+    color: rgb(19, 35, 19);
+
+}
