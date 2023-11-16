@@ -10,14 +10,6 @@ button{
     width: 50%;
 }
 
-a{
-    text-decoration: none;
-}
-
-a:hover{
-    text-decoration: underline;
-}
-
 .activitiesList{
     padding: 10px 10px 10px 10px;
     /*max-inline-size: 100px;*/
@@ -26,12 +18,11 @@ a:hover{
     position:relative;
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    width: 50%;
 }
 
-.activitiesList .post-card{
+.activitiesList {
     height: 30px;
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
     width: 30%;
@@ -47,7 +38,7 @@ a:hover{
     /*min-width: 500px;*/
 }
 
-.activitiesList #activitiesDropdown{
+.activitiesList {
     color: black;
 }
 
