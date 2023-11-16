@@ -6,7 +6,7 @@ import HomePage from './HomePage.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
 
-import Footer from './GlobalComponents/Footer.jsx';
+//import Footer from './GlobalComponents/Footer.jsx';
 
 import './Style/main.css';
 

@@ -36,7 +36,6 @@ function ActivitiesList() {
                     <p>
                         Welcome to the Parks Finder Application! Select an activity below to begin finding the perfect park for you:
                     </p>
-                <input type="text" placeholder="Search for activities..." id="activityInput"></input>
                 </div>
             </center>
             <div className="dropdownSearchWrapper">
@@ -49,12 +48,6 @@ function ActivitiesList() {
                         options={activities}
                     />
                 <button className="searchButton">Search</button>
-            </div>
-            <br></br>
-            <div className="activities">
-                <button>Return To Home</button>
-                <button>Plan A Trip</button>
-
             </div>
             <br></br>
             <div class="search-button-wrapper">
