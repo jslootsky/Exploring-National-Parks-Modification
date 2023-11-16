@@ -15,8 +15,5 @@ const Buttons = () => {
     )
 }
 
-function handleClick(buttonType) {
-    buttonType === "search" ? window.location.href = "/parksearch" : console.log("plan");
-}
 
 export default Buttons
