@@ -4,7 +4,7 @@ import { Activities } from '../Functionality/Activities'; // Importing the funct
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
 import '../../Style/activitiesList.css';
-
+import { Link } from 'react-router-dom';
 function ActivitiesList() {
     const [posts, setPosts] = useState([]);
 
@@ -23,38 +23,33 @@ function ActivitiesList() {
     }, []);
 
     //Get list of activities in correct form for dropdown
-    const activities = posts?.map((post) => { return {value: post.name, label: post.name} });
+    const activities = posts?.map((post) => { return { value: post.name, label: post.name } });
     const animatedComponents = makeAnimated()
 
     return (
-        <div className='activitiesList'>
 
-            <center>
-                <h1 id = "search-title">Search for a Park</h1>
-                
-                <div className = "search-about">
-                    <p>
-                        Welcome to the Parks Finder Application! Select an activity below to begin finding the perfect park for you:
-                    </p>
-                </div>
-            </center>
-            <div className="dropdownSearchWrapper">
-                    <Select
-                        closeMenuOnSelect={false}
-                        components={animatedComponents}
-                        isMulti
-                        className="basic-multi-select activityDropdown"
-                        classNamePrefix="select"
-                        options={activities}
-                    />
+        <div className='activities-list'>
+            <div className="activity-dropdown">
+                <Select
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    isMulti
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    options={activities}
+                />
+
+        
                 <button className="searchButton">Search</button>
+
             </div>
             <br></br>
-            <div class="search-button-wrapper">
-                <a href="./"><button class="search-button">Return To Home</button></a>
-                <a href="./"><button class="search-button">Plan A Trip</button></a>
+            <div className="search-button-wrapper" >
+                <div className="search-button-grid" >
+                    <Link className="search-button" to="/"><button className="search-button">Return To Home</button></Link>
+                    <Link className="search-button" to="/"><button className="search-button" >Plan A Trip</button></Link>
+                </div>
             </div>
-            
         </div>
     );
 }
