@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom/client';
 import ParkSearch from './ParkSearch.js';
 import ParkInfo from './ParkInfo.js';
 import HomePage from './HomePage.js';
+import ParkPlan from './ParkPlan.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
-
-//import Footer from './GlobalComponents/Footer.jsx';
 
 import './Style/main.css';
 
@@ -16,12 +15,13 @@ import 'rc-footer/assets/index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <div>
-        <Router>
+        <Router basename='Exploring-National-Parks'>
             <Navbar />
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/ParkSearch" element={<ParkSearch />} />
                 <Route path="/ParkInfo" element={<ParkInfo />} />
+                <Route path="/ParkPlan" element={<ParkPlan />} />
             </Routes>
             
         </Router>
