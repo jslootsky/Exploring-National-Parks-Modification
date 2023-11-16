@@ -27,6 +27,7 @@ function ActivitiesList() {
     const animatedComponents = makeAnimated()
 
     return (
+
         <div className='activities-list'>
             <div className="activity-dropdown">
                 <Select
@@ -37,6 +38,10 @@ function ActivitiesList() {
                     classNamePrefix="select"
                     options={activities}
                 />
+
+        
+                <button className="searchButton">Search</button>
+
             </div>
             <br></br>
             <div className="search-button-wrapper" >
