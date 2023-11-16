@@ -36,18 +36,18 @@ function ActivitiesList() {
                     <p>
                         Welcome to the Parks Finder Application! Select an activity below to begin finding the perfect park for you:
                     </p>
-                <input type="text" placeholder="Search for activities..." id="activityInput"></input>
                 </div>
             </center>
-            <div className="ActivityDropdown">
-            <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                isMulti
-                className="basic-multi-select"
-                classNamePrefix="select"
-                options={activities}
-            />
+            <div className="dropdownSearchWrapper">
+                    <Select
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        isMulti
+                        className="basic-multi-select activityDropdown"
+                        classNamePrefix="select"
+                        options={activities}
+                    />
+                <button className="searchButton">Search</button>
             </div>
             <br></br>
             <div class="search-button-wrapper">
