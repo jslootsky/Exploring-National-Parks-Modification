@@ -25,7 +25,10 @@ function ActivitiesList() {
     //Get list of activities in correct form for dropdown
     const activities = posts?.map((post) => { return { value: post.name, label: post.name } });
     const animatedComponents = makeAnimated()
-
+    const [selectedOption, setSelectedOption] = useState(null);
+    const sendToAPI = () => {
+        console.log(selectedOption)
+    }
     return (
 
         <div className='activities-list'>
@@ -37,10 +40,11 @@ function ActivitiesList() {
                     className="basic-multi-select"
                     classNamePrefix="select"
                     options={activities}
+                    onChange={choice => setSelectedOption(choice)}
                 />
 
-        
-                <button className="searchButton">Search</button>
+
+                <button className="searchButton" onClick={sendToAPI}>Search</button>
 
             </div>
             <br></br>
