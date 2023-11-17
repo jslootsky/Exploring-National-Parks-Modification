@@ -5,6 +5,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
 import '../../Style/activitiesList.css';
 import { Link } from 'react-router-dom';
+import { FetchParks } from '../Functionality/FetchParks';
 function ActivitiesList() {
     const [posts, setPosts] = useState([]);
 
@@ -26,8 +27,19 @@ function ActivitiesList() {
     const activities = posts?.map((post) => { return { value: post.name, label: post.name } });
     const animatedComponents = makeAnimated()
     const [selectedOption, setSelectedOption] = useState(null);
+    const [parksFiltered, setParksFiltered] = useState(null);
     const sendToAPI = () => {
-        console.log(selectedOption)
+        // console.log("selected option below");
+        console.log(selectedOption);
+        try{
+            setParksFiltered(FetchParks(selectedOption));
+        }catch{
+            console.log("error")
+        }
+    //     console.log(parksFiltered["data"]);
+      
+        // console.log(parksFiltered.length)
+        // send selectedOption to API
     }
     return (
 
