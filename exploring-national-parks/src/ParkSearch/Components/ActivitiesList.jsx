@@ -24,7 +24,7 @@ function ActivitiesList() {
     }, []);
 
     //Get list of activities in correct form for dropdown
-    const activities = posts?.map((post) => { return { value: post.name, label: post.name } });
+    const activities = posts?.map((post) => { return { value: post.id, label: post.name } });
     const animatedComponents = makeAnimated()
     const [selectedOption, setSelectedOption] = useState(null);
     const [parksFiltered, setParksFiltered] = useState(null);
