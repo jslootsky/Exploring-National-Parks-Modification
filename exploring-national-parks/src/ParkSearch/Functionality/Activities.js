@@ -7,7 +7,7 @@ export const Activities = async () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const json = await response.json();
+      const json = await response.json(); 
       return json;
     } catch (error) {
       console.error(error.message);
