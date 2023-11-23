@@ -26,21 +26,25 @@ function ActivitiesList() {
     //Get list of activities in correct form for dropdown
     const activities = posts?.map((post) => { return { value: post.id, label: post.name } });
     const animatedComponents = makeAnimated()
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState([]);
     const [parksFiltered, setParksFiltered] = useState(null);
-    const sendToAPI = () => {
+    
+    const sendToAPI = async () => {
         // console.log("selected option below");
-        console.log(selectedOption);
+        //console.log(selectedOption);
         try{
-            setParksFiltered(FetchParks(selectedOption));
+            const filtered = await FetchParks(selectedOption);
+            setParksFiltered(filtered);
         }catch{
             console.log("error")
         }
-    //     console.log(parksFiltered["data"]);
+        //console.log(parksFiltered["data"]);
       
         // console.log(parksFiltered.length)
         // send selectedOption to API
     }
+    console.log(parksFiltered);
+    
     return (
 
         <div className='activities-list'>
