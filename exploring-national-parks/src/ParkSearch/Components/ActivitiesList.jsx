@@ -60,7 +60,7 @@ function ActivitiesList() {
                 />
 
 
-                <button className="searchButton" onClick={sendToAPI}>Search</button>
+                <button className="activity-search-button" onClick={sendToAPI}>Search</button>
 
             </div>
             <br></br>
