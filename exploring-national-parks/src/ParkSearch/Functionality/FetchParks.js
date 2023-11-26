@@ -1,5 +1,6 @@
 export const FetchParks = async (activityArray) => {
     try {
+        //Get parks list for API
         const numActivities = activityArray.length;
         const values = activityArray.map(activity => activity.value);
         const valuesString = values.join(', ');
@@ -17,6 +18,7 @@ export const FetchParks = async (activityArray) => {
         //console.log("json below");
         //console.log(json);
 
+        //Get list of all common parks from activities API call
         const parkMap = new Map();
         const allActivitiesParks = [];
 
@@ -39,8 +41,20 @@ export const FetchParks = async (activityArray) => {
            }
         });
 
+        const parksString = allActivitiesParks.join(',');
+        //const encodedParksString = encodeURIComponent(parksString);
 
-        return allActivitiesParks;
+        //console.log("Park Values: " + encodedParksString);
+        
+        const parkUrl =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&parkCode=${parksString}`
+        console.log("Park url :" + parkUrl);
+        const parkResponse = await fetch(parkUrl);
+        if (!parkResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const parkJson = await parkResponse.json();
+
+        return parkJson;
     } catch (error) {
         console.error(error.message);
         throw error;
