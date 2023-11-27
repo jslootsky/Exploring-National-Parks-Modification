@@ -60,6 +60,21 @@
     gap: 3rem;
 }
 
+.activities-list .activity-dropdown {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.activities-list .activity-dropdown .activity-search-button {
+    width: 25%;
+    border-radius: 10px;
+}
+
+.activities-list .activity-dropdown .basic-multi-select {
+    width: 75%;
+}
+
 .park-search .activities-list .search-button {
     width: 10rem;
     height: 4rem;
