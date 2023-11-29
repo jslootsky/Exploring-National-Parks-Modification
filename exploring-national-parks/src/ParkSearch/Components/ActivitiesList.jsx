@@ -77,8 +77,13 @@ function ActivitiesList() {
 
                 {parksFiltered?.map((park) => (
                     <div key={park.id} className="post-card">
-                        <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
-                        <img src={park.images[0].url} alt=''/>
+                        <div className='container'>
+                            <a href={window.location+'/#'+park.parkCode}>
+                                <p className="image-text">{park.fullName}</p>
+                                <img src={park.images[0].url} alt=''/>
+                            </a>
+                            <p>{park.description}</p>
+                        </div>
                     </div>
                 ))}
                     

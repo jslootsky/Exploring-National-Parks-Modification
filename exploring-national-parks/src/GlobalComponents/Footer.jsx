@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>This is the footer</div>
+    <div style="z-index: -1">This is the footer</div>
   )
 }
 
