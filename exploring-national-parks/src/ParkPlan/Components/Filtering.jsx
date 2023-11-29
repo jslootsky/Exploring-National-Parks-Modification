@@ -3,6 +3,8 @@ import { FetchParks } from '../Functions/FetchParks';
 import { Activities } from '../Functions/Activities'; // Importing the functionality
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const Filtering = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
@@ -32,6 +34,8 @@ const Filtering = () => {
 
     const [parksIsLoading, setParksIsLoading] = useState(true);
     const [activitiesIsLoading, setActivitiesIsLoading] = useState(true);
+
+    const [startDate, setStartDate] = useState(new Date());
     useEffect(() => {
         setParksIsLoading(true);
         const fetchData = async () => {
@@ -83,6 +87,9 @@ const Filtering = () => {
                         />
                     </div>
                
+            </div>
+            <div>
+                <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
             </div>
         </div>
     )
