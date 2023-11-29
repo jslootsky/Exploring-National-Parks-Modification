@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Banner from './ParkPlan/Components/Banner'
+import Filtering from './ParkPlan/Components/Filtering'
 const ParkPlan = () => {
   return (
-    <div>This is Park Plan Page</div>
+    <div>
+      <Banner />
+      <Filtering />
+    </div>
   )
 }
 
