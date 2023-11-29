@@ -34,7 +34,7 @@ function ActivitiesList() {
         //console.log(selectedOption);
         try{
             const filtered = await FetchParks(selectedOption);
-            setParksFiltered(filtered);
+            setParksFiltered(filtered.data);
         }catch{
             console.log("error")
         }
@@ -44,6 +44,7 @@ function ActivitiesList() {
         // send selectedOption to API
     }
     console.log(parksFiltered);
+    //console.log("parks filtered above");
     
     return (
 
@@ -70,6 +71,18 @@ function ActivitiesList() {
                     <Link className="search-button" to="/"><button className="search-button" >Plan A Trip</button></Link>
                 </div>
             </div>
+
+            <div className="parks">
+
+                    {parksFiltered?.map((park) => (
+                        
+                        <div key={park.id} className="post-card">
+                            <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
+                        </div>
+                    ))}
+                    
+                </div>
+
         </div>
     );
 }
