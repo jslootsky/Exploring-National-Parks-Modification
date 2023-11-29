@@ -83,3 +83,52 @@
 }
 
 
+
+.park-search .parks{
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 30%; */
+    border-style: dotted;
+    /*min-width: 500px;*/
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.park-search .post-card{
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-style: solid;
+}
+
+/*.park-seach .post-card .container{
+    position: relative;
+    text-align: center;
+    color: white;
+}*/
+
+/*img {
+    float: left;
+    width: 100%;
+    height: 1rem;
+    object-fit: cover;
+}*/
+
+.park-search .image-text {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    
+  }
+
+/*.park-search .description {
+    
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    
+  }*/

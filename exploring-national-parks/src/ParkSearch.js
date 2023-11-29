@@ -4,7 +4,7 @@ import ParkSearchWelcome from './ParkSearch/Components/ParkSearchWelcome.jsx';
 import './Style/parkSearch.css';
 function ParkSearch(){
     return(
-    <div className='park-search' onLoad="document.this.style.opacity='1'">
+    <div className='park-search' >
         <ParkSearchWelcome />
         <ActivitiesList />
     </div>
