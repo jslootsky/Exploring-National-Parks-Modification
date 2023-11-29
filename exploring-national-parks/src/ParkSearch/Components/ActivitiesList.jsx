@@ -72,16 +72,16 @@ function ActivitiesList() {
                 </div>
             </div>
 
+
             <div className="parks">
 
-                    {parksFiltered?.map((park) => (
-                        
-                        <div key={park.id} className="post-card">
-                            <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
-                        </div>
-                    ))}
+                {parksFiltered?.map((park) => (
+                    <div key={park.id} className="post-card">
+                        <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
+                    </div>
+                ))}
                     
-                </div>
+            </div>
 
         </div>
     );
