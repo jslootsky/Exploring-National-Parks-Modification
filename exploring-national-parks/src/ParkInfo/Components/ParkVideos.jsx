@@ -88,7 +88,6 @@ const ParkVideos = ({ parkCode }) => {
                 <div className="videos">
                     <h1>Videos</h1>
                     <div className = "videos-container">
-                        <button onClick={prevVideo}>Previous</button>
                         <div key={videos[currVideo].id}>
                             <h2>{videos[currVideo].title}</h2>
                             <p>{videos[currVideo].description === videos[currVideo].title ? "" : videos[currVideo].description}</p>
@@ -117,6 +116,7 @@ const ParkVideos = ({ parkCode }) => {
                                 )}
                             </div>
                         </div>
+                        <button onClick={prevVideo}>Previous</button>
                         <button onClick={nextVideo}>Next</button>
                     </div>
                 </div>

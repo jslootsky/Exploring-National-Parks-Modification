@@ -1,7 +1,4 @@
-.videos-container{
-    display:flex;
-    flex-direction:column;
-}
+
 .video-container {
     position: relative;
     width: 26rem;
