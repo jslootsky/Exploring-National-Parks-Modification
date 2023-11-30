@@ -1,8 +1,11 @@
 import React from 'react'
-
+import ParkPlanParent from './ParkPlan/Components/Parent'
 const ParkPlan = () => {
   return (
-    <div>This is Park Plan Page</div>
+    <div>
+      
+      <ParkPlanParent />
+    </div>
   )
 }
 
