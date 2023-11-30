@@ -63,7 +63,6 @@ const Filtering = ({updateParkCode}) => {
                         <Select
                             closeMenuOnSelect={true}
                             components={animatedComponents}
-                            isMulti
                             className="basic-single"
                             classNamePrefix="select"
                             isDisabled={parksIsLoading}
