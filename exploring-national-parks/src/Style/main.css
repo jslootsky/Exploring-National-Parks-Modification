@@ -12,7 +12,3 @@ body{
     /* makes sure elements are not hidden under the navbar */
     margin-top: 3rem;
 }
-
-Footer {
-    z-index: 0 !important;
-}
