@@ -87,7 +87,8 @@ const ParkVideos = ({ parkCode }) => {
             {videos.length > 0 && (
                 <div className="videos">
                     <h1>Videos</h1>
-                    <div>
+                    <div className = "videos-container">
+                        <button onClick={prevVideo}>Previous</button>
                         <div key={videos[currVideo].id}>
                             <h2>{videos[currVideo].title}</h2>
                             <p>{videos[currVideo].description === videos[currVideo].title ? "" : videos[currVideo].description}</p>
@@ -116,9 +117,6 @@ const ParkVideos = ({ parkCode }) => {
                                 )}
                             </div>
                         </div>
-                    </div>
-                    <div className="video-navigation">
-                        <button onClick={prevVideo}>Previous</button>
                         <button onClick={nextVideo}>Next</button>
                     </div>
                 </div>
