@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import '../../Style/parkVideos.css';
 
 const ParkVideos = ({ parkCode }) => {
-    const [Videos, setVideos] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [currVideo, setCurrVideo] = useState(0);
+    const APIkey = 'Y7kFnm6SP5SMQhkTvwUSgyjge9buj4DbjrkuV2S0';
 
     const fetchVideos = async () => {
         try {
-
             const response = await fetch(
-                `https://developer.nps.gov/api/v1/multimedia/videos?parkCode=${parkCode}&api_key=Y7kFnm6SP5SMQhkTvwUSgyjge9buj4DbjrkuV2S0`
+                `https://developer.nps.gov/api/v1/multimedia/videos?parkCode=${parkCode}&api_key=${APIkey}`
             );
 
             if (!response.ok) {
@@ -61,54 +62,70 @@ const ParkVideos = ({ parkCode }) => {
                 return video;
             });
             return updatedVideos;
-        });
+        }
+        );
+        setCurrVideo(index);
+
     };
 
-    // Fetch random videos on component mount
+    const nextVideo = () => {
+        setCurrVideo((prevIndex) => (prevIndex + 1) % videos.length);
+    };
+
+    const prevVideo = () => {
+        setCurrVideo((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
+    };
+
+    // Fetch videos on component mount
     useEffect(() => {
         fetchVideos();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parkCode]);
 
-
     return (
-        <div className = "park-videos">
-            {Videos.length > 0 && 
-            (
+        <div className="park-videos">
+            {videos.length > 0 && (
                 <div className="videos">
-                    <h2>Videos</h2>
+                    <h1>Videos</h1>
                     <div>
-                        {Videos.map((video, index) => 
-                        (
-                            <div key={video.id}>
-                                <p>{video.title}</p>
-                                <p>{video.description}</p>
-                                <div className="video-container">
-                                    {video.splashImage && 
-                                        (
-                                        <img src={video.splashImage.url} alt={`Splash for ${video.title}`} className="video-image"/>
-                                        )
-                                    }
-                                    {!video.playing &&
-                                        (
-                                            <div className="play-button" onClick={() => handlePlayClick(index)}>
-                                                <p className="play-icon">▶</p>
-                                            </div>
-                                        )
-                                    }
-                                    {video.playing &&
-                                        (
-                                            <iframe title={video.title} width="100%" height="100%" src={video.versions[0].url} allowFullScreen allow="autoplay; encrypted-media"></iframe>
-                                        )
-                                    }
-                                </div>
+                        <div key={videos[currVideo].id}>
+                            <h2>{videos[currVideo].title}</h2>
+                            <p>{videos[currVideo].description === videos[currVideo].title ? "" : videos[currVideo].description}</p>
+                            <div className="video-container">
+                                {videos[currVideo].splashImage && (
+                                    <img
+                                        src={videos[currVideo].splashImage.url}
+                                        alt={`Splash for ${videos[currVideo].title}`}
+                                        className="video-image"
+                                    />
+                                )}
+                                {!videos[currVideo].playing && (
+                                    <div className="play-button" onClick={() => handlePlayClick(currVideo)}>
+                                        <p className="play-icon">▶</p>
+                                    </div>
+                                )}
+                                {videos[currVideo].playing && (
+                                    <iframe
+                                        title={videos[currVideo].title}
+                                        width="100%"
+                                        height="100%"
+                                        src={videos[currVideo].versions[0].url}
+                                        allowFullScreen
+                                        allow="autoplay; encrypted-media"
+                                    ></iframe>
+                                )}
                             </div>
-                        ))}
+                        </div>
+                    </div>
+                    <div className="video-navigation">
+                        <button onClick={prevVideo}>Previous</button>
+                        <button onClick={nextVideo}>Next</button>
                     </div>
                 </div>
             )}
-            <br/>
+            <br />
         </div>
     );
 };
+
 export default ParkVideos;
