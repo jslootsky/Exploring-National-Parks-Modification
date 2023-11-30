@@ -12,7 +12,3 @@ body{
     /* makes sure elements are not hidden under the navbar */
     margin-top: 3rem;
 }
-
-.rc-footer-container .rc-footer-columns .rc-footer-column h2{
-    z-index: -2;
-  }
