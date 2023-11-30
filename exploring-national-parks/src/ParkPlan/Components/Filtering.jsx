@@ -6,8 +6,11 @@ import makeAnimated from 'react-select/animated'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const Filtering = () => {
+const Filtering = ({updateParkCode}) => {
     const [posts, setPosts] = useState([]);
+    const handleUpdateParkCode = () =>{
+        updateParkCode(parksFiltered.parkCode);
+    }
     useEffect(() => {
         setActivitiesIsLoading(true);
         const fetchData = async () => {
@@ -31,7 +34,7 @@ const Filtering = () => {
     const animatedComponents = makeAnimated()
     const [selectedOption, setSelectedOption] = useState([]);
     const [parksFiltered, setParksFiltered] = useState(null);
-    
+    const [parkCode, setParkCode] = useState(null);    
 
     const [parksIsLoading, setParksIsLoading] = useState(true);
     const [activitiesIsLoading, setActivitiesIsLoading] = useState(true);
@@ -44,7 +47,7 @@ const Filtering = () => {
                 const json = await FetchParks(selectedOption);
                 console.log(json);
                 // get only the full names 
-                setParksFiltered(json.data.map((park) => { return { value: park.id, label: park.fullName } }));
+                setParksFiltered(json.data.map((park) => { return { label: park.fullName, value:park.parkCode} }));
                 setParksIsLoading(false);
             } catch (error) {
                 // Handle the error, if needed
@@ -68,7 +71,7 @@ const Filtering = () => {
                             isDisabled={parksIsLoading}
                             isLoading={parksIsLoading}
                             options={parksFiltered}
-                            onChange={choice => setParksFiltered(choice)}
+                            onChange={choice => setParkCode(choice)}
                         />
                     </div>
             </div>
@@ -103,7 +106,7 @@ const Filtering = () => {
             </div>
     
             <div>
-                <button>Plan the Trip</button>
+              
             </div>
             <div></div>
         </div>
