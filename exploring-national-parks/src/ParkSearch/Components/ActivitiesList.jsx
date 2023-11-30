@@ -93,7 +93,7 @@ function ActivitiesList() {
                                         <p>{park.states}</p>
                                     </div>
                                     <div className="learn-more-option">
-                                        <a href={'ParkInfo/#'+park.parkCode}><button className="learn-more-button">Learn More</button></a>
+                                        <a href={'ParkInfo?parkCode='+park.parkCode}><button className="learn-more-button">Learn More</button></a>
                                     </div>
                                 </div>
                                 <img src={park.images[0].url} alt=''/>
