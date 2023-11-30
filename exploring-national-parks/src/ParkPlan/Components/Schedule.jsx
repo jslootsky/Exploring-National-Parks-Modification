@@ -44,7 +44,9 @@ const Schedule = ({ dates }) => {
 
     return (
         <div>
-            <h1>Schedule</h1>
+            <div>
+                {datesArray && datesArray.length > 0 ? <h1>Schedule</h1> : null}
+            </div>
             <div className='dates-container'>
                 {datesArray.map((date, index) => (
                     <div key={index} className='individual-date-container'>
