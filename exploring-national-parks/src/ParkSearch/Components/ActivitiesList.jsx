@@ -28,7 +28,7 @@ function ActivitiesList() {
     const animatedComponents = makeAnimated()
     const [selectedOption, setSelectedOption] = useState([]);
     const [parksFiltered, setParksFiltered] = useState(null);
-    
+    var numOfParks = 0;
     const sendToAPI = async () => {
         // console.log("selected option below");
         //console.log(selectedOption);
@@ -44,6 +44,7 @@ function ActivitiesList() {
         // send selectedOption to API
     }
     console.log(parksFiltered);
+    numOfParks = parksFiltered?.length;
     //console.log("parks filtered above");
     
     return (
@@ -73,28 +74,32 @@ function ActivitiesList() {
                 </div>
             </div>
 
-
-            <div className="parks">
-
-                {parksFiltered?.map((park) => (
-                    <div key={park.id} className="post-card">
-                        <div>
-                            <div className="learn-more-dropdown">
-                                <div className="learn-more-name">
-                                    <p>{park.fullName}</p>
-                            </div>
-                                <div className="learn-more-option">
-                                    <a href={'ParkInfo/#'+park.parkCode}><button className="learn-more-button">Learn More</button></a>
+            <div className="return-parks">
+                <div className="parks-number">
+                    <h2>Showing {numOfParks} parks</h2>
+                </div>
+                <div className="parks">
+                    {parksFiltered?.map((park) => (
+                        <div key={park.id} className="post-card">
+                            <div>
+                                <div className="learn-more-dropdown">
+                                    <div>
+                                        <p className="learn-more-name">{park.fullName}</p>
+                                        <p>{park.states}</p>
+                                    </div>
+                                    <div className="learn-more-option">
+                                        <a href={'ParkInfo/#'+park.parkCode}><button className="learn-more-button">Learn More</button></a>
+                                    </div>
                                 </div>
+                                <img src={park.images[0].url} alt=''/>
                             </div>
-                            <img src={park.images[0].url} alt=''/>
+                            <p className="description">{park.description}</p>
                         </div>
-                        <p>{park.description}</p>
-                    </div>
-                ))}
-                    
-            </div>
+                    ))}
+                        
+                </div>
 
+            </div>
         </div>
     );
 }
