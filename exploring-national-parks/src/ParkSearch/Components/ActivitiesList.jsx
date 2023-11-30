@@ -43,8 +43,13 @@ function ActivitiesList() {
         // console.log(parksFiltered.length)
         // send selectedOption to API
     }
-    console.log(parksFiltered);
-    numOfParks = parksFiltered?.length;
+
+    //Get number of parks returned
+    if(typeof parksFiltered?.length !== 'undefined') {
+        numOfParks = parksFiltered?.length;
+    }
+    console.log("Length");
+    console.log(numOfParks);
     //console.log("parks filtered above");
     
     return (
