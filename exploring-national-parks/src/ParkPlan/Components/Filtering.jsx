@@ -6,7 +6,7 @@ import makeAnimated from 'react-select/animated'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const Filtering = ({updateParkCode}) => {
+const Filtering = ({updateParkCode, updateDates}) => {
     const [posts, setPosts] = useState([]);
    
     useEffect(() => {
@@ -95,7 +95,7 @@ const Filtering = ({updateParkCode}) => {
                     hover={true}
                     allowPartialRange={true}
                     defaultValue={[new Date(), new Date()]}
-                    returnValue={"range"}
+                    returnValue={"start"}
                     onChange={setStartDate}
                 //    max date should be 7 days from the selected start date
                     
@@ -103,7 +103,10 @@ const Filtering = ({updateParkCode}) => {
             </div>
     
             <div>
-                <button onClick={() => updateParkCode(parkCode)}>Plan a Trip</button>
+                <button onClick={() => {
+                    updateParkCode(parkCode);
+                    updateDates(startDate);
+                }}>Plan a Trip</button>
             </div>
            
         </div>
