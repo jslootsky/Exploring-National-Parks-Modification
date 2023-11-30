@@ -3,8 +3,9 @@ import { FetchParks } from '../Functions/FetchParks';
 import { Activities } from '../Functions/Activities'; // Importing the functionality
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 const Filtering = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
@@ -89,8 +90,22 @@ const Filtering = () => {
                
             </div>
             <div>
-                <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+                <Calendar 
+                    selectRange={true}
+                    hover={true}
+                    allowPartialRange={true}
+                    defaultValue={[new Date(), new Date()]}
+                    returnValue={"range"}
+                    onChange={setStartDate}
+                //    max date should be 7 days from the selected start date
+                    
+                /> 
             </div>
+    
+            <div>
+                <button>Plan the Trip</button>
+            </div>
+            <div></div>
         </div>
     )
 }
