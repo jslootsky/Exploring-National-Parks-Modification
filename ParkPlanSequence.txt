@@ -11,6 +11,7 @@ activate HTML
 
 
 User ->HTML:HTTP Request
+User <-- HTML: HTTP Response
 HTML ->ReactComponent/JS:Loads
 activate ReactComponent/JS
 ReactComponent/JS ->ReactComponent/JS :useEffect()
@@ -26,7 +27,7 @@ deactivate NPSAPI ("backend")
 ReactComponent/JS --> HTML: Update State
 deactivate ReactComponent/JS
 
-User <-- HTML: HTTP Response
+
 
 User -> HTML : uses select tag\n to choose park
 User <-- HTML : Display Result
