@@ -8,9 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 
 const Filtering = ({updateParkCode}) => {
     const [posts, setPosts] = useState([]);
-    const handleUpdateParkCode = () =>{
-        updateParkCode(parksFiltered.parkCode);
-    }
+   
     useEffect(() => {
         setActivitiesIsLoading(true);
         const fetchData = async () => {
@@ -106,9 +104,9 @@ const Filtering = ({updateParkCode}) => {
             </div>
     
             <div>
-              
+                <button onClick={() => updateParkCode(parkCode)}>Plan a Trip</button>
             </div>
-            <div></div>
+           
         </div>
     )
 }

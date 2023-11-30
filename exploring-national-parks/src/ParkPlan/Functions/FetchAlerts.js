@@ -8,8 +8,9 @@ export const FetchAlerts = async (parkCode) =>{
         const json = await response.json();
         // json.data.map((alert => {return alert.id, alert.description}))
         return json;
-    }catch{
+    }catch (error){
         console.error(error.message);
         throw error;
     }
 }
+export default FetchAlerts;
