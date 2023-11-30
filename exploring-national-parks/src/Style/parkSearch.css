@@ -73,6 +73,7 @@
 
 .activities-list .activity-dropdown .basic-multi-select {
     width: 75%;
+    z-index: 3;
 }
 
 .park-search .activities-list .search-button {
@@ -90,7 +91,7 @@
     /* width: 30%; */
     border-style: dotted;
     /*min-width: 500px;*/
-
+    background-color: rgb(155, 184, 160) !important;
     display: flex;
     flex-wrap: wrap;
 }
@@ -104,27 +105,56 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     border-style: solid;
+    transition: background-color 100ms ease-out;
 }
 
-/*.park-seach .post-card .container{
-    position: relative;
-    text-align: center;
-    color: white;
-}*/
+.parks .post-card:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
 
-/*img {
-    float: left;
-    width: 100%;
-    height: 1rem;
-    object-fit: cover;
-}*/
-
-.park-search .image-text {
+.park-search .learn-more-dropdown {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 2;
-    
+    display: block;
+    margin: 0 auto;
+}
+
+.park-search .learn-more-dropdown .learn-more-name {
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
   }
+  
+.learn-more-option {
+    background: #ddd;
+    height: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    transition: all .5s ease;
+    width: 75%;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+  
+  .post-card:hover .learn-more-dropdown .learn-more-option {
+    height: 50%;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .learn-more-dropdown .learn-more-button:hover {
+    background: white;
+  }
+
+  .learn-more-button {
+    width: 100%;
+    height: 100%;
+  }
+  
+
 
 /*.park-search .description {
     

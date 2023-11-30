@@ -65,6 +65,7 @@ function ActivitiesList() {
 
             </div>
             <br></br>
+            <br></br>
             <div className="search-button-wrapper" >
                 <div className="search-button-grid" >
                     <Link className="search-button" to="/"><button className="search-button">Return To Home</button></Link>
@@ -77,13 +78,18 @@ function ActivitiesList() {
 
                 {parksFiltered?.map((park) => (
                     <div key={park.id} className="post-card">
-                        <div className='container'>
-                            <a href={'ParkInfo/#'+park.parkCode}>
-                                <p className="image-text">{park.fullName}</p>
-                                <img src={park.images[0].url} alt=''/>
-                            </a>
-                            <p>{park.description}</p>
+                        <div>
+                            <div className="learn-more-dropdown">
+                                <div className="learn-more-name">
+                                    <p>{park.fullName}</p>
+                            </div>
+                                <div className="learn-more-option">
+                                    <a href={'ParkInfo/#'+park.parkCode}><button className="learn-more-button">Learn More</button></a>
+                                </div>
+                            </div>
+                            <img src={park.images[0].url} alt=''/>
                         </div>
+                        <p>{park.description}</p>
                     </div>
                 ))}
                     
