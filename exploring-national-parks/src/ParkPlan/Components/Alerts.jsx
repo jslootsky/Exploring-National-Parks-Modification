@@ -8,8 +8,8 @@ const Alerts = ({parkCode}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("parkCode", parkCode[0].value);
-                const json = await FetchAlerts(parkCode[0].value);
+                console.log("parkCode", parkCode.value);
+                const json = await FetchAlerts(parkCode.value);
                 console.log(json);
                 setAlerts(json.data);
             } catch (error) {

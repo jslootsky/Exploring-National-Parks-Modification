@@ -107,6 +107,8 @@ const Filtering = ({updateParkCode, updateDates}) => {
                     updateParkCode(parkCode);
                     updateDates(startDate);
                 }}>Plan a Trip</button>
+                {/* <button onClick={() => {
+                    console.log(parkCode.value);}}>Test</button> */}
             </div>
            
         </div>
