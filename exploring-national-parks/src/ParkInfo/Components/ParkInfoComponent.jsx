@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ParkInfo } from '../Functionality/ParkInfo'; // Importing the functionality
 import '../../Style/parkInfo.css';
+import ParkVideos from './ParkVideos';
 
 function ParkInfoComponent() {
     const [parkJSON, setParks] = useState([]);
@@ -54,6 +55,7 @@ function ParkInfoComponent() {
                 <br></br>
 
                     {parkJSON?.map((park) => (
+                        <>
                         <div key={park.id} className="parkDetail">
                             <h1>{park.fullName}</h1>
                             <img src={park.images[0].url} alt=''/>
@@ -74,6 +76,10 @@ function ParkInfoComponent() {
                             </div>
                             <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
                         </div>
+                        <div>
+                            <ParkVideos parkCode={park.parkCode} />
+                        </div>
+                        </>
                     ))}
                     <a href='./'><button>Return To Parks</button></a>
                     <button>Plan A Trip</button>
