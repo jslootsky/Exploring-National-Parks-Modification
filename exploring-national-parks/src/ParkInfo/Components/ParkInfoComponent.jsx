@@ -10,8 +10,14 @@ function ParkInfoComponent() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
-                const json = await ParkInfo(parkCode);
+                var json;
+                var url = new URL(window.location);
+                const parkCode = url.searchParams.get("parkCode");
+                //const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
+                if(parkCode == null)
+                    json = await ParkInfo('');
+                else
+                    json = await ParkInfo(parkCode);
                 console.log(json);
                 setParks(json.data);
             } catch (error) {
@@ -35,7 +41,7 @@ function ParkInfoComponent() {
                     {parkJSON?.map((park) => (
                         
                         <div key={park.id} className="post-card">
-                            <a href={window.location+'/#'+park.parkCode}>{park.fullName}</a>
+                            <a href={window.location+'?parkCode='+park.parkCode}>{park.fullName}</a>
                         </div>
                     ))}
                     
@@ -74,6 +80,13 @@ function ParkInfoComponent() {
                                 <h4>saturday: {park.operatingHours[0].standardHours.saturday}</h4>
                                 <h4>sunday: {park.operatingHours[0].standardHours.sunday}</h4>
                             </div>
+                            <h3>Activities</h3>
+                            <div>
+                                <ul>
+                                {park.activities?.map((activity) =>(<>
+                                <li key={activity.id}>{activity.name}</li></>))}</ul>
+                            </div>
+
                             <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
                         </div>
                         <div>
