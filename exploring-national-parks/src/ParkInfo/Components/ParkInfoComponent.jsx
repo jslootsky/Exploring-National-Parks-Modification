@@ -65,17 +65,11 @@ function ParkInfoComponent() {
     else{ //detail for one park
         return (
             <div className='parkInfo'>
-
-                <center>
-                    <h1>Park Information</h1>
-                </center>
-                <br></br>
-
                     {parkJSON?.map((park) => (
                         <>
-                        <div key={park.id} className="parkDetail">
+                        <div key={park.id} className="parkDetail" style={{ backgroundImage: 'url(' + park.images[0].url + ')', backgroundSize: 'auto' }}>
                             <h1>{park.fullName}</h1>
-                            <img src={park.images[0].url} alt=''/>
+                            <h6>Park Information</h6>
                             <p>{park.description}</p>
                             <address>{park.addresses[0].line1}<br></br>
                                 {park.addresses[0].city}, 
