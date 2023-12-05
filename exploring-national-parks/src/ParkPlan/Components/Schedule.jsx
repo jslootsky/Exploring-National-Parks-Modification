@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-const Schedule = ({ dates }) => {
+import { act } from 'react-dom/test-utils';
+import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
+const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [datesArray, setDatesArray] = useState([]);
@@ -36,9 +38,26 @@ const Schedule = ({ dates }) => {
         }
     }, [dates, startDate, endDate]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log("parkCode", parkCode.value);
+                console.log("activities", activities);
+                console.log("dates", dates);
+                const json = await FetchThingsToDo(parkCode, activities, dates);
+                console.log(json);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
 
+        if (parkCode !== null && dates !== null && activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
 
-    if (dates === null) {
+    if (dates === null || parkCode === null || activities === null) {
         return null;
     }
 
