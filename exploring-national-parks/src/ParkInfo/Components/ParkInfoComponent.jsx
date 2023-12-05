@@ -13,11 +13,12 @@ function ParkInfoComponent() {
                 var json;
                 var url = new URL(window.location);
                 const parkCode = url.searchParams.get("parkCode");
+                var page = url.searchParams.get("page");
                 //const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
                 if(parkCode == null)
-                    json = await ParkInfo('');
+                    json = await ParkInfo('', page);
                 else
-                    json = await ParkInfo(parkCode);
+                    json = await ParkInfo(parkCode, page);
                 console.log(json);
                 setParks(json.data);
             } catch (error) {
@@ -33,7 +34,7 @@ function ParkInfoComponent() {
             <div className='parkInfo'>
 
                 <center>
-                    <h1>Park Information</h1>
+                    <h1>Park Information Page {page}</h1>
                 </center>
                 <br></br>
                 <div className="parks">
@@ -46,7 +47,8 @@ function ParkInfoComponent() {
                     ))}
                     
                 </div>
-                <a href="./"><button>Return To Home</button></a>
+                <a href="./"><button>Previous Page</button></a>
+                <a href="./"><button>Next Page</button></a>
                 <button>Plan A Trip</button>
             </div>
         );
@@ -94,7 +96,7 @@ function ParkInfoComponent() {
                         </div>
                         </>
                     ))}
-                    <a href='./'><button>Return To Parks</button></a>
+                    <a href='./ParkInfo'><button>Return To Parks</button></a>
                     <button>Plan A Trip</button>
 
             </div>
