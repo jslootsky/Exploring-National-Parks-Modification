@@ -7,18 +7,28 @@ import ParkVideos from './ParkVideos';
 function ParkInfoComponent() {
     const [parkJSON, setParks] = useState([]);
     
+    var url = new URL(window.location);
+    var page = 0;
+    page = url.searchParams.get("page");
+    if(page==null)
+        page = 0;
+    var pageUp = parseInt(page)+50;
+    var pageDown = parseInt(page)-50;
+    if(pageDown<0)
+        pageDown = 0;
+
+    const parkCode = url.searchParams.get("parkCode");
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 var json;
-                var url = new URL(window.location);
-                const parkCode = url.searchParams.get("parkCode");
-                var page = url.searchParams.get("page");
+
                 //const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
                 if(parkCode == null)
                     json = await ParkInfo('', page);
                 else
-                    json = await ParkInfo(parkCode, page);
+                    json = await ParkInfo(parkCode, 0);
                 console.log(json);
                 setParks(json.data);
             } catch (error) {
@@ -34,7 +44,7 @@ function ParkInfoComponent() {
             <div className='parkInfo'>
 
                 <center>
-                    <h1>Park Information Page {page}</h1>
+                    <h1>Park Information Page</h1>
                 </center>
                 <br></br>
                 <div className="parks">
@@ -42,14 +52,13 @@ function ParkInfoComponent() {
                     {parkJSON?.map((park) => (
                         
                         <div key={park.id} className="post-card">
-                            <a href={window.location+'?parkCode='+park.parkCode}>{park.fullName}</a>
+                            <a href={'./ParkInfo?parkCode='+park.parkCode}>{park.fullName}</a>
                         </div>
                     ))}
                     
                 </div>
-                <a href="./"><button>Previous Page</button></a>
-                <a href="./"><button>Next Page</button></a>
-                <button>Plan A Trip</button>
+                <a href={'./ParkInfo?page='+pageDown}><button>Previous Page</button></a>
+                <a href={'./ParkInfo?page='+pageUp}><button>Next Page</button></a>
             </div>
         );
     }
