@@ -6,6 +6,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [datesArray, setDatesArray] = useState([]);
+    const [thingsToDo, setThingsToDo] = useState();
 
     useEffect(() => {
         if (dates !== null) {
@@ -44,8 +45,9 @@ const Schedule = ({ dates, parkCode, activities}) => {
                 console.log("parkCode", parkCode.value);
                 console.log("activities", activities);
                 console.log("dates", dates);
-                const json = await FetchThingsToDo(parkCode, activities, dates);
-                console.log(json);
+                const activitiesToDo = await FetchThingsToDo(parkCode, activities, dates);
+                setThingsToDo(activitiesToDo);
+                console.log(thingsToDo);
             } catch (error) {
                 // Handle the error, if needed
                 console.log(error);
