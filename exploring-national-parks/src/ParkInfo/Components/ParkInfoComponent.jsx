@@ -64,27 +64,51 @@ function ParkInfoComponent() {
     }
     else{ //detail for one park
         return (
-            <div className='parkInfo'>
+            <div className='park-info'>
                     {parkJSON?.map((park) => (
                         <>
-                        <div key={park.id} className="parkDetail" style={{ backgroundImage: 'url(' + park.images[0].url + ')', backgroundSize: 'auto' }}>
-                            <h1>{park.fullName}</h1>
-                            <h6>Park Information</h6>
-                            <p>{park.description}</p>
-                            <address>{park.addresses[0].line1}<br></br>
-                                {park.addresses[0].city}, 
-                                {park.addresses[0].stateCode}<br></br>
-                            </address>
-                            <h3>Hours:</h3>
-                            <div>
-                                <h4>monday: {park.operatingHours[0].standardHours.monday}</h4>
-                                <h4>tuesday: {park.operatingHours[0].standardHours.tuesday}</h4>
-                                <h4>wednesday: {park.operatingHours[0].standardHours.wednesday}</h4>
-                                <h4>thursday: {park.operatingHours[0].standardHours.thursday}</h4>
-                                <h4>friday: {park.operatingHours[0].standardHours.friday}</h4>
-                                <h4>saturday: {park.operatingHours[0].standardHours.saturday}</h4>
-                                <h4>sunday: {park.operatingHours[0].standardHours.sunday}</h4>
+                        <div key={park.id} className="parkInfo" style={{ backgroundImage: 'url(' + park.images[0].url + ')', backgroundSize: 'auto' }}>
+                            <div className='park-info-welcome'>
+                                <center>
+                                    <h1 id="info-title">{park.fullName}</h1>
+                                    <h2>Park Information</h2>
+                                    <address>{park.addresses[0].line1}<br></br>
+                                        {park.addresses[0].city}, 
+                                        {park.addresses[0].stateCode}<br></br>
+                                    </address>
+                                    <br></br>
+                                </center>
                             </div>
+
+                            <br></br>
+
+                            <center>
+                                <div className='box-1'>
+                                    <div className='hours'>
+                                        <ParkVideos parkCode={park.parkCode} />
+                                    </div>
+                                    <div className='hours'>
+                                        <h1>Hours:</h1>
+                                        <ul>
+                                            <li>Monday:    {park.operatingHours[0].standardHours.monday}</li>
+                                            <li>Tuesday:   {park.operatingHours[0].standardHours.tuesday}</li>
+                                            <li>Wednesday: {park.operatingHours[0].standardHours.wednesday}</li>
+                                            <li>Thursday:  {park.operatingHours[0].standardHours.thursday}</li>
+                                            <li>Friday:    {park.operatingHours[0].standardHours.friday}</li>
+                                            <li>Saturday:  {park.operatingHours[0].standardHours.saturday}</li>
+                                            <li>Sunday:    {park.operatingHours[0].standardHours.sunday}</li>
+                                        </ul>
+                                        <br></br>
+                                        <p>{park.description}</p>
+                                        <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
+                                    </div>
+                                </div>
+                            </center>
+
+                            <br></br>
+
+                            
+                            
                             <h3>Activities</h3>
                             <div>
                                 <ul>
@@ -92,16 +116,12 @@ function ParkInfoComponent() {
                                 <li key={activity.id}>{activity.name}</li></>))}</ul>
                             </div>
 
-                            <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
-                        </div>
-                        <div>
-                            <ParkVideos parkCode={park.parkCode} />
+                            
+                            <a href='./ParkInfo'><button>Return To Parks</button></a>
+                            <button>Plan A Trip</button>
                         </div>
                         </>
                     ))}
-                    <a href='./ParkInfo'><button>Return To Parks</button></a>
-                    <button>Plan A Trip</button>
-
             </div>
         );
     }
