@@ -66,6 +66,7 @@ function ActivitiesList() {
                     classNamePrefix="select"
                     options={activities}
                     onChange={choice => setSelectedOption(choice)}
+                    placeholder="Activities"
                 />
                 <Select 
                     closeMenuOnSelect={true}
@@ -74,6 +75,7 @@ function ActivitiesList() {
                     options={StateOptions}
                     isMulti
                     onChange={choice => setSelectedState(choice)}
+                    placeholder="States"
                 />
 
 
