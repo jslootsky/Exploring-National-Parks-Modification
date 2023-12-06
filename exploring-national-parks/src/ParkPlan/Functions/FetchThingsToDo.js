@@ -31,7 +31,7 @@ export const FetchThingsToDo = async (parkCode, activities, dates) => {
             //Sort based on relevance score
             allThingsToDo.sort((a, b) => b.relevanceScore - a.relevanceScore);
         } else {
-            const url =  `https://developer.nps.gov/api/v1/thingstodo?parkCode=${parkCode.value}&limit=3&api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb`;
+            const url =  `https://developer.nps.gov/api/v1/thingstodo?parkCode=${parkCode.value}&limit=50&api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb`;
             console.log("url :" + url);
             const response = await fetch(url);
             if (!response.ok) {

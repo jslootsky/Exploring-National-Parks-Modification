@@ -64,53 +64,106 @@ const Schedule = ({ dates, parkCode, activities}) => {
     }
 
     const ReturnSchedule = () => {
-        var thingsIndex = 0;
-        console.log("first thing index",thingsIndex);
+        var morningThingsIndex = 0;
+        var dayThingsIndex = 0;
+        var eveningThingsIndex = 0;
+        const alreadyUsed = new Set();
         const morningActivities = [];
         const dayActivities = [];
         const eveningActivites = [];
         for(let i =0; i<datesArray.length; i++) {
             //Fill in morning array
             console.log("in foreach",datesArray[i]);
-            morningActivities.push(thingsToDo && thingsToDo[thingsIndex]);
-            console.log("in foreach 2",thingsToDo && thingsToDo[thingsIndex]);
-            thingsIndex++;
-            if(thingsIndex === thingsToDo?.length) {
-                thingsIndex=0;
+            while(((morningThingsIndex < thingsToDo?.length) && thingsToDo && !(thingsToDo[morningThingsIndex]?.timeOfDay.includes("Dawn"))) || ((morningThingsIndex < thingsToDo?.length) && thingsToDo && alreadyUsed.has(thingsToDo[morningThingsIndex]?.id))) {
+                console.log("time of day", thingsToDo && !thingsToDo[morningThingsIndex]?.timeOfDay);
+                console.log("morning index",morningThingsIndex);
+                console.log("morning",thingsToDo[morningThingsIndex]);
+                morningThingsIndex++;
             }
-            console.log("things index",thingsIndex);
+
+            if(morningThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo && thingsToDo[morningThingsIndex - 1]?.id)) {
+                    console.log("in morning clear");
+                    alreadyUsed.clear();
+                }
+                console.log("in morning length");
+                morningThingsIndex=0;
+                morningActivities.push({});
+            } else {
+                morningActivities.push(thingsToDo && thingsToDo[morningThingsIndex]);
+                alreadyUsed.add(thingsToDo && thingsToDo[morningThingsIndex]?.id);
+                console.log("already used",alreadyUsed);
+                morningThingsIndex++;
+                if(morningThingsIndex === thingsToDo?.length) {
+                    morningThingsIndex=0;
+                }
+            }
 
             //Fill in day array
-            console.log("in foreach",datesArray[i]);
-            dayActivities.push(thingsToDo && thingsToDo[thingsIndex]);
-            console.log("in foreach 2",thingsToDo && thingsToDo[thingsIndex]);
-            thingsIndex++;
-            if(thingsIndex === thingsToDo?.length) {
-                thingsIndex=0;
+            /*dayActivities.push(thingsToDo && thingsToDo[dayThingsIndex]);
+            dayThingsIndex++;
+            if(dayThingsIndex === thingsToDo?.length) {
+                dayThingsIndex=0;
             }
-            console.log("things index",thingsIndex);
+            console.log("things index",dayThingsIndex);*/
+            while(((dayThingsIndex < thingsToDo?.length) && thingsToDo && !(thingsToDo[dayThingsIndex]?.timeOfDay.includes("Day"))) || ((dayThingsIndex < thingsToDo?.length) && thingsToDo && alreadyUsed.has(thingsToDo[dayThingsIndex]?.id))) {
+                console.log("time of day", thingsToDo && !thingsToDo[dayThingsIndex]?.timeOfDay);
+                dayThingsIndex++;
+            }
+
+            if(dayThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo && thingsToDo[dayThingsIndex - 1]?.id)) {
+                    alreadyUsed.clear();
+                }
+                dayThingsIndex=0;
+                dayActivities.push({});
+            } else {
+                dayActivities.push(thingsToDo && thingsToDo[dayThingsIndex]);
+                alreadyUsed.add(thingsToDo && thingsToDo[dayThingsIndex]?.id);
+                dayThingsIndex++;
+                if(dayThingsIndex === thingsToDo?.length) {
+                    dayThingsIndex=0;
+                }
+            }
 
             //Fill in evening array
-            console.log("in foreach",datesArray[i]);
-            eveningActivites.push(thingsToDo && thingsToDo[thingsIndex]);
-            console.log("in foreach 2",thingsToDo && thingsToDo[thingsIndex]);
-            thingsIndex++;
-            if(thingsIndex === thingsToDo?.length) {
-                thingsIndex=0;
+            /*eveningActivites.push(thingsToDo && thingsToDo[eveningThingsIndex]);
+            eveningThingsIndex++;
+            if(eveningThingsIndex === thingsToDo?.length) {
+                eveningThingsIndex=0;
+            }*/
+            while(((eveningThingsIndex < thingsToDo?.length) && thingsToDo && !(thingsToDo[eveningThingsIndex]?.timeOfDay.includes("Dusk") || thingsToDo[eveningThingsIndex]?.timeOfDay.includes("Night"))) || ((eveningThingsIndex < thingsToDo?.length) && thingsToDo && alreadyUsed.has(thingsToDo[eveningThingsIndex]?.id))) {
+                console.log("time of day", thingsToDo && !thingsToDo[eveningThingsIndex]?.timeOfDay);
+                eveningThingsIndex++;
             }
-            console.log("things index",thingsIndex);
+
+            if(eveningThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo && thingsToDo[eveningThingsIndex - 1]?.id)) {
+                    alreadyUsed.clear();
+                    console.log("should clear",alreadyUsed);
+                }
+                eveningThingsIndex=0;
+                eveningActivites.push({});
+            } else {
+                eveningActivites.push(thingsToDo && thingsToDo[eveningThingsIndex]);
+                alreadyUsed.add(thingsToDo && thingsToDo[eveningThingsIndex]?.id);
+                eveningThingsIndex++;
+                if(eveningThingsIndex === thingsToDo?.length) {
+                    eveningThingsIndex=0;
+                }
+            }
         };
         return (datesArray.map((date, index) => (
             <div key={index} className='individual-date-container'>
                 <h3>{date.toLocaleDateString()}</h3>
                 <h3>Morning</h3>
-                {morningActivities && morningActivities[index]?.title}
+                {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? "Relax!" : morningActivities[index]?.title)}
                 {console.log(morningActivities)}
                 <h3>Afternoon</h3>
-                {dayActivities && dayActivities[index]?.title}
+                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? "Relax!" : dayActivities[index]?.title)}
                 {console.log(dayActivities)}
                 <h3>Evening</h3>
-                {eveningActivites && eveningActivites[index]?.title}
+                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? "Relax!" : eveningActivites[index]?.title)}
                 {console.log(eveningActivites)}
                 <br />
             </div>
