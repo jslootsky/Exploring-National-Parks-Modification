@@ -1,60 +1,126 @@
-export const FetchParks = async (activityArray) => {
+export const FetchParks = async (activityArray, selectedStates) => {
+    let json = [];
+    let activityReturnJson = [];
+    let stateReturnJson = [];
+    let returnJson = [];
     try {
         //Get parks list for API
         const numActivities = activityArray.length;
         const values = activityArray.map(activity => activity.value);
         const valuesString = values.join(', ');
         const encodedValuesString = encodeURIComponent(valuesString);
+        const hasActivities = numActivities > 0;
+        const hasStates = selectedStates.length > 0;
+        // console.log(hasActivities);
+        // console.log(hasStates);
 
-        console.log("Values: " + encodedValuesString);
-        
-        const url =  `https://developer.nps.gov/api/v1/activities/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&id=&q=${encodedValuesString}`
-        console.log("url :" + url);
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const json = await response.json();
-        //console.log("json below");
-        //console.log(json);
+        // console.log("Values: " + encodedValuesString);
 
-        //Get list of all common parks from activities API call
-        const parkMap = new Map();
-        const allActivitiesParks = [];
-
-        json.data.forEach(activity => {
-            //console.log(activity.parks)
-            activity.parks.forEach(parkName => {
-                if(parkMap.has(parkName.parkCode)) {
-                    parkMap.set(parkName.parkCode,parkMap.get(parkName.parkCode) + 1);
-                } else {
-                    parkMap.set(parkName.parkCode,1);
-                }
-                //console.log(parkName.fullName);
-                //console.log(parkName.parkCode);
+        // if search has activities
+        if(hasActivities){
+            console.log("has activities");
+            // find parks with all activities
+            const url =  `https://developer.nps.gov/api/v1/activities/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&id=&q=${encodedValuesString}`
+            console.log("url :" + url);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            json = await response.json();
+            //console.log("json below");
+            console.log(json);
+    
+            //Get list of all common parks from activities API call
+            const parkMap = new Map();
+            const allActivitiesParks = [];
+            json.data.forEach(activity => {
+                //console.log(activity.parks)
+                activity.parks.forEach(parkName => {
+                    if(parkMap.has(parkName.parkCode)) {
+                        parkMap.set(parkName.parkCode,parkMap.get(parkName.parkCode) + 1);
+                    } else {
+                        parkMap.set(parkName.parkCode,1);
+                    }
+                    //console.log(parkName.fullName);
+                    //console.log(parkName.parkCode);
+                });
             });
-        });
+    
+            parkMap.forEach((value,key) => {
+               if(value === numActivities) {
+                    allActivitiesParks.push(key);
+               }
+            });
+    
+            const parksString = allActivitiesParks.join(',');
+            //const encodedParksString = encodeURIComponent(parksString);
+    
+            //console.log("Park Values: " + encodedParksString);
+            
+            const parkUrl =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&parkCode=${parksString}`
+            console.log("Park url :" + parkUrl);
+            const parkResponse = await fetch(parkUrl);
+            if (!parkResponse.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const parkJson = await parkResponse.json();
+            // console.log("parkJson below");
+            // console.log(parkJson);
+            activityReturnJson = parkJson;
+            // console.log("activityReturnJson below");
+            // console.log(activityReturnJson);
+   
+            returnJson = activityReturnJson;
 
-        parkMap.forEach((value,key) => {
-           if(value === numActivities) {
-                allActivitiesParks.push(key);
-           }
-        });
-
-        const parksString = allActivitiesParks.join(',');
-        //const encodedParksString = encodeURIComponent(parksString);
-
-        //console.log("Park Values: " + encodedParksString);
-        
-        const parkUrl =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&parkCode=${parksString}`
-        console.log("Park url :" + parkUrl);
-        const parkResponse = await fetch(parkUrl);
-        if (!parkResponse.ok) {
-            throw new Error('Network response was not ok');
         }
-        const parkJson = await parkResponse.json();
+        // if search has states
+        if(hasStates){
+            console.log("has states");
+            // find parks with all activities
+            const statesString =  selectedStates.map(state => state.value).join(',');
+            console.log("statesString: " + statesString);
+            const url =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&stateCode=${statesString}`
+            console.log("url :" + url);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const json = await response.json();
+            // console.log("json below");
+            // console.log(json);
+            stateReturnJson = json;
+            // console.log("stateReturnJson below");
+            // console.log(stateReturnJson);
 
-        return parkJson;
+            returnJson = stateReturnJson;
+        }
+        // if search has both activities and states
+        if(hasActivities && hasStates){
+            returnJson = [];
+            console.log("has both");
+            console.log(json);
+            console.log(stateReturnJson);
+            // add parks to returnJson if parks have activities in json and states in stateReturnJson
+            json.data.forEach(activity => {
+                //console.log(activity.parks)
+                activity.parks.forEach(parkName => {
+                    stateReturnJson.data.forEach(statePark => {
+                        if(parkName.parkCode === statePark.parkCode){
+                            returnJson.push(statePark);
+                        }
+                    });
+                });
+            });
+            // console.log(returnJson);
+
+            
+
+        }
+
+        console.log("returnJson below");
+        console.log(returnJson);
+        return returnJson;
+        
     } catch (error) {
         console.error(error.message);
         throw error;
