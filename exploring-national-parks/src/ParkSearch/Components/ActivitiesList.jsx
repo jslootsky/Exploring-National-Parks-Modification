@@ -10,6 +10,7 @@ import {StateOptions} from '../Functionality/StateOptions';
 function ActivitiesList() {
     const [posts, setPosts] = useState([]);
     const [selectedState, setSelectedState] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +36,9 @@ function ActivitiesList() {
         // console.log("selected option below");
         //console.log(selectedOption);
         try{
+            setIsLoading(true);
             const filtered = await FetchParks(selectedOption, selectedState);
+            setIsLoading(false);
             filtered.data ? setParksFiltered(filtered.data) : setParksFiltered(filtered);
         }catch{
             console.log("error")
@@ -93,7 +96,7 @@ function ActivitiesList() {
 
             <div className="return-parks">
                 <div className="parks-number">
-                    <h2>Showing {numOfParks} parks</h2>
+                    <h2>{isLoading ? 'Loading Parks...' : `Showing ${numOfParks} parks`}</h2>
                 </div>
                 <div className="parks">
                     {parksFiltered?.map((park) => (
