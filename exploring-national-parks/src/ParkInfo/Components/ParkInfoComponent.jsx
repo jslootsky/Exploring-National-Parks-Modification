@@ -101,24 +101,23 @@ function ParkInfoComponent() {
                                         <br></br>
                                         <p>{park.description}</p>
                                         <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
+                                        <br></br>
+                                        <br></br>
+                                        <a href='./ParkInfo'><button>Return To Parks</button></a>
+                                        <button>Plan A Trip</button>
                                     </div>
                                 </div>
                             </center>
 
                             <br></br>
-
                             
-                            
-                            <h3>Activities</h3>
-                            <div>
-                                <ul>
+                            <div className='activities-list'>
                                 {park.activities?.map((activity) =>(<>
-                                <li key={activity.id}>{activity.name}</li></>))}</ul>
+                                <div className='activity'><p key={activity.id}>{activity.name}</p></div></>))}
                             </div>
 
                             
-                            <a href='./ParkInfo'><button>Return To Parks</button></a>
-                            <button>Plan A Trip</button>
+                            
                         </div>
                         </>
                     ))}
