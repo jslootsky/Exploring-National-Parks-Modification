@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { FetchForecast } from '../Functions/FetchForecast';
 const Schedule = ({ dates }) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [datesArray, setDatesArray] = useState([]);
-
+    useEffect(() => {
+        FetchForecast();
+    }, []);
     useEffect(() => {
         if (dates !== null) {
             try {
-
+                
 
                 setStartDate(dates[0].toLocaleDateString());
                 if (dates[1]) {
@@ -35,13 +38,13 @@ const Schedule = ({ dates }) => {
             }
         }
     }, [dates, startDate, endDate]);
-
+   
 
 
     if (dates === null) {
         return null;
     }
-
+   
     return (
         <div>
             <div>
