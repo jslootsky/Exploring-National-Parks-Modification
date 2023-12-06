@@ -21,7 +21,7 @@ export const FetchParks = async (activityArray, selectedStates) => {
             console.log("has activities");
             // find parks with all activities
             const url =  `https://developer.nps.gov/api/v1/activities/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&id=&q=${encodedValuesString}`
-            console.log("url :" + url);
+            // console.log("url :" + url);
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ export const FetchParks = async (activityArray, selectedStates) => {
             //console.log("Park Values: " + encodedParksString);
             
             const parkUrl =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&parkCode=${parksString}`
-            console.log("Park url :" + parkUrl);
+            // console.log("Park url :" + parkUrl);
             const parkResponse = await fetch(parkUrl);
             if (!parkResponse.ok) {
                 throw new Error('Network response was not ok');
@@ -80,7 +80,7 @@ export const FetchParks = async (activityArray, selectedStates) => {
             const statesString =  selectedStates.map(state => state.value).join(',');
             console.log("statesString: " + statesString);
             const url =  `https://developer.nps.gov/api/v1/parks?api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb&stateCode=${statesString}`
-            console.log("url :" + url);
+            // console.log("url :" + url);
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -101,16 +101,26 @@ export const FetchParks = async (activityArray, selectedStates) => {
             console.log(json);
             console.log(stateReturnJson);
             // add parks to returnJson if parks have activities in json and states in stateReturnJson
-            json.data.forEach(activity => {
-                //console.log(activity.parks)
-                activity.parks.forEach(parkName => {
-                    stateReturnJson.data.forEach(statePark => {
-                        if(parkName.parkCode === statePark.parkCode){
-                            returnJson.push(statePark);
-                        }
-                    });
+            // check if parks in stateReturnJson have all the activity ids in json
+            stateReturnJson.data.forEach(park => {
+                let hasAllActivities = true;
+                json.data.forEach(activity => {
+                    if(!park.activities.some(parkActivity => parkActivity.id === activity.id)){
+                        hasAllActivities = false;
+                    }
                 });
+                if(hasAllActivities){
+                    returnJson.push(park);
+                }
             });
+            // filter out duplicates
+            // returnJson = returnJson.filter((park, index, self) =>
+            //     index === self.findIndex((t) => (
+            //         t.parkCode === park.parkCode
+            //     ))
+            // )
+            // filter out parks that don't have all activities
+
             // console.log(returnJson);
 
             
