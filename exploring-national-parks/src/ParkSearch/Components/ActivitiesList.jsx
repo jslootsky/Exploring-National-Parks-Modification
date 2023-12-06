@@ -6,8 +6,11 @@ import makeAnimated from 'react-select/animated'
 import '../../Style/activitiesList.css';
 import { Link } from 'react-router-dom';
 import { FetchParks } from '../Functionality/FetchParks';
+import {StateOptions} from '../Functionality/StateOptions';
 function ActivitiesList() {
     const [posts, setPosts] = useState([]);
+    const [selectedState, setSelectedState] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,8 +36,10 @@ function ActivitiesList() {
         // console.log("selected option below");
         //console.log(selectedOption);
         try{
-            const filtered = await FetchParks(selectedOption);
-            setParksFiltered(filtered.data);
+            setIsLoading(true);
+            const filtered = await FetchParks(selectedOption, selectedState);
+            setIsLoading(false);
+            filtered.data ? setParksFiltered(filtered.data) : setParksFiltered(filtered);
         }catch{
             console.log("error")
         }
@@ -64,6 +69,16 @@ function ActivitiesList() {
                     classNamePrefix="select"
                     options={activities}
                     onChange={choice => setSelectedOption(choice)}
+                    placeholder="Activities"
+                />
+                <Select 
+                    closeMenuOnSelect={true}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    options={StateOptions}
+                    isMulti
+                    onChange={choice => setSelectedState(choice)}
+                    placeholder="States"
                 />
 
 
@@ -81,7 +96,7 @@ function ActivitiesList() {
 
             <div className="return-parks">
                 <div className="parks-number">
-                    <h2>Showing {numOfParks} parks</h2>
+                    <h2>{isLoading ? 'Loading Parks...' : `Showing ${numOfParks} parks`}</h2>
                 </div>
                 <div className="parks">
                     {parksFiltered?.map((park) => (
@@ -96,7 +111,7 @@ function ActivitiesList() {
                                         <a href={'ParkInfo?parkCode='+park.parkCode}><button className="learn-more-button">Learn More</button></a>
                                     </div>
                                 </div>
-                                <img src={park.images[0].url} alt=''/>
+                                <img src={park.images.length !== 0  ? park.images[0].url : ''} alt=''/>
                             </div>
                             <p className="description">{park.description}</p>
                         </div>
