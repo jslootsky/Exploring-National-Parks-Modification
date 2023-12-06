@@ -6,8 +6,10 @@ import makeAnimated from 'react-select/animated'
 import '../../Style/activitiesList.css';
 import { Link } from 'react-router-dom';
 import { FetchParks } from '../Functionality/FetchParks';
+import {StateOptions} from '../Functionality/StateOptions';
 function ActivitiesList() {
     const [posts, setPosts] = useState([]);
+    const [selectedState, setSelectedState] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,8 +35,8 @@ function ActivitiesList() {
         // console.log("selected option below");
         //console.log(selectedOption);
         try{
-            const filtered = await FetchParks(selectedOption);
-            setParksFiltered(filtered.data);
+            const filtered = await FetchParks(selectedOption, selectedState);
+            filtered.data ? setParksFiltered(filtered.data) : setParksFiltered(filtered);
         }catch{
             console.log("error")
         }
@@ -64,6 +66,14 @@ function ActivitiesList() {
                     classNamePrefix="select"
                     options={activities}
                     onChange={choice => setSelectedOption(choice)}
+                />
+                <Select 
+                    closeMenuOnSelect={true}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    options={StateOptions}
+                    isMulti
+                    onChange={choice => setSelectedState(choice)}
                 />
 
 
@@ -96,7 +106,7 @@ function ActivitiesList() {
                                         <a href={'ParkInfo?parkCode='+park.parkCode}><button className="learn-more-button">Learn More</button></a>
                                     </div>
                                 </div>
-                                <img src={park.images[0].url} alt=''/>
+                                <img src={park.images.length !== 0  ? park.images[0].url : ''} alt=''/>
                             </div>
                             <p className="description">{park.description}</p>
                         </div>
