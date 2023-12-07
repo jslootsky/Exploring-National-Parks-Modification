@@ -50,10 +50,21 @@ function ParkInfoComponent() {
                 <div className="parks">
 
                     {parkJSON?.map((park) => (
-                        
                         <div key={park.id} className="post-card">
-                            <a href={'./ParkInfo?parkCode='+park.parkCode}>{park.fullName}</a>
+                        <div>
+                            <div className="learn-more-dropdown">
+                                <div>
+                                    <p className="learn-more-name">{park.fullName}</p>
+                                    <p>{park.states}</p>
+                                </div>
+                                
+                            </div>
+                            <a href={'ParkInfo?parkCode='+park.parkCode}>
+                                <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
+                            </a>
                         </div>
+                        <p className="description">{park.description}</p>
+                    </div>
                     ))}
                     
                 </div>
