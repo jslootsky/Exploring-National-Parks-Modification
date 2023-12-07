@@ -100,8 +100,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const otherActivities = await ParkInfo(parkCode.value); 
-                console.log(otherActivities);
+                const otherActivities = await ParkInfo(parkCode.value);
                 setActivityAlternatives(otherActivities);
             } catch (error) {
                 // Handle the error, if needed
@@ -118,7 +117,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
         return null;
     }
 
-    
+    console.log("things to do",thingsToDo);
     console.log("place alternatives", placeAlternatives);
     console.log("activity alternatives", activityAlternatives);
     console.log("people alternatives", peopleAlternatives);
@@ -131,13 +130,13 @@ const Schedule = ({ dates, parkCode, activities}) => {
         const morningActivities = [];
         const dayActivities = [];
         const eveningActivites = [];
+        const randomPlaces = [];
+        const randomPeople = [];
+        const randomActivities = [];
         for(let i =0; i<datesArray.length; i++) {
             //Fill in morning array
             console.log("in foreach",datesArray[i]);
             while(((morningThingsIndex < thingsToDo?.length) && thingsToDo && !(thingsToDo[morningThingsIndex]?.timeOfDay.includes("Dawn"))) || ((morningThingsIndex < thingsToDo?.length) && thingsToDo && alreadyUsed.has(thingsToDo[morningThingsIndex]?.id))) {
-                console.log("time of day", thingsToDo && !thingsToDo[morningThingsIndex]?.timeOfDay);
-                console.log("morning index",morningThingsIndex);
-                console.log("morning",thingsToDo[morningThingsIndex]);
                 morningThingsIndex++;
             }
 
@@ -174,6 +173,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
             if(dayThingsIndex === thingsToDo?.length) {
                 if(alreadyUsed.has(thingsToDo && thingsToDo[dayThingsIndex - 1]?.id)) {
                     alreadyUsed.clear();
+                    console.log("should clear day",alreadyUsed);
                 }
                 dayThingsIndex=0;
                 dayActivities.push({});
@@ -200,7 +200,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
             if(eveningThingsIndex === thingsToDo?.length) {
                 if(alreadyUsed.has(thingsToDo && thingsToDo[eveningThingsIndex - 1]?.id)) {
                     alreadyUsed.clear();
-                    console.log("should clear",alreadyUsed);
+                    console.log("should clear evening",alreadyUsed);
                 }
                 eveningThingsIndex=0; 
                 eveningActivites.push({});
@@ -212,19 +212,28 @@ const Schedule = ({ dates, parkCode, activities}) => {
                     eveningThingsIndex=0;
                 }
             }
+
+            //Fill up random activities, people, and places
+            if(placeAlternatives?.data.length !== 0) {
+                randomPlaces.push((placeAlternatives && placeAlternatives?.data[Math.floor(Math.random() * placeAlternatives?.data.length)]));
+            }
+            //Fill up random activities, people, and places
+            if(peopleAlternatives?.data.length !== 0) {
+                randomPeople.push((peopleAlternatives && peopleAlternatives?.data[Math.floor(Math.random() * peopleAlternatives?.data.length)]));
+            }
         };
         return (datesArray.map((date, index) => (
             <div key={index} className='individual-date-container'>
                 <h3>{date.toLocaleDateString()}</h3>
                 <h3>Morning</h3>
                 {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
-                (placeAlternatives?.data.length === 0 ? "Relax!" : "Visit " + (placeAlternatives && placeAlternatives?.data[Math.floor(Math.random() * placeAlternatives?.data.length)]?.title))  : morningActivities[index]?.title)}
+                (placeAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><a href={randomPlaces[index]?.url}>Visit {randomPlaces[index]?.title}</a> </div>)  : <div>{morningActivities[index]?.title}</div>)}
                 {console.log(morningActivities)}
                 <h3>Afternoon</h3>
                 {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : dayActivities[index]?.title)}
                 {console.log(dayActivities)}
                 <h3>Evening</h3>
-                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? "Relax!" : "Learn about " + (peopleAlternatives && peopleAlternatives?.data[Math.floor(Math.random() * peopleAlternatives?.data.length)]?.title))  : eveningActivites[index]?.title)}
+                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? <div>Relax!</div> : <div><a href={randomPeople[index]?.url}>Learn about {randomPeople[index].title}</a></div>)  : <div>{eveningActivites[index]?.title}</div>)}
                 {console.log(eveningActivites)}
                 <br />
             </div>
