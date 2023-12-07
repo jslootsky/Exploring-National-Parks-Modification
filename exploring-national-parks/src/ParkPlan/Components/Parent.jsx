@@ -19,7 +19,7 @@ const Parent = () => {
         <Banner/>
         <Filtering updateParkCode={updateParkCode} updateDates={updateDates}/>
         <Alerts parkCode={parkCode}/>
-        <Schedule dates={dates} />
+        <Schedule dates={dates} parkCode={parkCode} />
     </div>
   )
 }
