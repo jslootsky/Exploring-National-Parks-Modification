@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FetchForecast } from '../Functions/FetchForecast';
 import { act } from 'react-dom/test-utils';
 import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
-import { ParkInfo } from '../../ParkInfo/Functionality/ParkInfo';
+import { FetchParkInfo } from '../Functions/FetchParkInfo';
 import { FetchPlaces } from '../Functions/FetchPlaces';
 import { FetchPeople } from '../Functions/FetchPeople';
 import '../../Style/parkPlanning.css';
@@ -131,7 +131,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const otherActivities = await ParkInfo(parkCode.value);
+                const otherActivities = await FetchParkInfo(parkCode.value);
                 setActivityAlternatives(otherActivities);
             } catch (error) {
                 // Handle the error, if needed
