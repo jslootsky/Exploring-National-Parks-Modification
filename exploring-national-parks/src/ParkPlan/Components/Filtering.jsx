@@ -60,7 +60,7 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
         <div>
             <div className="planning-dropdowns">
                 <div className='plan-parks-list'>
-                        <h3>Select a Park</h3>
+                        <h2>Select a Park</h2>
                         <div className='plan-parks-dropdown'>
                             <Select
                                 closeMenuOnSelect={true}
@@ -75,7 +75,7 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
                         </div>
                 </div>
                 <div className='plan-activities-list'>
-                    <h3>Select Activities</h3>
+                    <h2>Select Activities</h2>
                         <div className="activity-dropdown">
                             <Select
                                 closeMenuOnSelect={false}
@@ -94,7 +94,7 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
             </div>
             <div className="plan-calendar-background">
             <div className="plan-calendar">
-                <h3 id="date-range-title">Select a Date Range</h3>
+                <h2 id="date-range-title">Select a Date Range</h2>
                 <Calendar 
                     selectRange={true}
                     hover={true}

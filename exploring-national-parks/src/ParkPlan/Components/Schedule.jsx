@@ -224,19 +224,26 @@ const Schedule = ({ dates, parkCode, activities}) => {
             }
         };
         return (datesArray.map((date, index) => (
-            <div key={index} className='individual-date-container'>
-                <h3>{date.toLocaleDateString()}</h3>
-                <h3>Morning</h3>
-                {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
-                (placeAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><a href={randomPlaces[index]?.url}>Visit {randomPlaces[index]?.title}</a> </div>)  : <div>{morningActivities[index]?.title}</div>)}
-                {console.log(morningActivities)}
-                <h3>Afternoon</h3>
-                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : dayActivities[index]?.title)}
-                {console.log(dayActivities)}
-                <h3>Evening</h3>
-                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? <div>Relax!</div> : <div><a href={randomPeople[index]?.url}>Learn about {randomPeople[index].title}</a></div>)  : <div>{eveningActivites[index]?.title}</div>)}
-                {console.log(eveningActivites)}
-                <br />
+            <div>
+                <div key={index} className='individual-date-container'>
+                    <div className="date-holder">
+                        <h2 id="plan-see-date">{date.toLocaleDateString()}</h2>
+                    </div>
+                    <div className='plan-schedule-activities'>
+                        <h2>Morning</h2>
+                        {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
+                        (placeAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-visit-place">Visit {randomPlaces[index]?.title} </div> <a href={randomPlaces[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div>)  : <div>{morningActivities[index]?.title}</div>)}
+                        {console.log(morningActivities)}
+                        <h2>Afternoon</h2>
+                        {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : dayActivities[index]?.title)}
+                        {console.log(dayActivities)}
+                        <h2>Evening</h2>
+                        {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-visit-people">Learn about {randomPeople[index]?.title} </div> <a href={randomPeople[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div>)  : <div>{eveningActivites[index]?.title}</div>)}
+                        {console.log(eveningActivites)}
+                        <br></br>
+                    </div>
+                </div>
+                <br></br>
             </div>
 
         )));
@@ -245,7 +252,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
     return (
         <div>
             <div>
-                {datesArray && datesArray.length > 0 ? <h1>Schedule</h1> : null}
+                {datesArray && datesArray.length > 0 ? <div id="schedule-title"><h1>Schedule</h1></div> : null}
             </div>
             <div className='dates-container'>
                 <ReturnSchedule />
