@@ -17,15 +17,53 @@ img{
 }
 
 .parkInfo{
-    padding: 10px 10px 10px 10px;
-    /*max-inline-size: 100px;*/
-   
-    display: block;
-    position:relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    /*opacity: 0.85;*/
+    background-color: rgba(0, 0, 0, 0.5);
+    /*margin-top: 2.5rem;*/
 }
+
+.park-info-welcome {
+    position:relative;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 100%, rgba(255,255,255,1) 0%);
+}
+
+.park-info-welcome #info-title{
+    position: relative;
+    padding-top: 5rem;
+    color: black;
+    font-size: 4rem;
+}
+
+.box-1{
+    display: flex;
+    width: 80%;
+}
+
+.hours{
+    width: 40%;
+    margin: 2rem;
+    padding: 0.5rem;
+    flex: 1;
+    border-style: outset;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.parkInfo .activities-list{
+    display: flex;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.parkInfo .activity{
+    float: left;
+    width: 100%;
+    border-style: outset;
+}
+
 
 .parkDetail{
     padding: 10px 10px 10px 10px;
@@ -35,7 +73,6 @@ img{
     position:relative;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
 }
 
 .parkInfo .post-card{
