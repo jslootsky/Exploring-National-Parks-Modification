@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { act } from 'react-dom/test-utils';
 import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
+import { ParkInfo } from '../../ParkInfo/Functionality/ParkInfo';
 const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [datesArray, setDatesArray] = useState([]);
     const [thingsToDo, setThingsToDo] = useState();
+    const [activityAlternatives,setActivityAlternatives] = useState();
 
     useEffect(() => {
         if (dates !== null) {
@@ -48,6 +50,23 @@ const Schedule = ({ dates, parkCode, activities}) => {
                 const activitiesToDo = await FetchThingsToDo(parkCode, activities, dates);
                 setThingsToDo(activitiesToDo);
                 console.log("things to do", thingsToDo);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null && dates !== null && activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const otherActivities = await ParkInfo(parkCode.value); 
+                setActivityAlternatives(otherActivities);
+                console.log("alternatives", activityAlternatives);
             } catch (error) {
                 // Handle the error, if needed
                 console.log(error);
@@ -142,7 +161,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
                     alreadyUsed.clear();
                     console.log("should clear",alreadyUsed);
                 }
-                eveningThingsIndex=0;
+                eveningThingsIndex=0; 
                 eveningActivites.push({});
             } else {
                 eveningActivites.push(thingsToDo && thingsToDo[eveningThingsIndex]);
@@ -160,7 +179,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
                 {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? "Relax!" : morningActivities[index]?.title)}
                 {console.log(morningActivities)}
                 <h3>Afternoon</h3>
-                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? "Relax!" : dayActivities[index]?.title)}
+                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name) : dayActivities[index]?.title)}
                 {console.log(dayActivities)}
                 <h3>Evening</h3>
                 {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? "Relax!" : eveningActivites[index]?.title)}
