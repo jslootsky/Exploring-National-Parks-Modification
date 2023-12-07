@@ -6,7 +6,7 @@ import makeAnimated from 'react-select/animated'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const Filtering = ({updateParkCode, updateDates}) => {
+const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
     const [posts, setPosts] = useState([]);
    
     useEffect(() => {
@@ -58,38 +58,43 @@ const Filtering = ({updateParkCode, updateDates}) => {
     }, []);
     return (
         <div>
-            <div className='parks-list'>
-                    <div className='parks-dropdown'>
-                        <Select
-                            closeMenuOnSelect={true}
-                            components={animatedComponents}
-                            className="basic-single"
-                            classNamePrefix="select"
-                            isDisabled={parksIsLoading}
-                            isLoading={parksIsLoading}
-                            options={parksFiltered}
-                            onChange={choice => setParkCode(choice)}
-                        />
-                    </div>
-            </div>
-            <div className='activities-list'>
+            <div className="planning-dropdowns">
+                <div className='plan-parks-list'>
+                        <h2>Select a Park</h2>
+                        <div className='plan-parks-dropdown'>
+                            <Select
+                                closeMenuOnSelect={true}
+                                components={animatedComponents}
+                                className="basic-single"
+                                classNamePrefix="select"
+                                isDisabled={parksIsLoading}
+                                isLoading={parksIsLoading}
+                                options={parksFiltered}
+                                onChange={choice => setParkCode(choice)}
+                            />
+                        </div>
+                </div>
+                <div className='plan-activities-list'>
+                    <h2>Select Activities</h2>
+                        <div className="activity-dropdown">
+                            <Select
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                isMulti
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                isDisabled={activitiesIsLoading}
+                                isLoading={activitiesIsLoading}
+                                options={activities}
+                                onChange={choice => setSelectedOption(choice)}
+                            />
+                        </div>
                 
-                    <div className="activity-dropdown">
-                        <Select
-                            closeMenuOnSelect={false}
-                            components={animatedComponents}
-                            isMulti
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            isDisabled={activitiesIsLoading}
-                            isLoading={activitiesIsLoading}
-                            options={activities}
-                            onChange={choice => setSelectedOption(choice)}
-                        />
-                    </div>
-               
+                </div>
             </div>
-            <div>
+            <div className="plan-calendar-background">
+            <div className="plan-calendar">
+                <h2 id="date-range-title">Select a Date Range</h2>
                 <Calendar 
                     selectRange={true}
                     hover={true}
@@ -98,15 +103,18 @@ const Filtering = ({updateParkCode, updateDates}) => {
                     returnValue={"start"}
                     onChange={setStartDate}
                 //    max date should be 7 days from the selected start date
-                    
+                
                 /> 
             </div>
+            </div>
     
-            <div>
-                <button onClick={() => {
+            <div className="plan-search-button-container">
+                <button className="plan-search-button" onClick={() => {
                     updateParkCode(parkCode);
                     console.log(parkCode);
                     updateDates(startDate);
+                    console.log("selected option",selectedOption)
+                    updateActivities(selectedOption);
                 }}>Plan a Trip</button>
                 {/* <button onClick={() => {
                     console.log(parkCode.value);}}>Test</button> */}
