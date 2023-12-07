@@ -115,7 +115,7 @@ function ParkInfoComponent() {
                                         <br></br>
                                         <br></br>
                                         <a href='./ParkInfo'><button>Return To Parks</button></a>
-                                        <button>Plan A Trip</button>
+                                        <a href={'./ParkPlan?parkCode='+park.parkCode}><button>Plan A Trip</button></a>
                                     </div>
                                 </div>
                             </center>
