@@ -1,3 +1,12 @@
+
+/**
+ * Fetches parks data from the National Park Service API.
+ * If the data is available in the local storage, it returns the cached data.
+ * Otherwise, it makes a network request to fetch the data from the API,
+ * saves it to the local storage, and returns the fetched data.
+ * @returns {Promise<Object>} A promise that resolves to the parks data.
+ * @throws {Error} If the network response is not ok or an error occurs during the process.
+ */
 export const FetchParks = async () => {
   try {
     const limit = 500;

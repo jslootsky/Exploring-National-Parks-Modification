@@ -1,3 +1,7 @@
+/**
+ * Renders the home page of the application.
+ * @returns {JSX.Element} The rendered home page component.
+ */
 import React from 'react'
 import Welcome from './HomePage/Components/Welcome'
 import Buttons from './HomePage/Components/Buttons'

@@ -1,3 +1,7 @@
+/**
+ * Renders the ParkPlan component.
+ * @returns {JSX.Element} The rendered ParkPlan component.
+ */
 import React from 'react'
 import ParkPlanParent from './ParkPlan/Components/Parent'
 import Banner from './ParkPlan/Components/Banner'

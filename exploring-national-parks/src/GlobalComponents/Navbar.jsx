@@ -1,9 +1,12 @@
+/**
+ * Renders a navigation bar component with links to different pages.
+ * @returns {JSX.Element} The rendered navigation bar component.
+ */
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import '../Style/navbar.css'
 const Navbar = () => {
     return (
-        // create a nav bar with two links, home and parksearch
         <nav className="nav-bar">
             <ul>
                 <li>

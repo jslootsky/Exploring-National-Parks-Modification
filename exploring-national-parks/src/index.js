@@ -1,3 +1,13 @@
+/**
+ * This file is the entry point of the React application.
+ * It renders the main components of the application using React Router.
+ * The components include ParkSearch, ParkInfo, HomePage, and ParkPlan.
+ * It also includes a Navbar and a Footer component.
+ * The main CSS file is imported and applied to the rendered components.
+ * The root element is obtained using ReactDOM.createRoot and the components are rendered inside it.
+ * The activitiesDropdown element is commented out.
+ * Performance measurement and analytics functionality are mentioned but not implemented.
+ */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import ParkSearch from './ParkSearch.js';
