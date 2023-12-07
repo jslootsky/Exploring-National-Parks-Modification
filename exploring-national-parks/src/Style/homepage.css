@@ -1,6 +1,9 @@
 .home-page{
     margin-top: 3rem;
 }
+.welcome{
+    /* margin-bottom: 20rem; */
+}
 .home-page .welcome-title{
     margin: 0;
     font-size: 10rem;
@@ -8,27 +11,31 @@
 .home-page .welcome-text{
     font-size: 1.5rem;
     color:white;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.5);
 }
 
 .home-page .homepage-button-wrapper{
+    margin-top: 2rem;
     display:flex;
-    justify-content: space-between;
-}
-.home-page .homepage-button{
-    font-size: 1.5rem;
-    height: 45px;
-    width: 40%;
-    margin: auto;
-    border-radius: 15px;
+    align-items:center;
+    justify-content: space-evenly;
 
+}
+.home-page .homepage-button-wrapper .homepage-button{
+    font-size: 1.5rem;
+    border-radius: 15px;
+    width: 20rem;
 }
 
 /* highlighted parks section styling  */
 .gallery{
-    max-width: 95%;
-    margin: 15.4rem auto;
-    background-color: rgba(0,0,0,0.2);
+    max-width: 100%;
+    /* margin: 15.4rem auto; */
+    background-color: rgba(0,0,0,0.5);
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    padding-right: 2rem;
 }
 .gallery h1{
     text-align: center;
@@ -36,7 +43,7 @@
     color: white;
 }
 .slider{
-    width: 100%;
+    width: 80%;
     min-height:50vh;
     color: white;
     text-align: center;
@@ -63,4 +70,17 @@
     align-items: center;
     justify-content: center;
 }
-
+.slider .slick-dots{
+    bottom: 13px;
+}
+.slider .slick-dots li button:before{
+    color: white;
+    font-size: 10px;
+    line-height: 50px;
+}
+.slider .slick-dots li.slick-active button:before{
+    color: #a67e46
+}
+.slider .slick-prev:before, .slider .slick-next:before {
+    color:#a67e46;
+}
