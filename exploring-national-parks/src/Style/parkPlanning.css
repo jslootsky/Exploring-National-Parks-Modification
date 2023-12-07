@@ -1,4 +1,6 @@
-
+body{
+    overflow-x: hidden;
+}
 .park-plan {
     background-image : url("../HomePage/Assets/ParkPlanningPicture.jpg");
     background-repeat: no-repeat;
