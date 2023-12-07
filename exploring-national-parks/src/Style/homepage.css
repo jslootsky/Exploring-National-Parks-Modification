@@ -28,11 +28,12 @@
 .gallery{
     max-width: 95%;
     margin: 15.4rem auto;
-    /* background-color: rgba(0,0,0,0.2); */
+    background-color: rgba(0,0,0,0.2);
 }
 .gallery h1{
     text-align: center;
     font-size: 5rem;
+    color: white;
 }
 .slider{
     width: 100%;
