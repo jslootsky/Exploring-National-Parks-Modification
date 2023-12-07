@@ -55,6 +55,7 @@ export const FetchForecast = async (parkCode) => {
             }
         });
         console.log(forecasts);
+       
         
         return forecasts;
     } catch (error) {
