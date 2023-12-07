@@ -1,0 +1,95 @@
+
+.park-plan {
+    background-image : url("../HomePage/Assets/ParkPlanningPicture.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    opacity: 0.85;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.park-plan-welcome {
+    position:relative;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 100%);
+}
+
+.park-plan-welcome #plan-title {
+    position: relative;
+    padding: 5rem;
+    color: black;
+    text-align: center;
+}
+
+.park-plan-welcome #plan-description {
+    text-align: center;
+    /* put it in a box */
+    padding: 1rem;
+
+    padding-left: 10rem;
+    padding-right: 10rem;
+    /* background-color: rgba(19, 35, 19, 0.9); */
+    color: black;
+    font-size: 2rem;
+}
+
+.planning-dropdowns {
+    display: flex;
+}
+
+.plan-parks-list {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.plan-activities-list {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.plan-calendar #date-range-title {
+    text-align: center;
+}
+
+.plan-calendar {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.react-calendar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.plan-search-button-container {
+    width: 70%;
+    margin-left: 34%;
+    margin-right: auto;
+}
+
+.plan-search-button {
+    font-size: larger;
+    height: 4rem;
+    border-radius: 10px;
+}
+
+.plan-search-button-container .plan-search-button:hover {
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
+}

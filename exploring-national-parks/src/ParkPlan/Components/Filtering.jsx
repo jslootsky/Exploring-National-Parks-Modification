@@ -58,38 +58,43 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
     }, []);
     return (
         <div>
-            <div className='parks-list'>
-                    <div className='parks-dropdown'>
-                        <Select
-                            closeMenuOnSelect={true}
-                            components={animatedComponents}
-                            className="basic-single"
-                            classNamePrefix="select"
-                            isDisabled={parksIsLoading}
-                            isLoading={parksIsLoading}
-                            options={parksFiltered}
-                            onChange={choice => setParkCode(choice)}
-                        />
-                    </div>
-            </div>
-            <div className='activities-list'>
+            <div className="planning-dropdowns">
+                <div className='plan-parks-list'>
+                        <h3>Select a Park</h3>
+                        <div className='plan-parks-dropdown'>
+                            <Select
+                                closeMenuOnSelect={true}
+                                components={animatedComponents}
+                                className="basic-single"
+                                classNamePrefix="select"
+                                isDisabled={parksIsLoading}
+                                isLoading={parksIsLoading}
+                                options={parksFiltered}
+                                onChange={choice => setParkCode(choice)}
+                            />
+                        </div>
+                </div>
+                <div className='plan-activities-list'>
+                    <h3>Select Activities</h3>
+                        <div className="activity-dropdown">
+                            <Select
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                isMulti
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                isDisabled={activitiesIsLoading}
+                                isLoading={activitiesIsLoading}
+                                options={activities}
+                                onChange={choice => setSelectedOption(choice)}
+                            />
+                        </div>
                 
-                    <div className="activity-dropdown">
-                        <Select
-                            closeMenuOnSelect={false}
-                            components={animatedComponents}
-                            isMulti
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            isDisabled={activitiesIsLoading}
-                            isLoading={activitiesIsLoading}
-                            options={activities}
-                            onChange={choice => setSelectedOption(choice)}
-                        />
-                    </div>
-               
+                </div>
             </div>
-            <div>
+            <div className="plan-calendar-background">
+            <div className="plan-calendar">
+                <h3 id="date-range-title">Select a Date Range</h3>
                 <Calendar 
                     selectRange={true}
                     hover={true}
@@ -98,12 +103,13 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
                     returnValue={"start"}
                     onChange={setStartDate}
                 //    max date should be 7 days from the selected start date
-                    
+                
                 /> 
             </div>
+            </div>
     
-            <div>
-                <button onClick={() => {
+            <div className="plan-search-button-container">
+                <button className="plan-search-button" onClick={() => {
                     updateParkCode(parkCode);
                     updateDates(startDate);
                     console.log("selected option",selectedOption)

@@ -5,6 +5,7 @@ import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
 import { ParkInfo } from '../../ParkInfo/Functionality/ParkInfo';
 import { FetchPlaces } from '../Functions/FetchPlaces';
 import { FetchPeople } from '../Functions/FetchPeople';
+import '../../Style/parkPlanning.css';
 const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
