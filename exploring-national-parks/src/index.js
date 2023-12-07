@@ -6,11 +6,8 @@ import HomePage from './HomePage.js';
 import ParkPlan from './ParkPlan.js';
 import Navbar from './GlobalComponents/Navbar.jsx';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
-
+import Footer from './GlobalComponents/Footer.jsx';
 import './Style/main.css';
-
-import Footer from 'rc-footer';
-import 'rc-footer/assets/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,24 +20,10 @@ root.render(
                 <Route path="/ParkInfo" element={<ParkInfo />} />
                 <Route path="/ParkPlan" element={<ParkPlan />} />
             </Routes>
-            
+            <Footer></Footer>
         </Router>
 
-        <Footer
-        columns={[
-        {
-            icon: (
-            <img src="https://web.archive.org/web/20091027005003im_/http://it.geocities.com/aniellobarra/Img/Clip/Animated/tree.gif" alt="" />
-            ),
-            title: 'Exploring National Parks',
-            url: 'https://google.com',
-            description: 'Placeholder link',
-            openExternal: true,
-        },
-        ]}
-        bottom="Copyright 2023"
-        theme="light"
-        />
+      
     </div>
 );
 
