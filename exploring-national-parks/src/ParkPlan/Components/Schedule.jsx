@@ -230,16 +230,22 @@ const Schedule = ({ dates, parkCode, activities}) => {
                         <h2 id="plan-see-date">{date.toLocaleDateString()}</h2>
                     </div>
                     <div className='plan-schedule-activities'>
+                        <div>
                         <h2>Morning</h2>
                         {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
-                        (placeAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-visit-place">Visit {randomPlaces[index]?.title} </div> <a href={randomPlaces[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div>)  : <div>{morningActivities[index]?.title}</div>)}
+                        (placeAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-title-and-button"><div className="plan-activity-title">Visit {randomPlaces[index]?.title}</div><div className="plan-description">{randomPlaces[index]?.audioDescription}</div> <a href={randomPlaces[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div></div>)  : <div><div className="plan-title-and-button"><div className="plan-activity-title">{morningActivities[index]?.title}</div><div className="plan-description">{morningActivities[index]?.shortDescription}</div><a href={morningActivities[index]?.url}><button className="plan-learn-more-button">Learn More</button></a></div></div>)}
                         {console.log(morningActivities)}
+                        </div>
+                        <div>
                         <h2>Afternoon</h2>
-                        {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : dayActivities[index]?.title)}
+                        {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : <div><div className="plan-title-and-button"><div className="plan-activity-title">{dayActivities[index]?.title}</div><div className="plan-description">{dayActivities[index]?.shortDescription}</div><a href={dayActivities[index]?.url}><button className="plan-learn-more-button">Learn More</button></a></div></div>)}
                         {console.log(dayActivities)}
+                        </div>
+                        <div>
                         <h2>Evening</h2>
-                        {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-visit-people">Learn about {randomPeople[index]?.title} </div> <a href={randomPeople[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div>)  : <div>{eveningActivites[index]?.title}</div>)}
+                        {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? <div>"Relax!"</div> : <div><div className="plan-title-and-button"><div className="plan-activity-title">Learn about {randomPeople[index]?.title} </div><div className="plan-description">{randomPeople[index]?.listingDescription}</div> <a href={randomPeople[index]?.url}><button className='plan-learn-more-button'>Learn More</button></a></div></div>)  : <div><div className="plan-title-and-button"><div className="plan-activity-title">{eveningActivites[index]?.title}</div><div className="plan-description">{eveningActivites[index]?.shortDescription}</div><a href={eveningActivites[index]?.url}><button className="plan-learn-more-button">Learn More</button></a></div></div>)}
                         {console.log(eveningActivites)}
+                        </div>
                         <br></br>
                     </div>
                 </div>
