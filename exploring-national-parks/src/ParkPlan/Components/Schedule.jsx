@@ -3,12 +3,16 @@ import { useState } from 'react'
 import { act } from 'react-dom/test-utils';
 import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
 import { ParkInfo } from '../../ParkInfo/Functionality/ParkInfo';
+import { FetchPlaces } from '../Functions/FetchPlaces';
+import { FetchPeople } from '../Functions/FetchPeople';
 const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [datesArray, setDatesArray] = useState([]);
     const [thingsToDo, setThingsToDo] = useState();
     const [activityAlternatives,setActivityAlternatives] = useState();
+    const [placeAlternatives,setPlaceAlternatives] = useState();
+    const [peopleAlternatives,setPeopleAlternatives] = useState();
 
     useEffect(() => {
         if (dates !== null) {
@@ -64,9 +68,41 @@ const Schedule = ({ dates, parkCode, activities}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const placesToSee = await FetchPlaces(parkCode);
+                setPlaceAlternatives(placesToSee);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null && dates !== null && activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const peopleToLearn = await FetchPeople(parkCode);
+                setPeopleAlternatives(peopleToLearn);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null && dates !== null && activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
                 const otherActivities = await ParkInfo(parkCode.value); 
+                console.log(otherActivities);
                 setActivityAlternatives(otherActivities);
-                console.log("alternatives", activityAlternatives);
             } catch (error) {
                 // Handle the error, if needed
                 console.log(error);
@@ -81,6 +117,11 @@ const Schedule = ({ dates, parkCode, activities}) => {
     if (dates === null || parkCode === null || activities === null) {
         return null;
     }
+
+    
+    console.log("place alternatives", placeAlternatives);
+    console.log("activity alternatives", activityAlternatives);
+    console.log("people alternatives", peopleAlternatives);
 
     const ReturnSchedule = () => {
         var morningThingsIndex = 0;
@@ -176,13 +217,14 @@ const Schedule = ({ dates, parkCode, activities}) => {
             <div key={index} className='individual-date-container'>
                 <h3>{date.toLocaleDateString()}</h3>
                 <h3>Morning</h3>
-                {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? "Relax!" : morningActivities[index]?.title)}
+                {morningActivities && (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
+                (placeAlternatives?.data.length === 0 ? "Relax!" : "Visit " + (placeAlternatives && placeAlternatives?.data[Math.floor(Math.random() * placeAlternatives?.data.length)]?.title))  : morningActivities[index]?.title)}
                 {console.log(morningActivities)}
                 <h3>Afternoon</h3>
-                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name) : dayActivities[index]?.title)}
+                {dayActivities && (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives && activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : dayActivities[index]?.title)}
                 {console.log(dayActivities)}
                 <h3>Evening</h3>
-                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? "Relax!" : eveningActivites[index]?.title)}
+                {eveningActivites && (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? "Relax!" : "Learn about " + (peopleAlternatives && peopleAlternatives?.data[Math.floor(Math.random() * peopleAlternatives?.data.length)]?.title))  : eveningActivites[index]?.title)}
                 {console.log(eveningActivites)}
                 <br />
             </div>
