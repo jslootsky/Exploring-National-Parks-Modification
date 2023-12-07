@@ -7,17 +7,28 @@ import ParkVideos from './ParkVideos';
 function ParkInfoComponent() {
     const [parkJSON, setParks] = useState([]);
     
+    var url = new URL(window.location);
+    var page = 0;
+    page = url.searchParams.get("page");
+    if(page==null)
+        page = 0;
+    var pageUp = parseInt(page)+50;
+    var pageDown = parseInt(page)-50;
+    if(pageDown<0)
+        pageDown = 0;
+
+    const parkCode = url.searchParams.get("parkCode");
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 var json;
-                var url = new URL(window.location);
-                const parkCode = url.searchParams.get("parkCode");
+
                 //const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
                 if(parkCode == null)
-                    json = await ParkInfo('');
+                    json = await ParkInfo('', page);
                 else
-                    json = await ParkInfo(parkCode);
+                    json = await ParkInfo(parkCode, 0);
                 console.log(json);
                 setParks(json.data);
             } catch (error) {
@@ -33,70 +44,94 @@ function ParkInfoComponent() {
             <div className='parkInfo'>
 
                 <center>
-                    <h1>Park Information</h1>
+                    <h1>Park Information Page</h1>
                 </center>
                 <br></br>
                 <div className="parks">
 
                     {parkJSON?.map((park) => (
-                        
                         <div key={park.id} className="post-card">
-                            <a href={window.location+'?parkCode='+park.parkCode}>{park.fullName}</a>
+                        <div>
+                            <div className="learn-more-dropdown">
+                                <div>
+                                    <p className="learn-more-name">{park.fullName}</p>
+                                    <p>{park.states}</p>
+                                </div>
+                                
+                            </div>
+                            <a href={'ParkInfo?parkCode='+park.parkCode}>
+                                <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
+                            </a>
                         </div>
+                        <p className="description">{park.description}</p>
+                    </div>
                     ))}
                     
                 </div>
-                <a href="./"><button>Return To Home</button></a>
-                <button>Plan A Trip</button>
+                <a href={'./ParkInfo?page='+pageDown}><button>Previous Page</button></a>
+                <a href={'./ParkInfo?page='+pageUp}><button>Next Page</button></a>
             </div>
         );
     }
     else{ //detail for one park
         return (
-            <div className='parkInfo'>
-
-                <center>
-                    <h1>Park Information</h1>
-                </center>
-                <br></br>
-
+            <div className='park-info'>
                     {parkJSON?.map((park) => (
                         <>
-                        <div key={park.id} className="parkDetail">
-                            <h1>{park.fullName}</h1>
-                            <img src={park.images[0].url} alt=''/>
-                            <p>{park.description}</p>
-                            <address>{park.addresses[0].line1}<br></br>
-                                {park.addresses[0].city}, 
-                                {park.addresses[0].stateCode}<br></br>
-                            </address>
-                            <h3>Hours:</h3>
-                            <div>
-                                <h4>monday: {park.operatingHours[0].standardHours.monday}</h4>
-                                <h4>tuesday: {park.operatingHours[0].standardHours.tuesday}</h4>
-                                <h4>wednesday: {park.operatingHours[0].standardHours.wednesday}</h4>
-                                <h4>thursday: {park.operatingHours[0].standardHours.thursday}</h4>
-                                <h4>friday: {park.operatingHours[0].standardHours.friday}</h4>
-                                <h4>saturday: {park.operatingHours[0].standardHours.saturday}</h4>
-                                <h4>sunday: {park.operatingHours[0].standardHours.sunday}</h4>
-                            </div>
-                            <h3>Activities</h3>
-                            <div>
-                                <ul>
-                                {park.activities?.map((activity) =>(<>
-                                <li key={activity.id}>{activity.name}</li></>))}</ul>
+                        <div key={park.id} className="parkInfo" style={{ backgroundImage: 'url(' + park.images[0].url + ')', backgroundSize: 'auto' }}>
+                            <div className='park-info-welcome'>
+                                <center>
+                                    <h1 id="info-title">{park.fullName}</h1>
+                                    <h2>Park Information</h2>
+                                    <address>{park.addresses[0].line1}<br></br>
+                                        {park.addresses[0].city}, 
+                                        {park.addresses[0].stateCode}<br></br>
+                                    </address>
+                                    <br></br>
+                                </center>
                             </div>
 
-                            <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
-                        </div>
-                        <div>
-                            <ParkVideos parkCode={park.parkCode} />
+                            <br></br>
+
+                            <center>
+                                <div className='box-1'>
+                                    <div className='hours'>
+                                        <ParkVideos parkCode={park.parkCode} />
+                                    </div>
+                                    <div className='hours'>
+                                        <h1>Hours:</h1>
+                                        <ul>
+                                            <li>Monday:    {park.operatingHours[0].standardHours.monday}</li>
+                                            <li>Tuesday:   {park.operatingHours[0].standardHours.tuesday}</li>
+                                            <li>Wednesday: {park.operatingHours[0].standardHours.wednesday}</li>
+                                            <li>Thursday:  {park.operatingHours[0].standardHours.thursday}</li>
+                                            <li>Friday:    {park.operatingHours[0].standardHours.friday}</li>
+                                            <li>Saturday:  {park.operatingHours[0].standardHours.saturday}</li>
+                                            <li>Sunday:    {park.operatingHours[0].standardHours.sunday}</li>
+                                        </ul>
+                                        <br></br>
+                                        <p>{park.description}</p>
+                                        <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
+                                        <br></br>
+                                        <br></br>
+                                        <a href='./ParkInfo'><button>Return To Parks</button></a>
+                                        <a href={'./ParkPlan?parkCode='+park.parkCode}><button>Plan A Trip</button></a>
+                                    </div>
+                                </div>
+                            </center>
+
+                            <br></br>
+                            
+                            <div className='activities-list'>
+                                {park.activities?.map((activity) =>(<>
+                                <div className='activity'><p key={activity.id}>{activity.name}</p></div></>))}
+                            </div>
+
+                            
+                            
                         </div>
                         </>
                     ))}
-                    <a href='./'><button>Return To Parks</button></a>
-                    <button>Plan A Trip</button>
-
             </div>
         );
     }
