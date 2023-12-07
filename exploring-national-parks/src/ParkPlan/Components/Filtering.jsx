@@ -45,7 +45,7 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
                 const json = await FetchParks(selectedOption);
                 console.log(json);
                 // get only the full names 
-                setParksFiltered(json.data.map((park) => { return { label: park.fullName, value:park.parkCode} }));
+                setParksFiltered(json.data.map((park) => { return { label: park.fullName, value:park.parkCode, latitude:park.latitude, longitude:park.longitude} }));
                 setParksIsLoading(false);
             } catch (error) {
                 // Handle the error, if needed
@@ -111,6 +111,7 @@ const Filtering = ({updateParkCode, updateDates, updateActivities}) => {
             <div className="plan-search-button-container">
                 <button className="plan-search-button" onClick={() => {
                     updateParkCode(parkCode);
+                    console.log(parkCode);
                     updateDates(startDate);
                     console.log("selected option",selectedOption)
                     updateActivities(selectedOption);
