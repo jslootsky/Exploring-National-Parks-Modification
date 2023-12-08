@@ -18,7 +18,6 @@
 }
 
 .home-page .homepage-button-wrapper{
-    margin-top: 2rem;
     display:flex;
     align-items:center;
     justify-content: space-evenly;
@@ -28,6 +27,18 @@
     font-size: 1.5rem;
     border-radius: 15px;
     width: 20rem;
+}
+.button-container{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+
+}
+.button-container p{
+    font-size: 1.5rem;
+    color:white
 }
 
 /* highlighted parks section styling  */
