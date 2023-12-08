@@ -1,4 +1,7 @@
 /* Responds to the ParkInfo.jsx component */
+.park-info-parent{
+    margin-top: 5.5rem;
+}
 
 .park-info-button{
     width: 50%;
@@ -33,7 +36,7 @@ img{
     background-position: center;
     /*opacity: 0.85;*/
     background-color: rgba(0, 0, 0, 0.5);
-    /*margin-top: 2.5rem;*/
+    /* margin-top: 2.5rem; */
 }
 
 .park-info-welcome {
