@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../Style/parkVideos.css';
+import defaultSplash from '../../../src/splash-default.png';
 
 const ParkVideos = ({ parkCode }) => {
     const [videos, setVideos] = useState([]);
@@ -20,11 +21,16 @@ const ParkVideos = ({ parkCode }) => {
 
             console.log('Fetched videos:', data);
 
-            // Filter videos with a splash image
-            const videosWithSplash = data.data.filter(
-                (video) => video.splashImage && video.splashImage.url
-            );
-
+            // for videos without splash image, set default splash image
+            const videosWithSplash = data.data.filter((video) => {
+                if (video.splashImage.url =="") {
+                    // console.log("No splash image found for video:", video.title);
+                    video.splashImage = {url: defaultSplash}
+                    return video;
+                } else {
+                    return video;
+                }
+            });
             console.log('Videos with splash image:', videosWithSplash);
 
             if (videosWithSplash.length === 0) {
