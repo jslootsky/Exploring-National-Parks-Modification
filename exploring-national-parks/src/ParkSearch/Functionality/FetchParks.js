@@ -1,3 +1,14 @@
+/**
+ * Makes a call to the NPS API /activities/parks endpoint in order
+ * to fetch all parks associated to the passed in activities and states
+ * Conducts logic to return parks that only satisfy all the activities
+ * and/or states requirements
+ * 
+ * @param {Array} activityArray - Array of selected user activities
+ * @param {Array} selectedStates - Array of selected user states
+ * @returns {Array} List of parks that satisfy user activity and state requirements
+ * @throws {Error} In case of error in API fetching or in other logic
+ */
 export const FetchParks = async (activityArray, selectedStates) => {
     let json = [];
     let activityReturnJson = [];

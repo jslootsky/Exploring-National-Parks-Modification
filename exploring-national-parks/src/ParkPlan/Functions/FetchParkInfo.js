@@ -1,4 +1,12 @@
 // ParkInfo.js, fetch the list of parks and return info
+/**
+ * Fetches data from the National Park Service API about a specific park
+ * specified by parkCode
+ * 
+ * @param {Object} parkCode - The park code object containing the park code
+ * @returns {Promise<Object>} A promise that resolves to data about the specific park.
+ * @throws {Error} If the network response is not ok or an error occurs during the process.
+ */
 export const FetchParkInfo = async (parkCode) => {
     try {
       await parkCode;
