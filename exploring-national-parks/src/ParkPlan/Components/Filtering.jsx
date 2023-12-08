@@ -1,6 +1,7 @@
 /**
  * Component for filtering parks and activities.
- * 
+ * @module Filtering
+ * @memberof ParkPlan
  * @component
  * @param {Function} updateParkCode - Function to update the selected park code.
  * @param {Function} updateDates - Function to update the selected date range.

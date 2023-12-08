@@ -2,6 +2,8 @@ import React from 'react'
 
 /**
  * Component representing the welcome section of the homepage.
+ * @module Welcome
+ * @memberof HomePage
  * @returns {JSX.Element} The rendered welcome section.
  */
 const Welcome = () => {

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ParkPlan/Components/Schedule.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ParkPlan/Components/Schedule.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Renders the Schedule component.
+ * @module Schedule
+ * @memberof ParkPlan
+ * @param {Object} props - The component props.
+ * @param {Array} props.dates - The array of dates.
+ * @param {string} props.parkCode - The park code.
+ * @param {Array} props.activities - The array of activities.
+ * @returns {JSX.Element|null} The rendered Schedule component.
+ */
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { FetchForecast } from '../Functions/FetchForecast';
+import { act } from 'react-dom/test-utils';
+import { FetchThingsToDo } from '../Functions/FetchThingsToDo';
+import { FetchParkInfo } from '../Functions/FetchParkInfo';
+import { FetchPlaces } from '../Functions/FetchPlaces';
+import { FetchPeople } from '../Functions/FetchPeople';
+import '../../Style/parkPlanning.css';
+
+const Schedule = ({ dates, parkCode, activities}) => {
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [datesArray, setDatesArray] = useState([]);
+    const [relevantTimeForecast, setRelevantTimeForecast] = useState([]);
+    const [thingsToDo, setThingsToDo] = useState();
+    const [activityAlternatives,setActivityAlternatives] = useState();
+    const [placeAlternatives,setPlaceAlternatives] = useState();
+    const [peopleAlternatives,setPeopleAlternatives] = useState();
+    useEffect(() => {
+        const fetchForecastData = async () => {
+            try {
+                const forecasts = await FetchForecast(parkCode);
+                const relevantForecasts = [];
+                for (let day in forecasts) {
+                    let startTime = new Date(forecasts[day].startTime);
+                    startTime.setHours(0, 0, 0, 0);
+                    let start = new Date(startDate);
+                    let end = new Date(endDate);
+
+                    if (startTime >= start &amp;&amp; startTime &lt;= end) {
+                        relevantForecasts.push({
+                            startTime: startTime.toLocaleDateString(),
+                            icon: forecasts[day].icon,
+                            shortForecast: forecasts[day].shortForecast,
+                        });
+                    }
+                }
+                setRelevantTimeForecast(relevantForecasts);
+                console.log(relevantTimeForecast);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        if (dates !== null) {
+            try {
+
+
+                setStartDate(dates[0].toLocaleDateString());
+                if (dates[1]) {
+                    setEndDate(dates[1].toLocaleDateString());
+                } else {
+                    setEndDate(startDate);
+                }
+
+                // Convert startDate and endDate to Date objects
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+
+                // Create an array of dates between start and end
+                const dateArray = [];
+                while (start &lt;= end) {
+                    dateArray.push(new Date(start));
+                    start.setDate(start.getDate() + 1);
+                }
+
+                // Now dateArray contains all the dates between startDate and endDate
+                //console.log(dateArray);
+                setDatesArray(dateArray);
+                fetchForecastData();
+
+
+            } catch (error) {
+            }
+
+        }
+
+    }, [dates, startDate, endDate, parkCode]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const activitiesToDo = await FetchThingsToDo(parkCode, activities);
+                setThingsToDo(activitiesToDo);
+                console.log("things to do", thingsToDo);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null &amp;&amp; dates !== null &amp;&amp; activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const placesToSee = await FetchPlaces(parkCode);
+                setPlaceAlternatives(placesToSee);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null &amp;&amp; dates !== null &amp;&amp; activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const peopleToLearn = await FetchPeople(parkCode);
+                setPeopleAlternatives(peopleToLearn);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null &amp;&amp; dates !== null &amp;&amp; activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const otherActivities = await FetchParkInfo(parkCode.value);
+                setActivityAlternatives(otherActivities);
+            } catch (error) {
+                // Handle the error, if needed
+                console.log(error);
+            }
+        };
+
+        if (parkCode !== null &amp;&amp; dates !== null &amp;&amp; activities !== null) {
+            fetchData();
+        }
+    }, [parkCode,activities,dates]);
+
+    if (dates === null || parkCode === null || activities === null) {
+        return null;
+    }
+    if (parkCode === null) {
+        return null;
+    }
+
+    console.log("things to do",thingsToDo);
+    console.log("place alternatives", placeAlternatives);
+    console.log("activity alternatives", activityAlternatives);
+    console.log("people alternatives", peopleAlternatives);
+
+    const ReturnSchedule = () => {
+        var morningThingsIndex = 0;
+        var dayThingsIndex = 0;
+        var eveningThingsIndex = 0;
+        const alreadyUsed = new Set();
+        const morningActivities = [];
+        const dayActivities = [];
+        const eveningActivites = [];
+        const randomPlaces = [];
+        const randomPeople = [];
+        const randomActivities = [];
+        for(let i =0; i&lt;datesArray.length; i++) {
+            //Fill in morning array
+            console.log("in foreach",datesArray[i]);
+            while(((morningThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; !(thingsToDo[morningThingsIndex]?.timeOfDay.includes("Dawn"))) || ((morningThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; alreadyUsed.has(thingsToDo[morningThingsIndex]?.id))) {
+                morningThingsIndex++;
+            }
+
+            if(morningThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo &amp;&amp; thingsToDo[morningThingsIndex - 1]?.id)) {
+                    console.log("in morning clear");
+                    alreadyUsed.clear();
+                }
+                console.log("in morning length");
+                morningThingsIndex=0;
+                morningActivities.push({});
+            } else {
+                morningActivities.push(thingsToDo &amp;&amp; thingsToDo[morningThingsIndex]);
+                alreadyUsed.add(thingsToDo &amp;&amp; thingsToDo[morningThingsIndex]?.id);
+                console.log("already used",alreadyUsed);
+                morningThingsIndex++;
+                if(morningThingsIndex === thingsToDo?.length) {
+                    morningThingsIndex=0;
+                }
+            }
+
+            //Fill in day array
+            /*dayActivities.push(thingsToDo &amp;&amp; thingsToDo[dayThingsIndex]);
+            dayThingsIndex++;
+            if(dayThingsIndex === thingsToDo?.length) {
+                dayThingsIndex=0;
+            }
+            console.log("things index",dayThingsIndex);*/
+            while(((dayThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; !(thingsToDo[dayThingsIndex]?.timeOfDay.includes("Day"))) || ((dayThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; alreadyUsed.has(thingsToDo[dayThingsIndex]?.id))) {
+                console.log("time of day", thingsToDo &amp;&amp; !thingsToDo[dayThingsIndex]?.timeOfDay);
+                dayThingsIndex++;
+            }
+
+            if(dayThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo &amp;&amp; thingsToDo[dayThingsIndex - 1]?.id)) {
+                    alreadyUsed.clear();
+                    console.log("should clear day",alreadyUsed);
+                }
+                dayThingsIndex=0;
+                dayActivities.push({});
+            } else {
+                dayActivities.push(thingsToDo &amp;&amp; thingsToDo[dayThingsIndex]);
+                alreadyUsed.add(thingsToDo &amp;&amp; thingsToDo[dayThingsIndex]?.id);
+                dayThingsIndex++;
+                if(dayThingsIndex === thingsToDo?.length) {
+                    dayThingsIndex=0;
+                }
+            }
+
+            //Fill in evening array
+            /*eveningActivites.push(thingsToDo &amp;&amp; thingsToDo[eveningThingsIndex]);
+            eveningThingsIndex++;
+            if(eveningThingsIndex === thingsToDo?.length) {
+                eveningThingsIndex=0;
+            }*/
+            while(((eveningThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; !(thingsToDo[eveningThingsIndex]?.timeOfDay.includes("Dusk") || thingsToDo[eveningThingsIndex]?.timeOfDay.includes("Night"))) || ((eveningThingsIndex &lt; thingsToDo?.length) &amp;&amp; thingsToDo &amp;&amp; alreadyUsed.has(thingsToDo[eveningThingsIndex]?.id))) {
+                console.log("time of day", thingsToDo &amp;&amp; !thingsToDo[eveningThingsIndex]?.timeOfDay);
+                eveningThingsIndex++;
+            }
+
+            if(eveningThingsIndex === thingsToDo?.length) {
+                if(alreadyUsed.has(thingsToDo &amp;&amp; thingsToDo[eveningThingsIndex - 1]?.id)) {
+                    alreadyUsed.clear();
+                    console.log("should clear evening",alreadyUsed);
+                }
+                eveningThingsIndex=0; 
+                eveningActivites.push({});
+            } else {
+                eveningActivites.push(thingsToDo &amp;&amp; thingsToDo[eveningThingsIndex]);
+                alreadyUsed.add(thingsToDo &amp;&amp; thingsToDo[eveningThingsIndex]?.id);
+                eveningThingsIndex++;
+                if(eveningThingsIndex === thingsToDo?.length) {
+                    eveningThingsIndex=0;
+                }
+            }
+
+            //Fill up random activities, people, and places
+            if(placeAlternatives?.data.length !== 0) {
+                randomPlaces.push((placeAlternatives &amp;&amp; placeAlternatives?.data[Math.floor(Math.random() * placeAlternatives?.data.length)]));
+            }
+            //Fill up random activities, people, and places
+            if(peopleAlternatives?.data.length !== 0) {
+                randomPeople.push((peopleAlternatives &amp;&amp; peopleAlternatives?.data[Math.floor(Math.random() * peopleAlternatives?.data.length)]));
+            }
+        };
+        return (datesArray.map((date, index) => (
+            &lt;div>
+                &lt;div key={index} className='individual-date-container'>
+                    &lt;div className="date-holder">
+                        &lt;h2 id="plan-see-date">{date.toLocaleDateString()}&lt;/h2>
+                        {relevantTimeForecast[index]?.startTime === date.toLocaleDateString() ? (
+                            &lt;div className='weather'>
+                                &lt;img
+                                    className="weather-image"
+                                    alt="weather icon"
+                                    src={relevantTimeForecast[index]?.icon}
+                                >&lt;/img>
+                                &lt;p id="weather-text">{relevantTimeForecast[index]?.shortForecast}&lt;/p>
+                            &lt;/div>
+                        ) : null}
+                    &lt;/div>
+                    &lt;div className='plan-schedule-activities'>
+                        &lt;div>
+                        &lt;h2>Morning&lt;/h2>
+                        {morningActivities &amp;&amp; (JSON.stringify(morningActivities[index]) === JSON.stringify({}) ? 
+                        (placeAlternatives?.data.length === 0 ? &lt;div>"Relax!"&lt;/div> : &lt;div>&lt;div className="plan-title-and-button">&lt;div className="plan-activity-title">Visit {randomPlaces[index]?.title}&lt;/div>&lt;div className="plan-description">{randomPlaces[index]?.listeningDescription}&lt;/div> &lt;a href={randomPlaces[index]?.url}>&lt;button className='plan-learn-more-button'>Learn More&lt;/button>&lt;/a>&lt;/div>&lt;/div>)  : &lt;div>&lt;div className="plan-title-and-button">&lt;div className="plan-activity-title">{morningActivities[index]?.title}&lt;/div>&lt;div className="plan-description">{morningActivities[index]?.shortDescription}&lt;/div>&lt;a href={morningActivities[index]?.url}>&lt;button className="plan-learn-more-button">Learn More&lt;/button>&lt;/a>&lt;/div>&lt;/div>)}
+                        {console.log(morningActivities)}
+                        &lt;/div>
+                        &lt;div>
+                        &lt;h2>Afternoon&lt;/h2>
+                        {dayActivities &amp;&amp; (JSON.stringify(dayActivities[index]) === JSON.stringify({}) ? (activityAlternatives?.data[0].activities.length === 0 ? "Relax!" : "Activity! " + (activityAlternatives &amp;&amp; activityAlternatives?.data[0].activities[Math.floor(Math.random() * activityAlternatives?.data[0].activities.length)].name)) : &lt;div>&lt;div className="plan-title-and-button">&lt;div className="plan-activity-title">{dayActivities[index]?.title}&lt;/div>&lt;div className="plan-description">{dayActivities[index]?.shortDescription}&lt;/div>&lt;a href={dayActivities[index]?.url}>&lt;button className="plan-learn-more-button">Learn More&lt;/button>&lt;/a>&lt;/div>&lt;/div>)}
+                        {console.log(dayActivities)}
+                        &lt;/div>
+                        &lt;div>
+                        &lt;h2>Evening&lt;/h2>
+                        {eveningActivites &amp;&amp; (JSON.stringify(eveningActivites[index]) === JSON.stringify({}) ? (peopleAlternatives?.data.length === 0 ? &lt;div>"Relax!"&lt;/div> : &lt;div>&lt;div className="plan-title-and-button">&lt;div className="plan-activity-title">Learn about {randomPeople[index]?.title} &lt;/div>&lt;div className="plan-description">{randomPeople[index]?.listingDescription}&lt;/div> &lt;a href={randomPeople[index]?.url}>&lt;button className='plan-learn-more-button'>Learn More&lt;/button>&lt;/a>&lt;/div>&lt;/div>)  : &lt;div>&lt;div className="plan-title-and-button">&lt;div className="plan-activity-title">{eveningActivites[index]?.title}&lt;/div>&lt;div className="plan-description">{eveningActivites[index]?.shortDescription}&lt;/div>&lt;a href={eveningActivites[index]?.url}>&lt;button className="plan-learn-more-button">Learn More&lt;/button>&lt;/a>&lt;/div>&lt;/div>)}
+                        {console.log(eveningActivites)}
+                        &lt;/div>
+                        &lt;br>&lt;/br>
+                    &lt;/div>
+                &lt;/div>
+                &lt;br>&lt;/br>
+            &lt;/div>
+
+        )));
+    }
+
+    return (
+        &lt;div>
+            &lt;div>
+                {datesArray &amp;&amp; datesArray.length > 0 ? &lt;div id="schedule-title">&lt;h1>Schedule&lt;/h1>&lt;/div> : null}
+            &lt;/div>
+            &lt;div className='dates-container'>
+                &lt;ReturnSchedule />
+            &lt;/div >
+        &lt;/div >
+    )
+}
+export default Schedule
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="GlobalComponents.module_Footer.html">Footer</a></li><li><a href="GlobalComponents.module_Navbar.html">Navbar</a></li><li><a href="HomePage.module_Buttons.html">Buttons</a></li><li><a href="HomePage.module_Explore.html">Explore</a></li><li><a href="HomePage.module_HighlightGallery.html">HighlightGallery</a></li><li><a href="HomePage.module_Welcome.html">Welcome</a></li><li><a href="ParkInfo.module_ParkInfoComponent.html">ParkInfoComponent</a></li><li><a href="ParkInfo.module_ParkVideos.html">ParkVideos</a></li><li><a href="ParkPlan.module_Alerts.html">Alerts</a></li><li><a href="ParkPlan.module_Banner.html">Banner</a></li><li><a href="ParkPlan.module_Filtering.html">Filtering</a></li><li><a href="ParkPlan.module_ParkPlan.html">ParkPlan</a></li><li><a href="ParkPlan.module_Schedule.html">Schedule</a></li><li><a href="ParkSearch.module_ActivitiesList.html">ActivitiesList</a></li><li><a href="ParkSearch.module_ParkSearchWelcome.html">ParkSearchWelcome</a></li><li><a href="module-ActivitiesList.html">ActivitiesList</a></li><li><a href="module-HomePage.html">HomePage</a></li><li><a href="module-ParkInfo.html">ParkInfo</a></li><li><a href="module-ParkPlan.html">ParkPlan</a></li><li><a href="module-ParkSearch.html">ParkSearch</a></li><li><a href="module-index.html">index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Activities">Activities</a></li><li><a href="global.html#FetchAlerts">FetchAlerts</a></li><li><a href="global.html#FetchForecast">FetchForecast</a></li><li><a href="global.html#FetchParkInfo">FetchParkInfo</a></li><li><a href="global.html#FetchParks">FetchParks</a></li><li><a href="global.html#FetchPeople">FetchPeople</a></li><li><a href="global.html#FetchPlaces">FetchPlaces</a></li><li><a href="global.html#FetchWeatherAlerts">FetchWeatherAlerts</a></li><li><a href="global.html#ParkInfo">ParkInfo</a></li><li><a href="global.html#StateOptions">StateOptions</a></li><li><a href="global.html#parkVideos">parkVideos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 07 2023 22:25:25 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 /**
- * Renders the ParkSearch component.
- * 
+ * Renders the ParkSearch component page.
+ * @component
+ * @module ParkSearch
  * @returns {JSX.Element} The rendered ParkSearch component.
  */
 import React from 'react';

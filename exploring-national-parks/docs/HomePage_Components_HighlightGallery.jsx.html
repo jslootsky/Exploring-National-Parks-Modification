@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: HomePage/Components/HighlightGallery.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: HomePage/Components/HighlightGallery.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+/**
+ * Renders a gallery of highlighted parks.
+ * @module HighlightGallery
+ * @memberof HomePage
+ * @returns {JSX.Element} The HighlightGallery component.
+ */
+const HighlightGallery = () => {
+  const [highlightedParks, setHighlightedParks] = useState([]);
+
+  useEffect(() => {
+    async function fetchParks() {
+      try {
+        const url = `https://developer.nps.gov/api/v1/parks?api_key=Y7kFnm6SP5SMQhkTvwUSgyjge9buj4DbjrkuV2S0&amp;limit=471`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Unable to fetch parks');
+        }
+        const data = await response.json();
+        const randomParks = getRandomParks(data.data, 9);
+
+        setHighlightedParks(randomParks);
+        console.log(randomParks);
+      } catch (error) {
+        console.log('Error Fetching parks: ', error.message);
+      }
+    }
+
+    fetchParks();
+  }, []);
+
+  const getRandomParks = (returnedParks, numParks) => {
+    const parks = returnedParks.sort(() => 0.5 - Math.random()).slice(0, numParks);
+    return parks;
+  };
+
+  // Slider settings for react-slick
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  function moreInfo(parkCode){
+    console.log("park code: ", parkCode);
+    const url = "/ParkInfo?parkCode=" + parkCode;
+    console.log(url);
+    window.hash = url;
+  }
+
+  return (
+    &lt;div className="gallery">
+      &lt;h1 className="header">Check Out These Parks!&lt;/h1>
+      &lt;Slider {...sliderSettings} className="slider">
+        {highlightedParks.map((park) => (
+          &lt;div key={park.id} className="slide">
+            &lt;h2>{park.fullName}&lt;/h2>
+            {/* &lt;p>{park.description}&lt;/p> */}
+            {park.images &amp;&amp; park.images.length > 0 &amp;&amp; (
+              &lt;img src={park.images[0].url ? park.images[0].url : ''} alt= 'slide-image' />
+            )}
+            &lt;Link to = {`/ParkInfo?parkCode=${park.parkCode}`}>&lt;button className="more-info">Learn More&lt;/button>&lt;/Link>
+          &lt;/div>
+        ))}
+      &lt;/Slider>
+      &lt;/div>
+  );
+};
+
+export default HighlightGallery;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="GlobalComponents.module_Footer.html">Footer</a></li><li><a href="GlobalComponents.module_Navbar.html">Navbar</a></li><li><a href="HomePage.module_Buttons.html">Buttons</a></li><li><a href="HomePage.module_Explore.html">Explore</a></li><li><a href="HomePage.module_HighlightGallery.html">HighlightGallery</a></li><li><a href="HomePage.module_Welcome.html">Welcome</a></li><li><a href="ParkInfo.module_ParkInfoComponent.html">ParkInfoComponent</a></li><li><a href="ParkInfo.module_ParkVideos.html">ParkVideos</a></li><li><a href="ParkPlan.module_Alerts.html">Alerts</a></li><li><a href="ParkPlan.module_Banner.html">Banner</a></li><li><a href="ParkPlan.module_Filtering.html">Filtering</a></li><li><a href="ParkPlan.module_ParkPlan.html">ParkPlan</a></li><li><a href="ParkPlan.module_Schedule.html">Schedule</a></li><li><a href="ParkSearch.module_ActivitiesList.html">ActivitiesList</a></li><li><a href="ParkSearch.module_ParkSearchWelcome.html">ParkSearchWelcome</a></li><li><a href="module-ActivitiesList.html">ActivitiesList</a></li><li><a href="module-HomePage.html">HomePage</a></li><li><a href="module-ParkInfo.html">ParkInfo</a></li><li><a href="module-ParkPlan.html">ParkPlan</a></li><li><a href="module-ParkSearch.html">ParkSearch</a></li><li><a href="module-index.html">index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Activities">Activities</a></li><li><a href="global.html#FetchAlerts">FetchAlerts</a></li><li><a href="global.html#FetchForecast">FetchForecast</a></li><li><a href="global.html#FetchParkInfo">FetchParkInfo</a></li><li><a href="global.html#FetchParks">FetchParks</a></li><li><a href="global.html#FetchPeople">FetchPeople</a></li><li><a href="global.html#FetchPlaces">FetchPlaces</a></li><li><a href="global.html#FetchWeatherAlerts">FetchWeatherAlerts</a></li><li><a href="global.html#ParkInfo">ParkInfo</a></li><li><a href="global.html#StateOptions">StateOptions</a></li><li><a href="global.html#parkVideos">parkVideos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 07 2023 22:25:25 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

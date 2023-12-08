@@ -1,6 +1,10 @@
 
 /**
  * Fetches weather alerts for a specific park.
+ * @global
+ * @async
+ * @function FetchWeatherAlerts
+
  * @param {Object} parkCode - The park code object containing latitude and longitude.
  * @returns {Array} - An array of weather alerts.
  */

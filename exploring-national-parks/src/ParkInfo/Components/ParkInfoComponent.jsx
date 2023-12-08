@@ -1,3 +1,11 @@
+/**
+ * ParkInfoComponent is a React component that displays information about national parks.
+ * It fetches park data from the ParkInfo functionality and renders the information on the page.
+ * If there is more than one park, it displays a list of parks. If there is only one park, it displays detailed information about that park.
+ * @module ParkInfoComponent
+ * @memberof ParkInfo
+ * @returns {JSX.Element} The rendered ParkInfoComponent component.
+ */
 // ParkInfoComponent.jsx
 import React, { useState, useEffect } from 'react';
 import { ParkInfo } from '../Functionality/ParkInfo'; // Importing the functionality

@@ -4,6 +4,9 @@
  * Conducts logic to return parks that only satisfy all the activities
  * and/or states requirements
  * 
+ * @function FetchParks
+
+ * @global
  * @param {Array} activityArray - Array of selected user activities
  * @param {Array} selectedStates - Array of selected user states
  * @returns {Array} List of parks that satisfy user activity and state requirements
