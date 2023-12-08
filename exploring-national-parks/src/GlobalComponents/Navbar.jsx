@@ -23,7 +23,7 @@ const Navbar = () => {
                     <NavLink to="/ParkSearch">Park Search</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/ParkInfo">Park Info</NavLink>
+                    <NavLink to="/ParkInfo" reloadDocument>Park Info</NavLink>
                 </li>
                 <li>
                     <NavLink to="/ParkPlan">Park Planner</NavLink>
