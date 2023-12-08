@@ -60,7 +60,7 @@ const HighlightGallery = () => {
             <h2>{park.fullName}</h2>
             {/* <p>{park.description}</p> */}
             {park.images && park.images.length > 0 && (
-              <img src={park.images[1].url ? park.images[1].url : park.images[0].url} alt={park.images[1].altText} />
+              <img src={park.images[0].url ? park.images[0].url : ''} alt= 'slide-image' />
             )}
             <Link to = {`/ParkInfo?parkCode=${park.parkCode}`}><button className="more-info">Learn More</button></Link>
           </div>
