@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import defaultImage from '../../../src/parkImg-default.png';
 
 /**
  * Renders a gallery of highlighted parks.
@@ -22,7 +23,7 @@ const HighlightGallery = () => {
           throw new Error('Unable to fetch parks');
         }
         const data = await response.json();
-        const randomParks = getRandomParks(data.data, 9);
+        const randomParks = getRandomParks(data.data, 20);
 
         setHighlightedParks(randomParks);
         console.log(randomParks);
@@ -50,13 +51,6 @@ const HighlightGallery = () => {
     autoplaySpeed: 3000,
   };
 
-  function moreInfo(parkCode){
-    console.log("park code: ", parkCode);
-    const url = "/ParkInfo?parkCode=" + parkCode;
-    console.log(url);
-    window.hash = url;
-  }
-
   return (
     <div className="gallery">
       <h1 className="header">Check Out These Parks!</h1>
@@ -66,7 +60,11 @@ const HighlightGallery = () => {
             <h2>{park.fullName}</h2>
             {/* <p>{park.description}</p> */}
             {park.images && park.images.length > 0 && (
-              <img src={park.images[0].url ? park.images[0].url : ''} alt= 'slide-image' />
+              <img src={park.images.length < 2 ? park.images[0].url : park.images[1].url}
+              alt="slide-image"
+              onError={(e) => {
+                e.target.src = defaultImage;
+              }} />
             )}
             <Link to = {`/ParkInfo?parkCode=${park.parkCode}`}><button className="more-info">Learn More</button></Link>
           </div>
