@@ -70,6 +70,7 @@
     padding: 1rem;
     box-sizing: border-box;
     min-height:50vh;
+    position:relative;
 }
 .slider img{
     height: 50vh;
@@ -98,3 +99,27 @@
 /* .slider .slick-prev:before, .slider .slick-next:before {
     color:#a67e46;
 } */
+
+.more-info{
+    position: absolute;
+    right: 25%;
+    bottom: 40%;
+    border-radius: 15px;
+    display:none;
+
+}
+
+/* {
+    .more-info{
+        display:block;
+    }
+} */
+
+.slider .slick-slide:hover{
+    .more-info{
+        display:block;
+    }
+    .slide img{
+        filter:brightness(80%)blur(0.5px);
+    }
+}
