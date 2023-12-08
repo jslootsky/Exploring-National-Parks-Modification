@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * Renders the Explore component.
+ * 
+ * @returns {JSX.Element} The rendered Explore component.
+ */
 const Explore = () => {
     return (
         <div>

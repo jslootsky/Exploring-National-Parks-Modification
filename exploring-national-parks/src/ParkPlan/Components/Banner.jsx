@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * Renders the banner component for the ParkPlan page.
+ * 
+ * @returns {JSX.Element} The rendered banner component.
+ */
 const Banner = () => {
   return (
     <div>

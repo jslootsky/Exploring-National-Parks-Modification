@@ -1,3 +1,12 @@
+/**
+ * Renders the Schedule component.
+ * 
+ * @param {Object} props - The component props.
+ * @param {Array} props.dates - The array of dates.
+ * @param {string} props.parkCode - The park code.
+ * @param {Array} props.activities - The array of activities.
+ * @returns {JSX.Element|null} The rendered Schedule component.
+ */
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FetchForecast } from '../Functions/FetchForecast';
@@ -7,6 +16,7 @@ import { FetchParkInfo } from '../Functions/FetchParkInfo';
 import { FetchPlaces } from '../Functions/FetchPlaces';
 import { FetchPeople } from '../Functions/FetchPeople';
 import '../../Style/parkPlanning.css';
+
 const Schedule = ({ dates, parkCode, activities}) => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();

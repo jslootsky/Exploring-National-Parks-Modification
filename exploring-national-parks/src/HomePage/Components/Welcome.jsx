@@ -1,6 +1,9 @@
 import React from 'react'
 
-
+/**
+ * Component representing the welcome section of the homepage.
+ * @returns {JSX.Element} The rendered welcome section.
+ */
 const Welcome = () => {
     return (
         <div>
@@ -15,6 +18,5 @@ const Welcome = () => {
         </div>
     )
 }
-
 
 export default Welcome

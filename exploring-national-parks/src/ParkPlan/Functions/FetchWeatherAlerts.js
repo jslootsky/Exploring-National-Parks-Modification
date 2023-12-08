@@ -1,3 +1,9 @@
+
+/**
+ * Fetches weather alerts for a specific park.
+ * @param {Object} parkCode - The park code object containing latitude and longitude.
+ * @returns {Array} - An array of weather alerts.
+ */
 export const FetchWeatherAlerts = async (parkCode) => {
     try {
 
