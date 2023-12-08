@@ -44,13 +44,6 @@ const HighlightGallery = () => {
     autoplaySpeed: 3000,
   };
 
-  function moreInfo(parkCode){
-    console.log("park code: ", parkCode);
-    const url = "/ParkInfo?parkCode=" + parkCode;
-    console.log(url);
-    window.hash = url;
-  }
-
   return (
     <div className="gallery">
       <h1 className="header">Check Out These Parks!</h1>
