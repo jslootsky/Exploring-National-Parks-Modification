@@ -2,14 +2,15 @@
 .park-info-parent{
     margin-top: 5.5rem;
 }
-button{
+
+.park-info-button{
     width: 50%;
     font-size: 1.5rem;
     margin: auto;
     border-radius: 15px;
 }
 
-button:hover {
+.park-info-button:hover {
     background: white;
     font-weight: bold;
     cursor: pointer;
@@ -109,7 +110,6 @@ img{
 }
 
 .parkInfo .post-card{
-    
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -150,6 +150,8 @@ img{
 }
 
 .all-parks-info-welcome {
-    position: relative;
+    position:relative;
+    padding: 3rem;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 100%, rgba(255,255,255,1) 0%);
 }
 

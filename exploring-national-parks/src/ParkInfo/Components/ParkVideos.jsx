@@ -8,8 +8,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import '../../Style/parkVideos.css';
-import defaultSplash from '../../../src/splash-default.png';
-import TreePic from '../../HomePage/Assets/tree.png';
+import defaultSplash from '../../HomePage/Assets/splash-default.png';
 
 const ParkVideos = ({ parkCode }) => {
     const [videos, setVideos] = useState([]);
@@ -132,11 +131,11 @@ const ParkVideos = ({ parkCode }) => {
                             </div>
                         </div>
                         <br></br>
-                        <button onClick={prevVideo}>Previous</button>
-                        <button onClick={nextVideo}>Next</button>
+                        <button className="park-info-button" onClick={prevVideo}>Previous</button>
+                        <button className="park-info-button" onClick={nextVideo}>Next</button>
                     </div>
                 </div>
-            ) : <img src={TreePic} alt="placeholder of a tree"></img>}
+            ) : <img src={defaultSplash} alt="placeholder of a tree"></img>}
             <br />
         </div>
     );

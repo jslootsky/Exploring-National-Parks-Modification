@@ -1,6 +1,7 @@
 body{
     overflow-x: hidden;
 }
+
 .park-plan {
     background-image : url("../HomePage/Assets/ParkPlanningPicture.jpg");
     background-repeat: no-repeat;
@@ -80,7 +81,7 @@ body{
 
 .plan-search-button-container {
     width: 70%;
-    margin-left: 34%;
+    margin-left: 39%;
     margin-right: auto;
 }
 
@@ -88,8 +89,8 @@ body{
     font-size: larger;
     height: 4rem;
     border-radius: 10px;
+    width: 30%;
     font-family: "Times New Roman", Times, serif;
-    font-size: larger;
     margin-bottom: 2%;
 }
 
@@ -164,16 +165,15 @@ body{
 }
 
 .weather-image {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-right: auto;
-    margin-left: auto;
     width: 75px;
     height: 75px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #weather-text {
     text-align: center;
+    font-weight: bold;
 }
 
 .weather {
