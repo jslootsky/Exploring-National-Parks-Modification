@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * Renders the Explore component.
+ * @module Explore
+ * @memberof HomePage
+ * @returns {JSX.Element} The rendered Explore component.
+ */
 const Explore = () => {
     return (
         <div>

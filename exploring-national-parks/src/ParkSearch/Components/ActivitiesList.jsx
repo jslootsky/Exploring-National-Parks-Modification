@@ -7,7 +7,21 @@ import '../../Style/activitiesList.css';
 import { Link } from 'react-router-dom';
 import { FetchParks } from '../Functionality/FetchParks';
 import {StateOptions} from '../Functionality/StateOptions';
+
+/**
+ * Component for the body of the park search page.
+ * Includes dropdowns for a user to select desired activities
+ * and states, a search button to confirm their choices, two buttons
+ * to go to park planning or return to home, and the populated selected
+ * parks based on the users requests
+ * 
+ * @component
+ * @module ActivitiesList
+ * @memberof ParkSearch
+ * @returns {JSX.Element} Park search body component
+ */
 function ActivitiesList() {
+
     const [posts, setPosts] = useState([]);
     const [selectedState, setSelectedState] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,12 +40,13 @@ function ActivitiesList() {
         fetchData();
     }, []);
 
-    //Get list of activities in correct form for dropdown
     const activities = posts?.map((post) => { return { value: post.id, label: post.name } });
     const animatedComponents = makeAnimated()
     const [selectedOption, setSelectedOption] = useState([]);
+
     const [parksFiltered, setParksFiltered] = useState(null);
     var numOfParks = 0;
+
     const sendToAPI = async () => {
         // console.log("selected option below");
         //console.log(selectedOption);
@@ -124,4 +139,7 @@ function ActivitiesList() {
     );
 }
 
+/**
+ * @exports ActivitiesList
+ */
 export default ActivitiesList;

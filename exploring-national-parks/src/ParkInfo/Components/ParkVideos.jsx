@@ -1,6 +1,15 @@
+/**
+ * Renders a component that displays videos related to a specific park.
+ * @module ParkVideos
+ * @memberof ParkInfo
+ * @param {Object} props - The component props.
+ * @param {string} props.parkCode - The code of the park.
+ * @returns {JSX.Element} The rendered component.
+ */
 import React, { useState, useEffect } from 'react';
 import '../../Style/parkVideos.css';
 import defaultSplash from '../../../src/splash-default.png';
+import TreePic from '../../HomePage/Assets/tree.png';
 
 const ParkVideos = ({ parkCode }) => {
     const [videos, setVideos] = useState([]);
@@ -90,7 +99,7 @@ const ParkVideos = ({ parkCode }) => {
 
     return (
         <div className="park-videos">
-            {videos.length > 0 && (
+            {videos && videos.length > 0 ? (
                 <div className="videos">
                     <h1>Videos</h1>
                     <div className = "videos-container">
@@ -122,11 +131,12 @@ const ParkVideos = ({ parkCode }) => {
                                 )}
                             </div>
                         </div>
+                        <br></br>
                         <button onClick={prevVideo}>Previous</button>
                         <button onClick={nextVideo}>Next</button>
                     </div>
                 </div>
-            )}
+            ) : <img src={TreePic} alt="placeholder of a tree"></img>}
             <br />
         </div>
     );

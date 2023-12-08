@@ -1,3 +1,11 @@
+/**
+ * ParkInfoComponent is a React component that displays information about national parks.
+ * It fetches park data from the ParkInfo functionality and renders the information on the page.
+ * If there is more than one park, it displays a list of parks. If there is only one park, it displays detailed information about that park.
+ * @module ParkInfoComponent
+ * @memberof ParkInfo
+ * @returns {JSX.Element} The rendered ParkInfoComponent component.
+ */
 // ParkInfoComponent.jsx
 import React, { useState, useEffect } from 'react';
 import { ParkInfo } from '../Functionality/ParkInfo'; // Importing the functionality
@@ -41,32 +49,34 @@ function ParkInfoComponent() {
 
     if(parkJSON.length>1){ //list all the parks
         return (
-            <div className='parkInfo'>
-
-                <center>
-                    <h1>Park Information Page</h1>
-                </center>
+            <div>
+                <div className='all-parks-info-welcome'>
+                        <center>
+                            <h1 id="park-info-title">Park Information Page</h1>
+                        </center>
+                </div>
                 <br></br>
-                <div className="parks">
+                <div className = 'parkInfo'>
+                    <div className="parks">
 
-                    {parkJSON?.map((park) => (
-                        <div key={park.id} className="post-card">
-                        <div>
-                            <div className="learn-more-dropdown">
-                                <div>
-                                    <p className="learn-more-name">{park.fullName}</p>
-                                    <p>{park.states}</p>
+                        {parkJSON?.map((park) => (
+                            <div key={park.id} className="post-card">
+                            <a className='park-info-link' href={'ParkInfo?parkCode='+park.parkCode}>
+                            <div>
+                                <div className="learn-more-dropdown">
+                                    <div>
+                                        <p className="learn-more-name">{park.fullName}</p>
+                                        <p>{park.states}</p>
+                                    </div>
+                                    
                                 </div>
-                                
+                                    <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
                             </div>
-                            <a href={'ParkInfo?parkCode='+park.parkCode}>
-                                <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
+                            <p className="description">{park.description}</p>
                             </a>
                         </div>
-                        <p className="description">{park.description}</p>
+                        ))}
                     </div>
-                    ))}
-                    
                 </div>
                 <a href={'./ParkInfo?page='+pageDown}><button>Previous Page</button></a>
                 <a href={'./ParkInfo?page='+pageUp}><button>Next Page</button></a>
@@ -100,7 +110,7 @@ function ParkInfoComponent() {
                                     </div>
                                     <div className='hours'>
                                         <h1>Hours:</h1>
-                                        <ul>
+                                        <ul className='hours-list'>
                                             <li>Monday:    {park.operatingHours[0].standardHours.monday}</li>
                                             <li>Tuesday:   {park.operatingHours[0].standardHours.tuesday}</li>
                                             <li>Wednesday: {park.operatingHours[0].standardHours.wednesday}</li>
@@ -112,6 +122,7 @@ function ParkInfoComponent() {
                                         <br></br>
                                         <p>{park.description}</p>
                                         <a href={park.url} target="_blank" rel="noreferrer">For More Information</a>
+                                        <br></br>
                                         <br></br>
                                         <br></br>
                                         <a href='./ParkInfo'><button>Return To Parks</button></a>

@@ -1,10 +1,17 @@
-import { all } from "q";
+/**
+ * Fetches places related to a specific park dictated by parkCode
+ * @global
+ * @async
+ * @function FetchPlaces
 
-export const FetchThingsToDo = async (parkCode, activities, dates) => {
+ * 
+ * @param {Object} parkCode - The park code object containing the park code
+ * @param {Array} activities - A list of activities selected by the user
+ * @returns {Promise<Object>} A promise that resolves to the places data for the given park.
+ * @throws {Error} In case of error in API fetching or in other logic
+ */
+export const FetchThingsToDo = async (parkCode, activities) => {
     try {
-        console.log("parkCode2", parkCode.value);
-        console.log("activities2", activities);
-        console.log("dates2", dates);
 
         //Used to save the ids of the things to do returned and all of the things to do returned
         const allThingsToDo = [];

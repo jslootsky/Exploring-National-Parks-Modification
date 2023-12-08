@@ -1,5 +1,15 @@
 import React from 'react'
 import '../../Style/parkSearch.css'
+
+/**
+ * Component for welcoming and explaining the park search
+ * functionality to a user.
+ * 
+ * @component
+ * @module ParkSearchWelcome
+ * @memberof ParkSearch
+ * @returns {JSX.Element} Park search welcome header
+ */
 const ParkSearchWelcome = () => {
     return (
         <div className='park-search-welcome'>

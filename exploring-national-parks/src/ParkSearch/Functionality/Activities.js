@@ -1,4 +1,17 @@
 // Activities.js
+/**
+ * Retrieves activities data from the National Parks Service API.
+ * If the data is available in the local storage, it returns the cached data.
+ * Otherwise, it makes a network request to fetch the data from the API.
+ * The retrieved data is stored in the local storage for future use.
+ * @summary Retrieves activities data from the National Parks Service API.
+ * @async
+ * @function Activities
+
+ * @global
+ * @returns {Promise<Object>} A promise that resolves to the activities data.
+ * @throws {Error} If there is an error in fetching or parsing the data.
+ */
 export const Activities = async () => {
     try {
       const cacheKey = 'activitiesData';

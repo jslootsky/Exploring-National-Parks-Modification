@@ -1,3 +1,13 @@
+/**
+ * Fetches weather forecast specific park.
+ * @async
+ * @global
+ * @function FetchForecast
+ *
+ * @param {string} parkCode - The code of the park.
+ * @returns {Object} - Object that contains a list of forcasts for the given park
+ * @throws {Error} - If the network response is not ok or an error occurs during the fetch.
+ */
 export const FetchForecast = async (parkCode) => {
     if(!parkCode){
        return;

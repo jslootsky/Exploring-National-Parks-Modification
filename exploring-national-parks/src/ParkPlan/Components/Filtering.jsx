@@ -1,3 +1,13 @@
+/**
+ * Component for filtering parks and activities.
+ * @module Filtering
+ * @memberof ParkPlan
+ * @component
+ * @param {Function} updateParkCode - Function to update the selected park code.
+ * @param {Function} updateDates - Function to update the selected date range.
+ * @param {Function} updateActivities - Function to update the selected activities.
+ * @returns {JSX.Element} Filtering component.
+ */
 import React, { useState, useEffect } from 'react'
 import { FetchParks } from '../Functions/FetchParks';
 import { Activities } from '../Functions/Activities'; // Importing the functionality

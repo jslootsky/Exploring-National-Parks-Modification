@@ -5,6 +5,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import defaultImage from '../../../src/parkImg-default.png';
 
+/**
+ * Renders a gallery of highlighted parks.
+ * @module HighlightGallery
+ * @memberof HomePage
+ * @returns {JSX.Element} The HighlightGallery component.
+ */
 const HighlightGallery = () => {
   const [highlightedParks, setHighlightedParks] = useState([]);
 

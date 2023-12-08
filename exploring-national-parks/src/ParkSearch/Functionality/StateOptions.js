@@ -1,3 +1,16 @@
+
+/**
+ * Represents a list of state options with their corresponding values and labels.
+ * 
+ * @typedef {Object} StateOption
+ * @property {string} value - The value of the state option.
+ * @property {string} label - The label of the state option.
+ */
+
+/**
+ * Represents a list of state options.
+ * @type {StateOption[]}
+ */
 const StateOptions = [
     { value: 'AL', label: 'Alabama' },
     { value: 'AK', label: 'Alaska' },
@@ -55,6 +68,10 @@ const StateOptions = [
     { value: 'WV', label: 'West Virginia' },
     { value: 'WI', label: 'Wisconsin' },
     { value: 'WY', label: 'Wyoming' }
-]
+];
 
-export {StateOptions};
+/**
+ * Exports list of state options.
+ * @type {StateOption[]}
+ */
+export { StateOptions };

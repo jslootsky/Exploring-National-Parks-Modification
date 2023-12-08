@@ -25,9 +25,17 @@
 }
 .home-page .homepage-button-wrapper .homepage-button{
     font-size: 1.5rem;
+    height: 30%;
+    width: 40%;
+    margin: auto;
     border-radius: 15px;
-    width: 20rem;
 }
+
+.home-page .homepage-button:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .button-container{
     display:flex;
     flex-direction: column;
