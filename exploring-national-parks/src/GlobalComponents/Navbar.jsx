@@ -10,7 +10,7 @@ const Navbar = () => {
                 <li className = "header">
                     <NavLink to="/">Exploring National Parks</NavLink>
                 </li>
-                <li className = "tree-img">
+                <li className = "logo">
                     <img src = {tree} alt = "tree"/>
                 </li>
                 <li>

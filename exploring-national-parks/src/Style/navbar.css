@@ -40,7 +40,7 @@
     height: auto;
 }
 
-.nav-bar .tree-img{
+.nav-bar .logo{
     flex-grow: 2;
     display:flex;
     align-items: center;
