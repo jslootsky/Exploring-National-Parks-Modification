@@ -3,6 +3,7 @@
  * 
  * @param {Object} parkCode - The park code object containing the park code
  * @returns {Promise<Object>} A promise that resolves to the people data for the given park.
+ * @throws {Error} In case of error in API fetching or in other logic
  */
 export const FetchPeople = async (parkCode) => {
     try {
