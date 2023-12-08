@@ -8,10 +8,12 @@
     width: 100%;
     position:fixed;
     z-index: 1;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .nav-bar ul li{
-    float:left;
     font-size: 1.5rem;
     &:hover{
         background-color:#a67e46
@@ -24,4 +26,27 @@
     text-align: center;
     padding: 15px 20px;
     text-decoration: none;
+}
+
+.nav-bar .header{
+
+    &:hover{
+        background-color: #3a4937;
+    }
+}
+
+.nav-bar img{
+    width: 50px;
+    height: auto;
+}
+
+.nav-bar .tree-img{
+    flex-grow: 2;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+        background-color: #3a4937;
+    }
+
 }
