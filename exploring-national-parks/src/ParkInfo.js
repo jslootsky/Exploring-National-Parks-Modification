@@ -6,7 +6,9 @@ import ParkInfoComponent from './ParkInfo/Components/ParkInfoComponent.jsx';
  */
 function ParkInfo(){
     return(
-        <ParkInfoComponent />
+        <div className="park-info-parent">
+            <ParkInfoComponent />
+        </div>
     );
 }
 
