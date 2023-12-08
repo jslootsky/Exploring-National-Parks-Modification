@@ -110,11 +110,19 @@
 
 .more-info{
     position: absolute;
-    right: 25%;
+    right: 30%;
     bottom: 40%;
+    width: 40%;
     border-radius: 15px;
     display:none;
+    font-family: "Times New Roman", Times, serif;
+    font-size: larger;
+}
 
+.more-info:hover {
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* {

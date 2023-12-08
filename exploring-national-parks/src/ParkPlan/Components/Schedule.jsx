@@ -268,6 +268,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
             <div>
                 <div key={index} className='individual-date-container'>
                     <div className="date-holder">
+                        <center>
                         <h2 id="plan-see-date">{date.toLocaleDateString()}</h2>
                         {relevantTimeForecast[index]?.startTime === date.toLocaleDateString() ? (
                             <div className='weather'>
@@ -279,6 +280,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
                                 <p id="weather-text">{relevantTimeForecast[index]?.shortForecast}</p>
                             </div>
                         ) : null}
+                        </center>
                     </div>
                     <div className='plan-schedule-activities'>
                         <div>
