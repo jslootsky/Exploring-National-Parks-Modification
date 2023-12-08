@@ -1,5 +1,7 @@
 /**
- * Renders the ParkPlan component.
+ * Renders the ParkPlan component page.
+ * @component
+ * @module ParkPlan
  * @returns {JSX.Element} The rendered ParkPlan component.
  */
 import React from 'react'

@@ -1,5 +1,7 @@
 /**
  * Renders a component that displays videos related to a specific park.
+ * @module ParkVideos
+ * @memberof ParkInfo
  * @param {Object} props - The component props.
  * @param {string} props.parkCode - The code of the park.
  * @returns {JSX.Element} The rendered component.

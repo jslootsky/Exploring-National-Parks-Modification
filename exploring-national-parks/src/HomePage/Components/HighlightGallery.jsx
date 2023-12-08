@@ -6,7 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 /**
  * Renders a gallery of highlighted parks.
- *
+ * @module HighlightGallery
+ * @memberof HomePage
  * @returns {JSX.Element} The HighlightGallery component.
  */
 const HighlightGallery = () => {

@@ -7,6 +7,11 @@
  * The root element is obtained using ReactDOM.createRoot and the components are rendered inside it.
  * The activitiesDropdown element is commented out.
  * Performance measurement and analytics functionality are mentioned but not implemented.
+ * @file
+ * @summary the entry point of the React application
+ * @module index
+ * @requires react
+ * 
  */
 import React from 'react';
 import ReactDOM from 'react-dom/client';

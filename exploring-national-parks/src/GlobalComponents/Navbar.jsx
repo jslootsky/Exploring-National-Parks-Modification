@@ -1,5 +1,8 @@
 /**
  * Renders a navigation bar component with links to different pages.
+ * @module Navbar
+ * @memberof GlobalComponents
+ * 
  * @returns {JSX.Element} The rendered navigation bar component.
  */
 import React from 'react'

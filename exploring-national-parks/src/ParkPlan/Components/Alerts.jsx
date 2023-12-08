@@ -1,7 +1,8 @@
 /**
  * Renders the Alerts component.
+ * @module Alerts
+ * @memberof ParkPlan
  * 
- * @component
  * @param {Object} props - The component props.
  * @param {string} props.parkCode - The park code.
  * @returns {JSX.Element} The rendered Alerts component.

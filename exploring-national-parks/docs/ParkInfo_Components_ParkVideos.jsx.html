@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ParkInfo/Components/ParkVideos.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ParkInfo/Components/ParkVideos.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Renders a component that displays videos related to a specific park.
+ * @module ParkVideos
+ * @memberof ParkInfo
+ * @param {Object} props - The component props.
+ * @param {string} props.parkCode - The code of the park.
+ * @returns {JSX.Element} The rendered component.
+ */
+import React, { useState, useEffect } from 'react';
+import '../../Style/parkVideos.css';
+
+const ParkVideos = ({ parkCode }) => {
+    const [videos, setVideos] = useState([]);
+    const [currVideo, setCurrVideo] = useState(0);
+    const APIkey = 'Y7kFnm6SP5SMQhkTvwUSgyjge9buj4DbjrkuV2S0';
+
+    const fetchVideos = async () => {
+        try {
+            const response = await fetch(
+                `https://developer.nps.gov/api/v1/multimedia/videos?parkCode=${parkCode}&amp;api_key=${APIkey}`
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch videos');
+            }
+
+            const data = await response.json();
+
+            console.log('Fetched videos:', data);
+
+            // Filter videos with a splash image
+            const videosWithSplash = data.data.filter(
+                (video) => video.splashImage &amp;&amp; video.splashImage.url
+            );
+
+            console.log('Videos with splash image:', videosWithSplash);
+
+            if (videosWithSplash.length === 0) {
+                console.log('No videos with splash image found');
+            }
+
+            // // shuffle the array of videos with splash images + pick the first three
+            // const VideosArray = videosWithSplash.sort(() => Math.random() - 0.5).slice(0, 3);
+
+            // sort videos by title
+            const selectedVideos = videosWithSplash.sort((a, b) => {
+                if (a.title &lt; b.title) {
+                    return -1;
+                }
+                if (a.title > b.title) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            console.log('Videos Selected:', selectedVideos);
+
+            setVideos(selectedVideos);
+        } catch (error) {
+            console.error('Error fetching or processing videos:', error);
+        } finally {
+            console.log('Done fetching videos');
+        }
+    };
+
+    const handlePlayClick = (index) => {
+        setVideos((prevVideos) => {
+            const updatedVideos = prevVideos.map((video, i) => {
+                i === index ? (video.playing = true) : (video.playing = false);
+                return video;
+            });
+            return updatedVideos;
+        }
+        );
+        setCurrVideo(index);
+
+    };
+
+    const nextVideo = () => {
+        setCurrVideo((prevIndex) => (prevIndex + 1) % videos.length);
+    };
+
+    const prevVideo = () => {
+        setCurrVideo((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
+    };
+
+    // Fetch videos on component mount
+    useEffect(() => {
+        fetchVideos();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [parkCode]);
+
+    return (
+        &lt;div className="park-videos">
+            {videos.length > 0 &amp;&amp; (
+                &lt;div className="videos">
+                    &lt;h1>Videos&lt;/h1>
+                    &lt;div className = "videos-container">
+                        &lt;div key={videos[currVideo].id}>
+                            &lt;h2>{videos[currVideo].title}&lt;/h2>
+                            &lt;p>{videos[currVideo].description === videos[currVideo].title ? "" : videos[currVideo].description}&lt;/p>
+                            &lt;div className="video-container">
+                                {videos[currVideo].splashImage &amp;&amp; (
+                                    &lt;img
+                                        src={videos[currVideo].splashImage.url}
+                                        alt={`Splash for ${videos[currVideo].title}`}
+                                        className="video-image"
+                                    />
+                                )}
+                                {!videos[currVideo].playing &amp;&amp; (
+                                    &lt;div className="play-button" onClick={() => handlePlayClick(currVideo)}>
+                                        &lt;p className="play-icon">▶&lt;/p>
+                                    &lt;/div>
+                                )}
+                                {videos[currVideo].playing &amp;&amp; (
+                                    &lt;iframe
+                                        title={videos[currVideo].title}
+                                        width="100%"
+                                        height="100%"
+                                        src={videos[currVideo].versions[0].url}
+                                        allowFullScreen
+                                        allow="autoplay; encrypted-media"
+                                    >&lt;/iframe>
+                                )}
+                            &lt;/div>
+                        &lt;/div>
+                        &lt;button onClick={prevVideo}>Previous&lt;/button>
+                        &lt;button onClick={nextVideo}>Next&lt;/button>
+                    &lt;/div>
+                &lt;/div>
+            )}
+            &lt;br />
+        &lt;/div>
+    );
+};
+
+export default ParkVideos;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="GlobalComponents.module_Footer.html">Footer</a></li><li><a href="GlobalComponents.module_Navbar.html">Navbar</a></li><li><a href="HomePage.module_Buttons.html">Buttons</a></li><li><a href="HomePage.module_Explore.html">Explore</a></li><li><a href="HomePage.module_HighlightGallery.html">HighlightGallery</a></li><li><a href="HomePage.module_Welcome.html">Welcome</a></li><li><a href="ParkInfo.module_ParkInfoComponent.html">ParkInfoComponent</a></li><li><a href="ParkInfo.module_ParkVideos.html">ParkVideos</a></li><li><a href="ParkPlan.module_Alerts.html">Alerts</a></li><li><a href="ParkPlan.module_Banner.html">Banner</a></li><li><a href="ParkPlan.module_Filtering.html">Filtering</a></li><li><a href="ParkPlan.module_ParkPlan.html">ParkPlan</a></li><li><a href="ParkPlan.module_Schedule.html">Schedule</a></li><li><a href="ParkSearch.module_ActivitiesList.html">ActivitiesList</a></li><li><a href="ParkSearch.module_ParkSearchWelcome.html">ParkSearchWelcome</a></li><li><a href="module-ActivitiesList.html">ActivitiesList</a></li><li><a href="module-HomePage.html">HomePage</a></li><li><a href="module-ParkInfo.html">ParkInfo</a></li><li><a href="module-ParkPlan.html">ParkPlan</a></li><li><a href="module-ParkSearch.html">ParkSearch</a></li><li><a href="module-index.html">index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Activities">Activities</a></li><li><a href="global.html#FetchAlerts">FetchAlerts</a></li><li><a href="global.html#FetchForecast">FetchForecast</a></li><li><a href="global.html#FetchParkInfo">FetchParkInfo</a></li><li><a href="global.html#FetchParks">FetchParks</a></li><li><a href="global.html#FetchPeople">FetchPeople</a></li><li><a href="global.html#FetchPlaces">FetchPlaces</a></li><li><a href="global.html#FetchWeatherAlerts">FetchWeatherAlerts</a></li><li><a href="global.html#ParkInfo">ParkInfo</a></li><li><a href="global.html#StateOptions">StateOptions</a></li><li><a href="global.html#parkVideos">parkVideos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 07 2023 22:25:25 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -4,6 +4,10 @@ import "../Style/footer.css";
 /**
  * Footer component for the Exploring National Parks application.
  * Renders a footer with the application name and an animated tree image.
+ * @module Footer
+ * @memberof GlobalComponents
+ * @returns {JSX.Element} The rendered Footer component.
+ * 
  */
 const Footer = () => {
   return (

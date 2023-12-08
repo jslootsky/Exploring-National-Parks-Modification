@@ -1,6 +1,10 @@
 /**
  * Parent component for managing park plans.
  * @component
+ * @module ParkPlan
+ * @memberof ParkPlan
+ * @returns {JSX.Element} The rendered Parent component.
+ * 
  */
 import React from 'react'
 import { useState } from 'react'

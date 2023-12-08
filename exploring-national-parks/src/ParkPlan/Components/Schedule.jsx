@@ -1,6 +1,7 @@
 /**
  * Renders the Schedule component.
- * 
+ * @module Schedule
+ * @memberof ParkPlan
  * @param {Object} props - The component props.
  * @param {Array} props.dates - The array of dates.
  * @param {string} props.parkCode - The park code.

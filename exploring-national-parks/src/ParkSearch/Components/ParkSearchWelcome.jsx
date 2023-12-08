@@ -6,6 +6,8 @@ import '../../Style/parkSearch.css'
  * functionality to a user.
  * 
  * @component
+ * @module ParkSearchWelcome
+ * @memberof ParkSearch
  * @returns {JSX.Element} Park search welcome header
  */
 const ParkSearchWelcome = () => {

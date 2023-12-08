@@ -1,6 +1,7 @@
 
 /**
  * Represents a list of state options with their corresponding values and labels.
+ * 
  * @typedef {Object} StateOption
  * @property {string} value - The value of the state option.
  * @property {string} label - The label of the state option.

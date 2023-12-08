@@ -1,5 +1,9 @@
 /**
  * Fetches places related to a specific park dictated by parkCode
+ * @global
+ * @async
+ * @function FetchPlaces
+
  * 
  * @param {Object} parkCode - The park code object containing the park code
  * @param {Array} activities - A list of activities selected by the user

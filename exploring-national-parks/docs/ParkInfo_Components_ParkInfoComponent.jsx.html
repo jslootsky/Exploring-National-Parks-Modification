@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ParkInfo/Components/ParkInfoComponent.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ParkInfo/Components/ParkInfoComponent.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * ParkInfoComponent is a React component that displays information about national parks.
+ * It fetches park data from the ParkInfo functionality and renders the information on the page.
+ * If there is more than one park, it displays a list of parks. If there is only one park, it displays detailed information about that park.
+ * @module ParkInfoComponent
+ * @memberof ParkInfo
+ * @returns {JSX.Element} The rendered ParkInfoComponent component.
+ */
+// ParkInfoComponent.jsx
+import React, { useState, useEffect } from 'react';
+import { ParkInfo } from '../Functionality/ParkInfo'; // Importing the functionality
+import '../../Style/parkInfo.css';
+import ParkVideos from './ParkVideos';
+
+function ParkInfoComponent() {
+    const [parkJSON, setParks] = useState([]);
+    
+    var url = new URL(window.location);
+    var page = 0;
+    page = url.searchParams.get("page");
+    if(page==null)
+        page = 0;
+    var pageUp = parseInt(page)+50;
+    var pageDown = parseInt(page)-50;
+    if(pageDown&lt;0)
+        pageDown = 0;
+
+    const parkCode = url.searchParams.get("parkCode");
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                var json;
+
+                //const parkCode = window.location.hash.substring(1); //hash value from selecting a park removing hash char
+                if(parkCode == null)
+                    json = await ParkInfo('', page);
+                else
+                    json = await ParkInfo(parkCode, 0);
+                console.log(json);
+                setParks(json.data);
+            } catch (error) {
+                // Handle the error, if needed
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if(parkJSON.length>1){ //list all the parks
+        return (
+            &lt;div className='parkInfo'>
+
+                &lt;center>
+                    &lt;h1>Park Information Page&lt;/h1>
+                &lt;/center>
+                &lt;br>&lt;/br>
+                &lt;div className="parks">
+
+                    {parkJSON?.map((park) => (
+                        &lt;div key={park.id} className="post-card">
+                        &lt;div>
+                            &lt;div className="learn-more-dropdown">
+                                &lt;div>
+                                    &lt;p className="learn-more-name">{park.fullName}&lt;/p>
+                                    &lt;p>{park.states}&lt;/p>
+                                &lt;/div>
+                                
+                            &lt;/div>
+                            &lt;a href={'ParkInfo?parkCode='+park.parkCode}>
+                                &lt;img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
+                            &lt;/a>
+                        &lt;/div>
+                        &lt;p className="description">{park.description}&lt;/p>
+                    &lt;/div>
+                    ))}
+                    
+                &lt;/div>
+                &lt;a href={'./ParkInfo?page='+pageDown}>&lt;button>Previous Page&lt;/button>&lt;/a>
+                &lt;a href={'./ParkInfo?page='+pageUp}>&lt;button>Next Page&lt;/button>&lt;/a>
+            &lt;/div>
+        );
+    }
+    else{ //detail for one park
+        return (
+            &lt;div className='park-info'>
+                    {parkJSON?.map((park) => (
+                        &lt;>
+                        &lt;div key={park.id} className="parkInfo" style={{ backgroundImage: 'url(' + park.images[0].url + ')', backgroundSize: 'auto' }}>
+                            &lt;div className='park-info-welcome'>
+                                &lt;center>
+                                    &lt;h1 id="info-title">{park.fullName}&lt;/h1>
+                                    &lt;h2>Park Information&lt;/h2>
+                                    &lt;address>{park.addresses[0].line1}&lt;br>&lt;/br>
+                                        {park.addresses[0].city}, 
+                                        {park.addresses[0].stateCode}&lt;br>&lt;/br>
+                                    &lt;/address>
+                                    &lt;br>&lt;/br>
+                                &lt;/center>
+                            &lt;/div>
+
+                            &lt;br>&lt;/br>
+
+                            &lt;center>
+                                &lt;div className='box-1'>
+                                    &lt;div className='hours'>
+                                        &lt;ParkVideos parkCode={park.parkCode} />
+                                    &lt;/div>
+                                    &lt;div className='hours'>
+                                        &lt;h1>Hours:&lt;/h1>
+                                        &lt;ul>
+                                            &lt;li>Monday:    {park.operatingHours[0].standardHours.monday}&lt;/li>
+                                            &lt;li>Tuesday:   {park.operatingHours[0].standardHours.tuesday}&lt;/li>
+                                            &lt;li>Wednesday: {park.operatingHours[0].standardHours.wednesday}&lt;/li>
+                                            &lt;li>Thursday:  {park.operatingHours[0].standardHours.thursday}&lt;/li>
+                                            &lt;li>Friday:    {park.operatingHours[0].standardHours.friday}&lt;/li>
+                                            &lt;li>Saturday:  {park.operatingHours[0].standardHours.saturday}&lt;/li>
+                                            &lt;li>Sunday:    {park.operatingHours[0].standardHours.sunday}&lt;/li>
+                                        &lt;/ul>
+                                        &lt;br>&lt;/br>
+                                        &lt;p>{park.description}&lt;/p>
+                                        &lt;a href={park.url} target="_blank" rel="noreferrer">For More Information&lt;/a>
+                                        &lt;br>&lt;/br>
+                                        &lt;br>&lt;/br>
+                                        &lt;a href='./ParkInfo'>&lt;button>Return To Parks&lt;/button>&lt;/a>
+                                        &lt;a href={'./ParkPlan?parkCode='+park.parkCode}>&lt;button>Plan A Trip&lt;/button>&lt;/a>
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/center>
+
+                            &lt;br>&lt;/br>
+                            
+                            &lt;div className='activities-list'>
+                                {park.activities?.map((activity) =>(&lt;>
+                                &lt;div className='activity'>&lt;p key={activity.id}>{activity.name}&lt;/p>&lt;/div>&lt;/>))}
+                            &lt;/div>
+
+                            
+                            
+                        &lt;/div>
+                        &lt;/>
+                    ))}
+            &lt;/div>
+        );
+    }
+}
+
+export default ParkInfoComponent;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="GlobalComponents.module_Footer.html">Footer</a></li><li><a href="GlobalComponents.module_Navbar.html">Navbar</a></li><li><a href="HomePage.module_Buttons.html">Buttons</a></li><li><a href="HomePage.module_Explore.html">Explore</a></li><li><a href="HomePage.module_HighlightGallery.html">HighlightGallery</a></li><li><a href="HomePage.module_Welcome.html">Welcome</a></li><li><a href="ParkInfo.module_ParkInfoComponent.html">ParkInfoComponent</a></li><li><a href="ParkInfo.module_ParkVideos.html">ParkVideos</a></li><li><a href="ParkPlan.module_Alerts.html">Alerts</a></li><li><a href="ParkPlan.module_Banner.html">Banner</a></li><li><a href="ParkPlan.module_Filtering.html">Filtering</a></li><li><a href="ParkPlan.module_ParkPlan.html">ParkPlan</a></li><li><a href="ParkPlan.module_Schedule.html">Schedule</a></li><li><a href="ParkSearch.module_ActivitiesList.html">ActivitiesList</a></li><li><a href="ParkSearch.module_ParkSearchWelcome.html">ParkSearchWelcome</a></li><li><a href="module-ActivitiesList.html">ActivitiesList</a></li><li><a href="module-HomePage.html">HomePage</a></li><li><a href="module-ParkInfo.html">ParkInfo</a></li><li><a href="module-ParkPlan.html">ParkPlan</a></li><li><a href="module-ParkSearch.html">ParkSearch</a></li><li><a href="module-index.html">index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Activities">Activities</a></li><li><a href="global.html#FetchAlerts">FetchAlerts</a></li><li><a href="global.html#FetchForecast">FetchForecast</a></li><li><a href="global.html#FetchParkInfo">FetchParkInfo</a></li><li><a href="global.html#FetchParks">FetchParks</a></li><li><a href="global.html#FetchPeople">FetchPeople</a></li><li><a href="global.html#FetchPlaces">FetchPlaces</a></li><li><a href="global.html#FetchWeatherAlerts">FetchWeatherAlerts</a></li><li><a href="global.html#ParkInfo">ParkInfo</a></li><li><a href="global.html#StateOptions">StateOptions</a></li><li><a href="global.html#parkVideos">parkVideos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 07 2023 22:25:25 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

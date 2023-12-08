@@ -1,5 +1,8 @@
 /**
  * Renders the Buttons component.
+ * @module Buttons
+ * @memberof HomePage
+ *
  * @returns {JSX.Element} The rendered Buttons component.
  */
 import React from 'react'

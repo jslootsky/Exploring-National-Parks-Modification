@@ -1,5 +1,7 @@
 /**
  * Renders the home page of the application.
+ * @component
+ * @module HomePage
  * @returns {JSX.Element} The rendered home page component.
  */
 import React from 'react'

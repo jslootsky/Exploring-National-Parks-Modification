@@ -2,7 +2,10 @@
  * Fetches park information from the National Parks API based on the park code and page number.
  * If the information is available in the local storage, it returns the cached data.
  * Otherwise, it makes a network request to fetch the data, caches it in the local storage, and returns the response.
- *
+ * @async
+ * @function ParkInfo
+
+ * @global 
  * @param {string} parkCode - The code of the park to fetch information for.
  * @param {number} page - The page number of the results to fetch.
  * @returns {Promise<Object>} - A promise that resolves to the park information as an object.

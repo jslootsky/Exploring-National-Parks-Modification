@@ -16,6 +16,8 @@ import {StateOptions} from '../Functionality/StateOptions';
  * parks based on the users requests
  * 
  * @component
+ * @module ActivitiesList
+ * @memberof ParkSearch
  * @returns {JSX.Element} Park search body component
  */
 function ActivitiesList() {

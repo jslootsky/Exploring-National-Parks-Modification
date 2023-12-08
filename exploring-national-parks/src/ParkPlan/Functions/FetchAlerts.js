@@ -1,6 +1,10 @@
 
 /**
  * Fetches alerts for a specific park.
+ * @async
+ * @global
+ * @function FetchAlerts
+ *
  * @param {string} parkCode - The code of the park.
  * @returns {Promise<Object>} - A promise that resolves to the JSON response containing the alerts.
  * @throws {Error} - If the network response is not ok or an error occurs during the fetch.
