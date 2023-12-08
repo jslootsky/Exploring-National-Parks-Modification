@@ -1,13 +1,13 @@
 /* Responds to the ParkInfo.jsx component */
 
-button{
+.park-info-button{
     width: 50%;
     font-size: 1.5rem;
     margin: auto;
     border-radius: 15px;
 }
 
-button:hover {
+.park-info-button:hover {
     background: white;
     font-weight: bold;
     cursor: pointer;
@@ -23,6 +23,12 @@ a:hover{
 
 img{
     width: 100%;
+}
+
+.top-padding-info {
+    padding-top: 5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 .parkInfo{
@@ -107,7 +113,6 @@ img{
 }
 
 .parkInfo .post-card{
-    
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -148,6 +153,8 @@ img{
 }
 
 .all-parks-info-welcome {
-    position: relative;
+    position:relative;
+    padding: 3rem;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 100%, rgba(255,255,255,1) 0%);
 }
 

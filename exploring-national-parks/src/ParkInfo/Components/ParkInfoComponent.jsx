@@ -49,10 +49,11 @@ function ParkInfoComponent() {
 
     if(parkJSON.length>1){ //list all the parks
         return (
-            <div>
+            <div className="top-padding-info">
                 <div className='all-parks-info-welcome'>
-                        <center>
+                       <center>
                             <h1 id="park-info-title">Park Information Page</h1>
+                            <h2>Browse through all the US National Parks!</h2>
                         </center>
                 </div>
                 <br></br>
@@ -70,7 +71,7 @@ function ParkInfoComponent() {
                                     </div>
                                     
                                 </div>
-                                    <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='200'/>
+                                    <img src={park.images.length !== 0  ? park.images[0].url : ''} alt='' width='100' height='300'/>
                             </div>
                             <p className="description">{park.description}</p>
                             </a>
@@ -78,8 +79,8 @@ function ParkInfoComponent() {
                         ))}
                     </div>
                 </div>
-                <a href={'./ParkInfo?page='+pageDown}><button>Previous Page</button></a>
-                <a href={'./ParkInfo?page='+pageUp}><button>Next Page</button></a>
+                <a href={'./ParkInfo?page='+pageDown}><button className="park-info-button">Previous Page</button></a>
+                <a href={'./ParkInfo?page='+pageUp}><button className="park-info-button">Next Page</button></a>
             </div>
         );
     }
@@ -125,8 +126,8 @@ function ParkInfoComponent() {
                                         <br></br>
                                         <br></br>
                                         <br></br>
-                                        <a href='./ParkInfo'><button>Return To Parks</button></a>
-                                        <a href={'./ParkPlan?parkCode='+park.parkCode}><button>Plan A Trip</button></a>
+                                        <a href='./ParkInfo'><button className="park-info-button">Return To Parks</button></a>
+                                        <a href={'./ParkPlan?parkCode='+park.parkCode}><button className="park-info-button">Plan A Trip</button></a>
                                     </div>
                                 </div>
                             </center>

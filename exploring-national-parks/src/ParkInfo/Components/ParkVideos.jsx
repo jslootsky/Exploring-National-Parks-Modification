@@ -132,8 +132,8 @@ const ParkVideos = ({ parkCode }) => {
                             </div>
                         </div>
                         <br></br>
-                        <button onClick={prevVideo}>Previous</button>
-                        <button onClick={nextVideo}>Next</button>
+                        <button className="park-info-button" onClick={prevVideo}>Previous</button>
+                        <button className="park-info-button" onClick={nextVideo}>Next</button>
                     </div>
                 </div>
             ) : <img src={TreePic} alt="placeholder of a tree"></img>}
