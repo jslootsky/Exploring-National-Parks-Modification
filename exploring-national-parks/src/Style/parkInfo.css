@@ -25,12 +25,6 @@ img{
     width: 100%;
 }
 
-.top-padding-info {
-    padding-top: 5rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-}
-
 .parkInfo{
     display: inline-block;
     background-repeat: no-repeat;
