@@ -1,5 +1,6 @@
 import React from 'react';
 import ParkInfoComponent from './ParkInfo/Components/ParkInfoComponent.jsx';
+import './Style/parkInfo.css';
 /**
  * Renders the ParkInfo component page.
  * @component
