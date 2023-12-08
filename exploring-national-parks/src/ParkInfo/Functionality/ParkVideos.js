@@ -1,3 +1,9 @@
+/**
+ * Retrieves a list of videos for a specific park.
+ * @param {string} parkCode - The code of the park.
+ * @returns {Promise<void>} - A promise that resolves with the list of videos.
+ * @throws {Error} - If unable to fetch videos.
+ */
 // parkVideos function that takes in parkCode and returns a list of videos
 async function parkVideos(parkCode){
     try{
