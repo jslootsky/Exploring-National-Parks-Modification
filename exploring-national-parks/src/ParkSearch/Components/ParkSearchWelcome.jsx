@@ -1,5 +1,12 @@
 import React from 'react'
 import '../../Style/parkSearch.css'
+
+/**
+ * Component for filtering parks and activities.
+ * 
+ * @component
+ * @returns {JSX.Element} Filtering component.
+ */
 const ParkSearchWelcome = () => {
     return (
         <div className='park-search-welcome'>

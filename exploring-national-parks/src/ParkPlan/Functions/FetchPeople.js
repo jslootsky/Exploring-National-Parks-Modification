@@ -1,3 +1,9 @@
+/**
+ * Fetches people related to a specific park dictated by parkCode
+ * 
+ * @param {Object} parkCode - The park code object containing the park code
+ * @returns {Promise<Object>} A promise that resolves to the people data for the given park.
+ */
 export const FetchPeople = async (parkCode) => {
     try {
       const url =  `https://developer.nps.gov/api/v1/people?parkCode=${parkCode.value}&api_key=0ilOFP8jTC2LMrwXFTullFqvHyVhBh9aHVW3OWEb`;

@@ -79,10 +79,7 @@ const Schedule = ({ dates, parkCode, activities}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("parkCode", parkCode.value);
-                console.log("activities", activities);
-                console.log("dates", dates);
-                const activitiesToDo = await FetchThingsToDo(parkCode, activities, dates);
+                const activitiesToDo = await FetchThingsToDo(parkCode, activities);
                 setThingsToDo(activitiesToDo);
                 console.log("things to do", thingsToDo);
             } catch (error) {

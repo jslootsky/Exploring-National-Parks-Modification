@@ -57,4 +57,8 @@ const StateOptions = [
     { value: 'WY', label: 'Wyoming' }
 ]
 
+/**
+ * Exports list of state names and abbreviations
+ * 
+ */
 export {StateOptions};
