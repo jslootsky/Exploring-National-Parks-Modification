@@ -11,10 +11,14 @@ const Buttons = () => {
         <div className = "homepage-button-wrapper">
                 {/* <button className = "homepage-button" onClick = {() => handleClick("ParkSearch")}>Park Search</button>
                 <button className = "homepage-button" onClick = {() => handleClick("ParkPlan")}>Plan A Trip</button> */}
-                
-            <Link className="homepage-button" to='/ParkSearch'><button className="homepage-button">Park Search</button></Link>    
-            <Link className="homepage-button" to='/ParkPlan'><button className="homepage-button">Plan a Trip</button></Link>
-               
+                <div className = "button-container">
+                    <p>Learn More About Parks</p> 
+                    <Link className="homepage-button" to='/ParkSearch'><button className="homepage-button">Park Search</button></Link>                    
+                </div> 
+                <div className = "button-container">
+                    <p>Plan A Trip To A National Park</p>
+                    <Link className="homepage-button" to='/ParkPlan'><button className="homepage-button">Plan a Trip</button></Link>
+                </div>               
         </div>
     )
 
