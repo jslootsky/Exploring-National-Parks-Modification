@@ -1,5 +1,8 @@
 .home-page{
-    margin-top: 3rem;
+    background-image : url("../HomePage/Assets/yosemite.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .welcome{
     /* margin-bottom: 20rem; */

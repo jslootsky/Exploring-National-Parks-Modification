@@ -7,7 +7,7 @@ import HighlightGallery from './HomePage/Components/HighlightGallery';
 const HomePage = () => {
   return (
     // <Navbar/>
-    <div style={{backgroundImage: `url(${yosemite})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh'}} className = "home-page main-component">
+    <div className = "home-page main-component">
         {/* <h1>Test Hello</h1> */}
         <Welcome/>
         <HighlightGallery/>
