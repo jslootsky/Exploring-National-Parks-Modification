@@ -116,7 +116,7 @@ const TempleNews = ({ maxItems = 5 }) => {
                             setActiveSource(feed);
                             setStatus('ready');
                         }
-                        return;
+                        return; //stop after first successful feed
                     }
                 } catch (error){
                     console.error('Temple news feed error: ', error);
@@ -125,7 +125,8 @@ const TempleNews = ({ maxItems = 5 }) => {
                     }
                 }
             }
-
+            
+            //reach here only if no feeds returned items
             if(isMounted){
                 setItems([]);
                 setStatus('empty');
@@ -135,12 +136,66 @@ const TempleNews = ({ maxItems = 5 }) => {
 
         fetchTempleNews();
 
+        //abort in-flight requests and prevent late stage updates
         return () => {
             isMounted = false;
             controller.abort();
         };
-    }, [maxItems]);
+    }, [maxItems]); //re-fetch if caller changes how many items to show
 
-    
+
+    const content = useMemo(() => {
+        if(status === 'loading'){
+            return <p className="temple-news__status">Loading the latest updates...</p>
+        }
+
+        if(status !== 'ready'){
+            //either empty or an error message
+            return (
+                <p className="temple-news__status temple-news__status--error">{errorMessage}</p>
+            );
+        }
+
+        return(
+            <ul className="temple-news__list">
+                {items.map((item) => (
+                    <li key={item.id} className ="temple-news__item">
+                        <a
+                            className="temple-news__link"
+                            href={item.link}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <span className="temple-news__title">{item.title}</span>
+                            {item.pubDateFormatted && (
+                                <span className="temple-news__date">{item.pubDateFormatted}</span>
+                            )}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        );
+    }, [errorMessage, items, status]); //dependencies
+
+    return(
+        <section className="temple-news" aria-labelledby="temple-news-heading">
+            <div className="temple-news__inner">
+                <h2 id="temple-news-heading" className="temple-news__heading">
+                    Temple Alerts &amp; Headlines
+                </h2>
+                <p className="temple-news__intro">
+                    Stay up to date with the latest alerts and announcements from Temple University while you plan your next outdoor adventure.
+                </p>
+                {activeSource && status === 'ready' && (
+                    <p className="temple-news__source">
+                        Source: <a href={activeSource.canonicalProfile} target="_blank" rel="norefferer">{activeSource.label}</a>
+                    </p>
+                )}
+                {content}
+            </div>
+        </section>
+    );
 
 };
+
+export default TempleNews;
