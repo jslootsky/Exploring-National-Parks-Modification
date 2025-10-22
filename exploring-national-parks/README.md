@@ -1,3 +1,11 @@
+# Temple News Integration
+
+This project now includes a lightweight Node/Express backend that securely retrieves the latest Temple University tweets. to run everything locally:
+
+1. Install dependencies: 'npm install'
+2. Populate environment variables with API key
+3. Start the server and react dev server: npm run dev
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

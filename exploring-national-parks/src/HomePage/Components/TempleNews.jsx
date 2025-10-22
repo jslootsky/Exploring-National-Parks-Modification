@@ -1,11 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
-const TWITTER_OAUTH_URL =
-  'https://cors.isomorphic-git.org/https://api.twitter.com/oauth2/token';
-const TWITTER_API_BASE =
-  'https://cors.isomorphic-git.org/https://api.twitter.com/2';
-
 const TWITTER_SOURCES = [
   {
     label: 'Temple Alert on Twitter',
@@ -18,11 +13,6 @@ const TWITTER_SOURCES = [
     canonicalProfile: 'https://twitter.com/TempleUniv',
   },
 ];
-
-const DEFAULT_TWITTER_KEY = 'Y0lS8yqm77fhA30Vkrx26bDZl';
-const DEFAULT_TWITTER_SECRET = 'jwn1zbDri22UbJPoluq37wdDXs7CPCOMNwQ2IQchlYw3LMuxUl';
-
-let cachedBearerToken;
 
 const formatPublishedDate = (value) => {
   if (!value) {
@@ -37,81 +27,6 @@ const formatPublishedDate = (value) => {
   return parsed.local().format('MMM D, YYYY h:mm A');
 };
 
-const getTwitterCredentials = () => {
-  const key = process.env.REACT_APP_TWITTER_API_KEY ?? DEFAULT_TWITTER_KEY;
-  const secret =
-    process.env.REACT_APP_TWITTER_API_KEY_SECRET ?? DEFAULT_TWITTER_SECRET;
-
-  if (!key || !secret) {
-    throw new Error('Missing Twitter API credentials.');
-  }
-
-  return { key, secret };
-};
-
-const encodeCredentials = (key, secret) => {
-  try {
-    return window.btoa(`${key}:${secret}`);
-  } catch (error) {
-    console.error('Unable to encode Twitter credentials', error);
-    throw new Error('Unable to prepare Twitter authentication header.');
-  }
-};
-
-const fetchBearerToken = async (signal) => {
-  if (cachedBearerToken) {
-    return cachedBearerToken;
-  }
-
-  const { key, secret } = getTwitterCredentials();
-  const credentials = encodeCredentials(key, secret);
-
-  const response = await fetch(TWITTER_OAUTH_URL, {
-    method: 'POST',
-    signal,
-    headers: {
-      Authorization: `Basic ${credentials}`,
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    },
-    body: 'grant_type=client_credentials',
-  });
-
-  if (!response.ok) {
-    throw new Error('Unable to authenticate with the Twitter API.');
-  }
-
-  const payload = await response.json();
-  if (!payload.access_token) {
-    throw new Error('Twitter authentication response was malformed.');
-  }
-
-  cachedBearerToken = payload.access_token;
-  return cachedBearerToken;
-};
-
-const fetchUserByHandle = async (handle, token, signal) => {
-  const response = await fetch(
-    `${TWITTER_API_BASE}/users/by/username/${handle}?user.fields=id`,
-    {
-      signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error(`Unable to resolve @${handle} on Twitter.`);
-  }
-
-  const payload = await response.json();
-  if (!payload?.data?.id) {
-    throw new Error(`Twitter did not return an ID for @${handle}.`);
-  }
-
-  return payload.data.id;
-};
-
 const sanitiseTweetText = (value) => {
   if (!value) {
     return '';
@@ -123,27 +38,21 @@ const sanitiseTweetText = (value) => {
     .trim();
 };
 
-const fetchTweetsForHandle = async (source, token, maxItems, signal) => {
-  const userId = await fetchUserByHandle(source.handle, token, signal);
+const fetchTweetsForHandle = async (source, maxItems, signal) => {
   const limit = Math.max(Math.min(maxItems, 10), 5);
-  const response = await fetch(
-    `${TWITTER_API_BASE}/users/${userId}/tweets?tweet.fields=created_at&exclude=retweets,replies&max_results=${limit}`,
-    {
-      signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
+  const response = await fetch(`/api/temple-news/${source.handle}`, {
+    signal,
+  });
 
   if (!response.ok) {
     throw new Error(`Unable to fetch tweets for @${source.handle}.`);
   }
 
   const payload = await response.json();
-  const tweets = payload?.data ?? [];
+  const tweets = Array.isArray(payload?.data) ? payload.data : [];
 
   return tweets
+    .slice(0, limit)
     .map((tweet) => {
       const text = sanitiseTweetText(tweet.text);
 
@@ -160,11 +69,11 @@ const fetchTweetsForHandle = async (source, token, maxItems, signal) => {
 /**
  * Displays the most recent alerts and news headlines for Temple University.
  *
- * The component authenticates with the Twitter API using the provided
- * application credentials and iterates through a list of Temple-affiliated
- * Twitter handles (Temple Alert, Temple University). It renders the first feed
- * that successfully returns at least one tweet so that the UI can gracefully
- * fall back between sources if one is unavailable.
+ * The component requests Temple-affiliated Twitter feeds from the local
+ * backend service and iterates between multiple handles (Temple Alert, Temple
+ * University). It renders the first feed that successfully returns at least one
+ * tweet so that the UI can gracefully fall back between sources if one is
+ * unavailable.
  *
  * @component
  * @memberof HomePage
@@ -181,64 +90,59 @@ const TempleNews = ({ maxItems = 5 }) => {
     const controller = new AbortController();
 
     const fetchTempleTweets = async () => {
-      try {
-        const token = await fetchBearerToken(controller.signal);
+      for (const source of TWITTER_SOURCES) {
+        try {
+          const tweets = await fetchTweetsForHandle(
+            source,
+            maxItems,
+            controller.signal,
+          );
 
-        for (const source of TWITTER_SOURCES) {
-          try {
-            const tweets = await fetchTweetsForHandle(
-              source,
-              token,
-              maxItems,
-              controller.signal,
-            );
-
-            if (tweets.length > 0) {
-              if (isMounted) {
-                setItems(
-                  tweets.slice(0, maxItems).map((tweet) => ({
-                    ...tweet,
-                    pubDateFormatted: formatPublishedDate(tweet.pubDate),
-                  })),
-                );
-                setActiveSource(source);
-                setStatus('ready');
-              }
-              return;
+          if (tweets.length > 0) {
+            if (isMounted) {
+              setItems(
+                tweets.map((tweet) => ({
+                  ...tweet,
+                  pubDateFormatted: formatPublishedDate(tweet.pubDate),
+                })),
+              );
+              setActiveSource(source);
+              setStatus('ready');
             }
-          } catch (error) {
-            if (error.name === 'AbortError') {
-              return;
-            }
-            console.error('Temple news Twitter error:', error);
+            return;
           }
+        } catch (error) {
+          if (error.name === 'AbortError') {
+            return;
+          }
+          console.error('Temple news Twitter error:', error);
         }
+      }
 
-        if (isMounted) {
-          setItems([]);
-          setStatus('empty');
-          setErrorMessage(
-            'No recent Temple alerts are available right now. Please check back soon.',
-          );
-        }
-      } catch (error) {
-        if (error.name === 'AbortError') {
-          return;
-        }
-
-        console.error('Temple Twitter authentication error:', error);
-
-        if (isMounted) {
-          setItems([]);
-          setStatus('empty');
-          setErrorMessage(
-            'We were unable to connect to the Temple Twitter feed. Please verify your Twitter API credentials and try again.',
-          );
-        }
+      if (isMounted) {
+        setItems([]);
+        setStatus('empty');
+        setErrorMessage(
+          'No recent Temple alerts are available right now. Please check back soon.',
+        );
       }
     };
 
-    fetchTempleTweets();
+    fetchTempleTweets().catch((error) => {
+      if (error.name === 'AbortError') {
+        return;
+      }
+
+      console.error('Temple news fetch error:', error);
+
+      if (isMounted) {
+        setItems([]);
+        setStatus('empty');
+        setErrorMessage(
+          'We were unable to connect to the Temple Twitter feed. Please try again later.',
+        );
+      }
+    });
 
     return () => {
       isMounted = false;
