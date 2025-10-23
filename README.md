@@ -15,7 +15,7 @@ port 4000.
 # Exploring National Parks
 This is a web application intended to revolutionize how users interact with information from the National Parks Service, with a combined goal of increasing awareness of activities offered in the parks and helping individuals plan park visits. Users can use the application to learn more about national parks, or help inform their upcoming trips by using filters to find parks that contain activities within their interests.
 
-![This is a initial screenshot.](newHomepage.png)
+![This is a initial screenshot.](new_new_homepage.png)
 
 # Website Overview
 The web application is intended for a wide range of people accomodating for a range of technical abilities as well.
